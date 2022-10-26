@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -Werror]
+  Compiler: cc
+Diagnostics:
+  UnusedIncludes: Strict
+  ClangTidy:
+    Add: "*"
