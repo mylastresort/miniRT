@@ -1,18 +1,19 @@
 CC = cc
 DEP = $(SRC:.c=.d)
-FLAGS = -Wall -Werror -Wextra
-LDFLAGS = -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Werror -Wextra
+LDFLAGS = -L/usr/local/lib
+LDLIBS = -lgsl -lgslcblas -lm
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
-SRC = $(wildcard *.c)
+SRC = $(wildcard src/*.c)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(LDFLAGS) $^
+	$(CC) -o $(NAME) $(LDFLAGS) $^ $(LDLIBS)
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(FLAGS) -MMD
+	$(CC) -c $< -o $@ $(CFLAGS) -MD
 
 clean:
 	-rm $(OBJ) $(DEP)
