@@ -1,6 +1,6 @@
 CC = cc
 DEP = $(SRC:.c=.d)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -DHAVE_INLINE
 LDFLAGS = -L/usr/local/lib
 LDLIBS = -lgsl -lgslcblas -lm
 NAME = miniRT
