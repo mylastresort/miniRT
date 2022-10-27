@@ -8,5 +8,7 @@ Diagnostics:
     Remove: [
       llvmlibc-restrict-system-libc-headers,
       "cpp*",
-      altera-unroll-loops
+      altera-unroll-loops,
+      "*braces-around-statements",
+      concurrency-mt-unsafe
     ]

@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/26 16:31:30 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/27 12:12:28 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,6 @@
 # define W 1920
 # define H 1080
 # define T "miniRT"
+
+# define INVLD_ARG "Invalid arguments"
 #endif
