@@ -1,22 +1,24 @@
 CC = cc
+DEP = $(SRC:.c=.d)
 FLAGS = -Wall -Werror -Wextra
+LDFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
-DEP = $(SRC:.c=.d)
 SRC = $(wildcard *.c)
 
 all: $(NAME)
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@ -MMD
-
 $(NAME): $(OBJ)
-	$(CC) $^ $(FLAGS) -o $(NAME)
+	$(CC) -o $(NAME) $(LDFLAGS) $^
+
+%.o: %.c
+	$(CC) -c $< -o $@ $(FLAGS) -MMD
 
 clean:
-	rm $(OBJ) $(DEP)
+	-rm $(OBJ) $(DEP)
 
 fclean: clean
-	rm $(NAME)
+	-rm $(NAME)
 
+-include $(DEP)
 re: fclean all

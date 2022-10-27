@@ -5,3 +5,9 @@ Diagnostics:
   UnusedIncludes: Strict
   ClangTidy:
     Add: "*"
+    Remove: [
+      llvmlibc-restrict-system-libc-headers,
+      "cpp*",
+      altera-unroll-loops,
+      "*braces-around-statements"
+    ]
