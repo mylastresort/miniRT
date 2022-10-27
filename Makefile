@@ -23,3 +23,6 @@ fclean: clean
 
 -include $(DEP)
 re: fclean all
+
+exe: all
+	./$(NAME)

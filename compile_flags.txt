@@ -1,0 +1,5 @@
+-Wall
+-Werror
+-Wextra
+-DHAVE_INLINE
+-I/usr/local/include
