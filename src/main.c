@@ -6,11 +6,11 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/28 18:12:31 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/28 18:41:09 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "definitions.h"
+#include "prototypes.h"
 #include <gsl/gsl_errno.h>
 #include <mlx.h>
 
@@ -40,5 +40,5 @@ int	main(const int argc, const char **argv)
 		free(spc.vars);
 		GSL_ERROR(strerror(errno), GSL_FAILURE);
 	}
-	run(spc);
+	play(spc);
 }
