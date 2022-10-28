@@ -2,6 +2,7 @@ CC = cc
 DEP = $(SRC:.c=.d)
 CFLAGS = -Wall -Werror -Wextra -DHAVE_INLINE -Iinclude
 LDLIBS = -lgsl -lgslcblas -lm
+LDFLAGS = 
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard src/*.c)
@@ -9,7 +10,7 @@ SRC = $(wildcard src/*.c)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) -static $^ $(LDLIBS)
+	$(CC) -o $(NAME) -static $(LDFLAGS) $^ $(LDLIBS)
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS) -MD
