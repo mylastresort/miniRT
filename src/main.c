@@ -6,13 +6,17 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/28 18:41:09 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/29 22:18:09 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+#include <errno.h>
+#include <fcntl.h>
 #include <gsl/gsl_errno.h>
 #include <mlx.h>
+#include <stdlib.h>
+#include <string.h>
 
 int	main(const int argc, const char **argv)
 {
@@ -25,19 +29,19 @@ int	main(const int argc, const char **argv)
 		GSL_ERROR(strerror(errno), GSL_FAILURE);
 	if (!fill(&spc))
 		GSL_ERROR(INVLD_SCN, GSL_FAILURE);
-	spc.vars = mlx_init();
-	if (!spc.vars)
+	spc.mlx = mlx_init();
+	if (!spc.mlx)
 		GSL_ERROR(strerror(errno), GSL_FAILURE);
-	if (!mlx_new_window(spc.vars, WIDTH, HEIGHT, TITLE))
+	if (!mlx_new_window(spc.mlx, WIDTH, HEIGHT, TITLE))
 	{
-		free(spc.vars);
+		free(spc.mlx);
 		GSL_ERROR(strerror(errno), GSL_FAILURE);
 	}
-	spc.img = mlx_new_image(spc.vars, WIDTH, HEIGHT);
+	spc.img = mlx_new_image(spc.mlx, WIDTH, HEIGHT);
 	if (!spc.img)
 	{
-		mlx_destroy_window(spc.vars, spc.vars->win_list);
-		free(spc.vars);
+		mlx_destroy_window(spc.mlx, spc.win);
+		free(spc.mlx);
 		GSL_ERROR(strerror(errno), GSL_FAILURE);
 	}
 	play(spc);

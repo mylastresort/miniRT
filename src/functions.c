@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:11:45 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/28 18:43:00 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/29 20:59:11 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include <mlx.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+static int	destroy(void *param)
+{
+	t_spc *const	spc = param;
+
+	mlx_destroy_image(spc->mlx, spc->img);
+	mlx_destroy_window(spc->mlx, spc->img);
+	free(spc->mlx);
+	return (1);
+}
 
 static int	on_keydown(int keycode, void *param)
 {
@@ -29,16 +41,6 @@ bool	fill(t_spc *obj)
 	return (true);
 }
 
-int	destroy(void *param)
-{
-	t_spc *const	spc = param;
-
-	mlx_destroy_image(spc->vars, spc->img);
-	mlx_destroy_window(spc->vars, spc->img);
-	free(spc->vars);
-	return (1);
-}
-
 bool	is_rt_arg(const char *arg)
 {
 	size_t	sze;
@@ -52,9 +54,9 @@ bool	is_rt_arg(const char *arg)
 
 void	play(t_spc spc)
 {
-	mlx_hook(spc.vars->win_list, ON_DESTROY, 0, destroy, &spc);
-	mlx_hook(spc.vars->win_list, ON_KEYDOWN, 0, on_keydown, &spc);
+	mlx_hook(spc.win, ON_DESTROY, 0, destroy, &spc);
+	mlx_hook(spc.win, ON_KEYDOWN, 0, on_keydown, &spc);
 	raytrace(spc);
-	mlx_put_image_to_window(spc.vars, spc.vars->win_list, spc.img, 0, 0);
-	mlx_loop(spc.vars);
+	mlx_put_image_to_window(spc.mlx, spc.win, spc.img, 0, 0);
+	mlx_loop(spc.mlx);
 }

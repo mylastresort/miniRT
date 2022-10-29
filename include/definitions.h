@@ -6,14 +6,12 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/28 18:32:37 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/29 20:51:31 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINITIONS_H
 # define DEFINITIONS_H
-
-# include <mlx_int.h>
 
 enum {
 	WIDTH = 1920,
@@ -52,8 +50,9 @@ typedef struct s_obj
 typedef struct s_spc
 {
 	int		file;
-	t_xvar	*vars;
-	t_img	*img;
+	void	*mlx;
+	void	*win;
+	void	*img;
 	t_obj	*objs;
 }	t_spc;
 
