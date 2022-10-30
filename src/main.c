@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/30 11:08:01 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/30 12:13:20 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ int	main(const int argc, const char **argv)
 	spc.mlx = mlx_init();
 	if (!spc.mlx)
 		return (printf("%s\n", strerror(errno)), EXIT_FAILURE);
-	if (!mlx_new_window(spc.mlx, WIDTH, HEIGHT, TITLE))
-	{
-		free(spc.mlx);
-		return (printf("%s\n", strerror(errno)), EXIT_FAILURE);
-	}
+	spc.win = mlx_new_window(spc.mlx, WIDTH, HEIGHT, TITLE);
+	if (!spc.win)
+		return (free(spc.mlx), printf("%s\n", strerror(errno)), EXIT_FAILURE);
 	spc.img = mlx_new_image(spc.mlx, WIDTH, HEIGHT);
 	if (!spc.img)
 	{

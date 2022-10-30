@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:11:45 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/30 10:51:40 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/30 12:15:19 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	destroy(void *param)
 	t_spc *const	spc = param;
 
 	mlx_destroy_image(spc->mlx, spc->img);
-	mlx_destroy_window(spc->mlx, spc->img);
+	mlx_destroy_window(spc->mlx, spc->win);
 	free(spc->mlx);
-	return (1);
+	exit(1);
 }
 
 static int	on_keydown(int keycode, void *param)
