@@ -4,4 +4,3 @@
 -DHAVE_INLINE
 -Iinclude
 -I/usr/local/include
--I/Users/stamim/homebrew/opt/gsl/include/

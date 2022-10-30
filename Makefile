@@ -1,9 +1,8 @@
 CC = cc
 CFLAGS = -Werror -Wall -Wextra
 DEP = $(SRC:.c=.d)
-INC = -DHAVE_INLINE -Iinclude -I/usr/local/include -I/Users/stamim/homebrew/opt/gsl/include/
-LDFLAGS = -L/Users/stamim/homebrew/opt/gsl/lib
-LDLIBS = -lmlx -framework OpenGL -framework AppKit -lm -lgsl -lgslcblas -lm
+INC = -DHAVE_INLINE -Iinclude -I/usr/local/include
+LDLIBS = -lmlx -framework OpenGL -framework AppKit
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard src/*.c)
