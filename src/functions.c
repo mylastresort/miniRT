@@ -6,13 +6,12 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:11:45 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/29 20:59:11 by stamim           ###   ########.fr       */
+/*   Updated: 2022/10/30 10:51:40 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 #include <mlx.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -34,14 +33,14 @@ static int	on_keydown(int keycode, void *param)
 	return (1);
 }
 
-bool	fill(t_spc *obj)
+int	fill(t_spc *obj)
 {
 	if (close(obj->file) == -1)
-		return (perror("close"), false);
-	return (true);
+		return (perror("close"), 0);
+	return (1);
 }
 
-bool	is_rt_arg(const char *arg)
+int	is_rt_arg(const char *arg)
 {
 	size_t	sze;
 

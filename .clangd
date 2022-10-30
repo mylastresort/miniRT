@@ -1,5 +1,5 @@
 CompileFlags:
-  Add: [-Wall, -Wextra, -Werror]
+  Add: [-Wall, -Wextra, -Werror, -I]
   Compiler: cc
 Diagnostics:
   UnusedIncludes: "Strict"

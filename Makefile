@@ -1,8 +1,9 @@
 CC = cc
+CFLAGS = -Werror -Wall -Wextra
 DEP = $(SRC:.c=.d)
-CFLAGS = -DHAVE_INLINE -Iinclude -Ilib/gsl -I/Users/stamim/.brew/opt/gsl/include/
+INC = -DHAVE_INLINE -Iinclude -I/usr/local/include -I/Users/stamim/homebrew/opt/gsl/include/
+LDFLAGS = -L/Users/stamim/homebrew/opt/gsl/lib
 LDLIBS = -lmlx -framework OpenGL -framework AppKit -lm -lgsl -lgslcblas -lm
-LDFLAGS = -L/Users/stamim/.brew/opt/gsl/lib/
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard src/*.c)
@@ -13,7 +14,7 @@ $(NAME): $(OBJ)
 	$(CC) -o $(NAME) $(LDFLAGS) $^ $(LDLIBS)
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(CFLAGS) -MD
+	$(CC) -c $< -o $@ $(CFLAGS) $(INC) -MD
 
 clean:
 	-rm $(OBJ) $(DEP)
@@ -24,5 +25,5 @@ fclean: clean
 re: fclean all
 
 exe: all
-	DYLD_LIBRARY_PATH=lib/mlx ./$(NAME)
+	./$(NAME)
 -include $(DEP)
