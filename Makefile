@@ -1,28 +1,26 @@
 CC = cc
 CFLAGS = -Werror -Wall -Wextra
-DEP = $(SRC:.c=.d)
-INC = -DHAVE_INLINE -Iinclude -I/usr/local/include
-LDLIBS = -lmlx -framework OpenGL -framework AppKit
+INC = -Iinclude -Imlx
+LDFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard src/*.c)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(LDFLAGS) $^ $(LDLIBS)
-
 %.o: %.c
-	$(CC) -c $< -o $@ $(CFLAGS) $(INC) -MD
+	$(CC) -c $(INC) $(CFLAGS) $< -o $@
+
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(CFLAGS) $(LDFLAGS) $^
 
 clean:
-	-rm $(OBJ) $(DEP)
+	-rm $(OBJ) $(SRC:.c=.d)
 
 fclean: clean
 	-rm $(NAME)
 
 re: fclean all
 
-exe: all
-	./$(NAME)
--include $(DEP)
+.PHONY: all clean fclean re
+-include $(SRC:.c=.d)

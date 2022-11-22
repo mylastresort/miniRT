@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2022/10/30 12:13:46 by stamim           ###   ########.fr       */
+/*   Updated: 2022/11/22 16:59:25 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,31 @@ enum {
 	ESC = 53
 };
 
+enum {
+	RED = 0x00FF0000
+};
+
 typedef struct s_obj
 {
-	struct s_obj	*next;
+	struct s_obj	*nxt;
 }	t_obj;
 
-// NOLINTNEXTLINE
 typedef struct s_spc
 {
-	int		file;
+	int		(*frm)[HEIGHT][WIDTH];
+	int		arg;
+	int		bpp;
+	int		end;
+	int		lnsz;
+	t_obj	*objs;
+	void	*img;
 	void	*mlx;
 	void	*win;
-	void	*img;
-	t_obj	*objs;
 }	t_spc;
 
 # define TITLE "miniRT"
-
 # define INVLD_ARG "Invalid arguments"
 # define INVLD_SCN "Invalid scene"
 # define INVLD_FILE "Invalid .rt file"
+# define TOO_ARG "Too many argumetns"
 #endif

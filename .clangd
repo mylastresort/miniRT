@@ -6,9 +6,6 @@ Diagnostics:
   ClangTidy:
     Add: "*"
     Remove: [
-      llvmlibc-restrict-system-libc-headers,
-      "cpp*",
-      altera-unroll-loops,
-      "*braces-around-statements",
+      "llvmlibc*",
       concurrency-mt-unsafe
     ]
