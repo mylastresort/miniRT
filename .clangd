@@ -1,11 +1,11 @@
 CompileFlags:
   Add: [-Wall, -Wextra, -Werror, -I]
-  Compiler: cc
+  Compiler: clang
 Diagnostics:
-  UnusedIncludes: "Strict"
   ClangTidy:
     Add: "*"
     Remove: [
       "llvmlibc*",
+      "cpp*",
       concurrency-mt-unsafe
     ]
