@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Werror -Wall -Wextra
 INC = -Iinclude -Imlx
-LDFLAGS = -lmlx -framework OpenGL -framework AppKit
+LDFLAGS = -lmlx -framework OpenGL
 NAME = miniRT
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard src/*.c)

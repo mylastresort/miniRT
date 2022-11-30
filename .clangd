@@ -4,8 +4,5 @@ CompileFlags:
 Diagnostics:
   ClangTidy:
     Add: "*"
-    Remove: [
-      "llvmlibc*",
-      "cpp*",
-      concurrency-mt-unsafe
-    ]
+    Remove:
+      ["llvmlibc*", "cpp*", concurrency-mt-unsafe, modernize-macro-to-enum]

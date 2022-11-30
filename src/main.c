@@ -6,23 +6,23 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/11/22 17:22:20 by stamim           ###   ########.fr       */
+/*   Updated: 2022/11/30 08:40:02 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "definitions.h"
+#include "prototypes.h"
 #include <fcntl.h>
 #include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-static int	destroy(void *param)
+int	destroy(t_space *euc)
 {
-	t_spc *const	spc = param;
-
-	mlx_destroy_image(spc->mlx, spc->img);
-	mlx_destroy_window(spc->mlx, spc->win);
-	free(spc->mlx);
+	mlx_destroy_image(euc->mlx, euc->img);
+	mlx_destroy_window(euc->mlx, euc->win);
+	free(euc->mlx);
 	exit(EXIT_SUCCESS);
 }
 
@@ -35,57 +35,58 @@ static int	on_keydown(int keycode, void *param)
 	return (1);
 }
 
-static void	fill(int (*buf)[HEIGHT][WIDTH])
+static void	fill(unsigned int (*buf)[HEIGHT][WIDTH])
 {
-	*buf[0][0] = RED;
+	(*buf)[0][0] = RED | BLU;
 }
 
-static void	init(t_spc *const space)
+static void	init(t_space *const euc)
 {
-	space->mlx = mlx_init();
-	if (!space->mlx)
+	euc->mlx = mlx_init();
+	if (!euc->mlx)
 	{
 		exit(EXIT_FAILURE);
 	}
-	space->win = mlx_new_window(space->mlx, WIDTH, HEIGHT, TITLE);
-	if (!space->win)
+	euc->win = mlx_new_window(euc->mlx, WIDTH, HEIGHT, TITLE);
+	if (!euc->win)
 	{
-		free(space->mlx);
+		free(euc->mlx);
 		exit(EXIT_FAILURE);
 	}
-	space->img = mlx_new_image(space->mlx, WIDTH, HEIGHT);
-	if (!space->img)
+	euc->img = mlx_new_image(euc->mlx, WIDTH, HEIGHT);
+	if (!euc->img)
 	{
-		mlx_destroy_window(space->mlx, space->win);
-		free(space->mlx);
+		mlx_destroy_window(euc->mlx, euc->win);
+		free(euc->mlx);
 		exit(EXIT_FAILURE);
 	}
+	parse(euc);
+	close(euc->arg);
 }
 
 int	main(const int argc, const char **argv)
 {
-	t_spc	space;
+	t_space	euc;
 
-	if (argc == 2)
+	if (argc != 2)
 	{
-		space.arg = open(argv[1], O_CLOEXEC, S_IRUSR);
-		if (space.arg == -1)
+		printf("%s\n", INVLD_ARG);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		euc.arg = open(argv[1], O_CLOEXEC, S_IRUSR);
+		if (euc.arg == -1)
 		{
 			perror("open");
 			exit(EXIT_FAILURE);
 		}
 	}
-	else if (argc > 2)
-	{
-		printf("%s\n", TOO_ARG);
-		exit(EXIT_FAILURE);
-	}
-	init(&space);
-	space.frm = (int (*)[HEIGHT][WIDTH])
-		mlx_get_data_addr(space.img, &space.bpp, &space.lnsz, &space.end);
-	fill(space.frm);
-	mlx_hook(space.win, ON_DESTROY, 0, destroy, &space);
-	mlx_hook(space.win, ON_KEYDOWN, 0, on_keydown, &space);
-	mlx_put_image_to_window(space.mlx, space.win, space.img, 0, 0);
-	mlx_loop(space.mlx);
+	init(&euc);
+	mlx_hook(euc.win, ON_DESTROY, 0, destroy, &euc);
+	mlx_hook(euc.win, ON_KEYDOWN, 0, on_keydown, &euc);
+	fill(euc.frm = (unsigned int (*)[HEIGHT][WIDTH])
+		mlx_get_data_addr(euc.img, &euc.arg, &euc.arg, &euc.arg));
+	mlx_put_image_to_window(euc.mlx, euc.win, euc.img, 0, 0);
+	mlx_loop(euc.mlx);
 }
