@@ -2,6 +2,7 @@ CompileFlags:
   Add: [-Wall, -Wextra, -Werror, -I]
   Compiler: clang
 Diagnostics:
+  UnusedIncludes: Strict
   ClangTidy:
     Add: "*"
     Remove:

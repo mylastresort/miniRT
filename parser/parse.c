@@ -6,17 +6,18 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2022/11/30 08:42:15 by stamim           ###   ########.fr       */
+/*   Updated: 2022/12/07 08:47:43 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+#include <unistd.h>
 
-void	parse(t_space *euc)
+void	parse(const int file, t_scene *scn)
 {
-	(void)euc;
-	if (0)
+	if (file == -1)
 	{
-		destroy(euc);
+		destroy(scn);
 	}
+	close(file);
 }
