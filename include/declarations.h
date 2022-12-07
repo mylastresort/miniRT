@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   declarations.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/07 08:47:28 by stamim           ###   ########.fr       */
+/*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
+/*   Updated: 2022/12/07 11:23:18 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#ifndef DECLARATIONS_H
+# define DECLARATIONS_H
 
-# include <stdint.h>
+# include "types.h"
 
-typedef enum e_keycode	t_keycode;
-
-typedef struct cam
-{
-	uint32_t	val;
-}	t_cam;
-
-typedef struct amb
-{
-	uint32_t	val;
-}	t_amb;
-
-typedef struct scene
-{
-	void	*img;
-	void	*mlx;
-	void	*win;
-	t_cam	*cam;
-	t_amb	*amb;
-}	t_scene;
+int		destroy(t_scene *scn);
+void	parse(int file, t_scene *scn);
 #endif

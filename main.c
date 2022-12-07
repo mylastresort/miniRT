@@ -6,20 +6,20 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/07 08:58:32 by stamim           ###   ########.fr       */
+/*   Updated: 2022/12/07 12:48:35 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "macros.h"
 #include "enums.h"
-#include "prototypes.h"
+#include "declarations.h"
+#include "macros.h"
 #include <fcntl.h>
 #include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	raytrace(uint32_t (*const buf)[H][W])
+static void	sample(uint32_t (*const buf)[H][W])
 {
 	volatile uint32_t	cols;
 	volatile uint32_t	rows;
@@ -102,7 +102,8 @@ int	main(const int argc, const char *argv[])
 	init(&scn, arg);
 	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
 	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
-	raytrace((uint32_t (*)[H][W]) mlx_get_data_addr(scn.img, &arg, &arg, &arg));
+	sample((uint32_t (*)[H][W])
+		mlx_get_data_addr(scn.img, &arg, &arg, &arg));
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
 }

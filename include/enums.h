@@ -6,32 +6,34 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/07 09:00:00 by stamim           ###   ########.fr       */
+/*   Updated: 2022/12/07 11:16:44 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENUMS_H
 # define ENUMS_H
 
-enum e_keycode {
+# include <stdint.h>
+
+enum e_keycode : int {
 	ESC = 53,
 };
 
-enum e_window {
+enum e_window : int {
 	H = 1080,
 	W = 1920
 };
 
 enum e_mask : uint32_t {
-	ALPHA_1 = 0x00000000U,
-	ALPHA_2 = 0x99000000U,
-	ALPHA_3 = 0xFF000000U,
-	BLU = 0xFFU,
-	GRN = 0xFF00U,
-	RED = 0xFF0000U,
+	ALPHA_1 = 0x00000000,
+	ALPHA_2 = 0x99000000,
+	ALPHA_3 = 0xFF000000,
+	BLU = 0xFF,
+	GRN = 0xFF00,
+	RED = 0xFF0000,
 };
 
-enum e_instruction {
+enum e_instruction : uint8_t {
 	A = 1,
 	C = 2,
 	cy = 3,
@@ -40,7 +42,7 @@ enum e_instruction {
 	sp = 6,
 };
 
-enum e_event {
+enum e_event : int {
 	ON_DESTROY = 17,
 	ON_EXPOSE = 12,
 	ON_KEYDOWN = 2,
