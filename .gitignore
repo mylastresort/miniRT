@@ -54,3 +54,8 @@ Mkfile.old
 dkms.conf
 miniRT
 test_run
+CMakeCache.txt
+CTestTestfile.cmake
+cmake_install.cmake
+Testing/
+CMakeFiles/
