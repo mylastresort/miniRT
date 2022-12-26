@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/26 15:39:09 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:44:38 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ float			tup_length(const t_vec *vec);
 void			print_matr4x4(t_matrix_4x4 mat);
 t_matrix_4x4	matr4x4_transpos(t_matrix_4x4 mat);
 void			print_matr3x3(t_matrix_3x3 mat);
+void			print_matr2x2(t_matrix_2x2 mat);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
+t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
 
 #endif
