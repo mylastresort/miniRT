@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:02:52 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/07 08:11:59 by stamim           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:35:24 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,6 @@
 # define INVLD_SCN "Invalid scene"
 # define INVLD_FILE "Invalid .rt file"
 # define TOO_ARG "Too many argumetns"
+# define MALLOC_ERR "Malloc failed"
+
 #endif

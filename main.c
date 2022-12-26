@@ -3,21 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/07 12:48:35 by stamim           ###   ########.fr       */
+/*   Updated: 2022/12/26 16:57:55 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "enums.h"
-#include "declarations.h"
-#include "macros.h"
-#include <fcntl.h>
-#include <mlx.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "include/enums.h"
+#include "include/declarations.h"
+#include "include/macros.h"
+#include "include/types.h"
+#include "include/linear_algebra.h"
+#include <math.h>
+
+void	test(uint32_t (*const buf)[H][W])
+{
+	int				rows;
+	t_projectile	proj;
+	t_environment	env;
+	t_tuple			tup;
+	tup = (t_tuple){.x = 1, .y = 1.8, .z = 0, .w = 0};
+	proj.pnt_position = (t_tuple){.x = 0, .y = 1, .z = 0, .w = 1};
+	proj.vec_velocity = tup_multi_value(tup_normalize(tup), 11.25);
+	env.vec_gravity = (t_tuple){.x = 0, .y = -0.1, .z = 0, .w = 0};
+	env.vec_wind = (t_tuple){.x = -0.01, .y = 0, .z = 0, .w = 0};
+	rows = 0;
+	while (true)
+	{
+		proj = tick(env, proj);
+		printf("i: %d | x: %f | y: %f | z: %f\n", rows, proj.pnt_position.x,
+			proj.pnt_position.y, proj.pnt_position.z);
+		if (proj.pnt_position.y <= 0)
+		{
+			break ;
+		}
+		if ((int)(proj.pnt_position.x) < H && (int)(proj.pnt_position.y) < W){
+			printf("%d | %d\n", (int)proj.pnt_position.x, (int)proj.pnt_position.y);
+			// (*buf)[(int)(proj.pnt_position.x)][(int)(proj.pnt_position.y)] = BLU;
+			(*buf)[H - (int)(proj.pnt_position.y)][W - (int)(proj.pnt_position.x)] = BLU;
+		}
+		rows++;
+	}
+}
+
+// void	test(void)
+// {
+// 	t_matrix_4x4	mat = (t_matrix_4x4){
+// 		.m[0][0] = -6, .m[0][1] = 1, .m[0][2] = 1, .m[0][3] = 6,
+// 		.m[1][0] = -8, .m[1][1] = 5, .m[1][2] = 8, .m[1][3] = 6,
+// 		.m[2][0] = -1, .m[2][1] = 0, .m[2][2] = 8, .m[2][3] = 2,
+// 		.m[3][0] = -7, .m[3][1] = 1, .m[3][2] = -1, .m[3][3] = 1
+// 	};
+
+// 	print_matr3x3(sub_matr4x4(mat, 0, 2));
+// }
 
 static void	sample(uint32_t (*const buf)[H][W])
 {
@@ -30,11 +70,13 @@ static void	sample(uint32_t (*const buf)[H][W])
 		cols = 0;
 		while (cols < W)
 		{
-			(*buf)[rows][cols] = ALPHA_3 | RED;
+			// (*buf)[rows][cols] = ALPHA_3 | RED;
+			(*buf)[rows][cols] = 0xFFFFFF;
 			cols += 1;
 		}
 		rows += 1;
 	}
+	test(buf);
 }
 
 static void	init(t_scene *const scn, const int file)
@@ -73,7 +115,7 @@ int	destroy(t_scene *scn)
 
 static int	on_keydown(t_keycode key, void *arg)
 {
-	if (key == ESC)
+	if (key == ESC || key == Q)
 	{
 		destroy(arg);
 	}
@@ -87,7 +129,7 @@ int	main(const int argc, const char *argv[])
 
 	if (argc != 2)
 	{
-		printf("%s\n", INVLD_ARG);
+		write_error(INVLD_ARG);
 		exit(EXIT_FAILURE);
 	}
 	else

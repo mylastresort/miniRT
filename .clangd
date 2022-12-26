@@ -1,6 +1,6 @@
 CompileFlags:
-  Add: [-Wall, -Wextra, -Werror, -I]
-  Compiler: clang
+  Add: [-Wall, -Wextra, -Werror]
+  Compiler: cc
 Diagnostics:
   UnusedIncludes: Strict
   ClangTidy:
