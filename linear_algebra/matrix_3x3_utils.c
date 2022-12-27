@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_2x2.c                                       :+:      :+:    :+:   */
+/*   matrix_3x3_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/25 16:00:14 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/27 19:25:55 by hjabbour         ###   ########.fr       */
+/*   Created: 2022/12/27 19:20:02 by hjabbour          #+#    #+#             */
+/*   Updated: 2022/12/27 19:20:34 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// print matric add 2 matrice multiple 2matri sub2matr divid 2mat
-
 #include "../include/linear_algebra.h"
-#include <math.h>
+#include "../include/declarations.h"
 #include <stdbool.h>
 
-void	print_matr2x2(t_matrix_2x2 mat)
+bool	is_invertible3x3(t_matrix_3x3 mat)
 {
-	int	rows;
-
-	rows = 0;
-	while (rows < 2)
-	{
-		printf("| %f | %f |\n", mat.m[rows][0], mat.m[rows][1]);
-		rows++;
-	}
-}
-
-float	determ_matr2x2(t_matrix_2x2 mat)
-{
-	return ((mat.m[0][0] * mat.m[1][1]) - (mat.m[0][1] * mat.m[1][0]));
-}
-
-bool	is_invertible2x2(t_matrix_2x2 mat)
-{
-	return (determ_matr2x2(mat) != 0);
+	return (determ_matr3x3(mat) != 0);
 }

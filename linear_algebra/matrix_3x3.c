@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:00:52 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/26 19:51:21 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/27 19:20:27 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include "../include/linear_algebra.h"
 #include "../include/declarations.h"
+#include <stdbool.h>
 
 void	print_matr3x3(t_matrix_3x3 mat)
 {
@@ -36,11 +37,6 @@ t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col)
 	float			iidx;
 	int				jidx;
 
-	print_matr3x3(mat);
-	ret = (t_matrix_2x2){
-		.m[0][0] = 900000000, .m[0][1] = 9000000000,
-		.m[1][0] = 900000000, .m[1][1] = 9000000000,
-	};
 	rows = 0;
 	iidx = 0;
 	while (rows < 3)
@@ -49,17 +45,44 @@ t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col)
 		jidx = 0;
 		while (cols < 3 && rows != row)
 		{
-			if (cols != col)
+			if (cols != col && rows != row)
 			{
 				ret.m[(int)iidx][jidx] = mat.m[rows][cols];
-				printf("%d %d\n", (int)iidx, jidx);
+				iidx += 0.5;
 				jidx++;
 			}
-			iidx += 0.3;
 			cols++;
 		}
 		rows++;
 	}
-	print_matr2x2(ret);
 	return (ret);
+}
+
+float	minor_matr3x3(t_matrix_3x3 mat, int row, int col)
+{
+	return (determ_matr2x2(sub_matr3x3(mat, row, col)));
+}
+
+float	cofactor_matr3x3(t_matrix_3x3 mat, int row, int col)
+{
+	if ((row + col) % 2 != 0)
+	{
+		return (determ_matr2x2(sub_matr3x3(mat, row, col)) * -1);
+	}
+	return (determ_matr2x2(sub_matr3x3(mat, row, col)));
+}
+
+float	determ_matr3x3(t_matrix_3x3 mat)
+{
+	float	res;
+	int		idx;
+
+	res = 0;
+	idx = 0;
+	while (idx < 3)
+	{
+		res += (cofactor_matr3x3(mat, 0, idx) * mat.m[0][idx]);
+		idx++;
+	}
+	return (res);
 }

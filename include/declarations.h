@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/26 19:44:38 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/27 14:15:38 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,12 @@ void			print_matr3x3(t_matrix_3x3 mat);
 void			print_matr2x2(t_matrix_2x2 mat);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
 t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
+bool			is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2);
+bool			is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2);
+bool			is_equal_matri4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2);
+float			determ_matr2x2(t_matrix_2x2 mat);
+float			determ_matr3x3(t_matrix_3x3 mat);
+float			determ_matr4x4(t_matrix_4x4 mat);
+float			cofactor_matr3x3(t_matrix_3x3 mat, int row, int col);
 
 #endif

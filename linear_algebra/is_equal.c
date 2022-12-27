@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:50 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/25 19:23:07 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/27 07:53:49 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_equal(float val1, float val2)
 	return (false);
 }
 
-bool	is_equal_matrix2(t_matrix_2x2 mat1, t_matrix_2x2 mat2)
+bool	is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2)
 {
 	return (is_equal(mat1.m[0][0], mat2.m[0][0])
 		&& is_equal(mat1.m[0][1], mat2.m[0][1])
@@ -30,7 +30,7 @@ bool	is_equal_matrix2(t_matrix_2x2 mat1, t_matrix_2x2 mat2)
 		&& is_equal(mat1.m[1][1], mat2.m[1][1]));
 }
 
-bool	is_equal_matrix3(t_matrix_3x3 mat1, t_matrix_3x3 mat2)
+bool	is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2)
 {
 	return (is_equal(mat1.m[0][0], mat2.m[0][0])
 		&& is_equal(mat1.m[0][1], mat2.m[0][1])
@@ -44,7 +44,7 @@ bool	is_equal_matrix3(t_matrix_3x3 mat1, t_matrix_3x3 mat2)
 		);
 }
 
-bool	is_equal_matrix4(t_matrix_4x4 mat1, t_matrix_4x4 mat2)
+bool	is_equal_matri4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2)
 {
 	return (is_equal(mat1.m[0][0], mat2.m[0][0])
 		&& is_equal(mat1.m[0][1], mat2.m[0][1])

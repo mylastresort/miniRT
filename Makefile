@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2022/12/25 19:23:42 by hjabbour         ###   ########.fr        #
+#    Updated: 2022/12/27 19:20:12 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ SRCS =	main.c \
 		linear_algebra/vector_arithmetic_utils.c \
 		linear_algebra/matrix_2x2.c \
 		linear_algebra/matrix_3x3.c \
+		linear_algebra/matrix_3x3_utils.c \
 		linear_algebra/matrix_4x4.c \
+		linear_algebra/matrix_4x4_utils.c \
 		parser/parse.c \
 		srcs/utils.c
 

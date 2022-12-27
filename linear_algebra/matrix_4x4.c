@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:01:03 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/26 20:27:01 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/27 10:32:18 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,6 @@ t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col)
 	float			iidx;
 	int				jidx;
 
-	ret = (t_matrix_3x3){
-		.m[0][0] = 9000000, .m[0][1] = 9000000, .m[0][2] = 9000000,
-		.m[1][0] = 9000000, .m[1][1] = 9000000, .m[1][2] = 9000000,
-		.m[2][0] = 9000000, .m[2][1] = 9000000, .m[2][2] = 9000000,
-	};
-	print_matr4x4(mat);
 	rows = 0;
 	iidx = 0;
 	while (rows < 4)
@@ -126,10 +120,9 @@ t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col)
 		jidx = 0;
 		while (cols < 4 && rows != row)
 		{
-			if (cols != col)
+			if (cols != col && rows != row)
 			{
 				ret.m[(int)iidx][jidx] = mat.m[rows][cols];
-				printf("%d %d\n", (int)iidx, jidx);
 				jidx++;
 			}
 			iidx += 0.25;
@@ -137,6 +130,5 @@ t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col)
 		}
 		rows++;
 	}
-	print_matr3x3(ret);
 	return (ret);
 }
