@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2022/12/27 19:20:12 by hjabbour         ###   ########.fr        #
+#    Updated: 2022/12/28 14:55:41 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-LINK = -Ofast -lmlx -framework OpenGL -framework AppKit
+LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address 
 
 INC =	include/declarations.h \
 		include/enums.h \

@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/27 16:51:52 by hjabbour         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:14:21 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,27 @@ void	test(void)
 	// };
 	// printf("%f\n", determ_matr3x3(mat));
 	// printf("%s\n", (determ_matr3x3(mat) == -196 ? "true" : "false"));
-	t_matrix_4x4	mat = {
-		.m[0][0] = -2, .m[0][1] = -8, .m[0][2] = 3 , .m[0][3] = 5 ,
-		.m[1][0] = -3, .m[1][1] = 1 , .m[1][2] = 7 , .m[1][3] = 3 ,
-		.m[2][0] = 1 , .m[2][1] = 2 , .m[2][2] = -9, .m[2][3] = 6 ,
-		.m[3][0] = -6, .m[3][1] = 7 , .m[3][2] = 7 , .m[3][3] = -9,
+	t_matrix_4x4	a = {
+		.m[0][0] = -5, .m[0][1] = 2 , .m[0][2] = 6 , .m[0][3] = -8,
+		.m[1][0] = 1 , .m[1][1] = -5, .m[1][2] = 1 , .m[1][3] = 8 ,
+		.m[2][0] = 7 , .m[2][1] = 7 , .m[2][2] = -6, .m[2][3] = -7,
+		.m[3][0] = 1 , .m[3][1] = -3, .m[3][2] = 7 , .m[3][3] = 4 ,
 	};
-	printf("main %f\n", determ_matr4x4(mat));
-	printf("main %s\n", (determ_matr4x4(mat) == -4071 ? "true" : "false"));
+	t_matrix_4x4	b = {
+		.m[0][0] = 9 , .m[0][1] = 3 , .m[0][2] = 0 , .m[0][3] = 9 ,
+		.m[1][0] = -5, .m[1][1] = -2, .m[1][2] = -6, .m[1][3] = -3,
+		.m[2][0] = -4, .m[2][1] = 9 , .m[2][2] = 6 , .m[2][3] = 4 ,
+		.m[3][0] = -7, .m[3][1] = 6 , .m[3][2] = 6 , .m[3][3] = 2 ,
+	};
+	t_matrix_4x4	c = matr4x4_multi_matr4x4(a, b);
+
+	print_matr4x4(a);
+	puts("---------------------------------------");
+	print_matr4x4(b);
+	puts("---------------------------------------");
+	print_matr4x4(c);
+	puts("---------------------------------------");
+	printf("%d\n", is_equal_matri4x4(a, matr4x4_multi_matr4x4(c, invers_matr4x4(b))));
 }
 
 static void	sample(uint32_t (*const buf)[H][W])
@@ -85,6 +98,7 @@ static void	sample(uint32_t (*const buf)[H][W])
 		rows += 1;
 	}
 	test();
+	exit(0);
 }
 
 static void	init(t_scene *const scn, const int file)
