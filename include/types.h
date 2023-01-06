@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/25 12:38:55 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:39:34 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,26 @@ typedef struct s_environment
 	t_tuple	vec_gravity;
 	t_tuple	vec_wind;
 }	t_environment;
+
+typedef struct s_ray
+{
+	t_vec	o;
+	t_vec	d;
+}	t_ray;
+
+typedef struct s_sp
+{
+	t_vec	n;
+	t_vec	c;
+	float	d;
+	int		rgb;
+}	t_sp;
+
+typedef struct s_sol
+{
+	int		count;
+	t_vec	x1;
+	t_vec	x2;
+}	t_sol;
 
 #endif
