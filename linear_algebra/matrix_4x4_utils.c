@@ -6,16 +6,28 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:32:06 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/28 11:03:47y hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 18:53:11 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linear_algebra.h"
-#include "../include/types.h"
 #include "../include/declarations.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+void	print_matr4x4(t_matrix_4x4 mat)
+{
+	int	rows;
+
+	rows = 0;
+	while (rows < 4)
+	{
+		printf("| %f | %f | %f | %f |\n", mat.m[rows][0], mat.m[rows][1],
+			mat.m[rows][2], mat.m[rows][3]);
+		rows++;
+	}
+}
 
 //TODO: (H-J) complete this one below
 float	minor_matr4x4(t_matrix_4x4 mat)
@@ -63,24 +75,19 @@ t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat)
 	int				jdx;
 
 	if (determ == 0)
-	{
-		write_error("Matrix not inversable");
-		exit(EXIT_FAILURE);
-	}
+		(write_error("Matrix not inversable"), exit(EXIT_FAILURE));
 	idx = 0;
 	while (idx < 4)
 	{
 		jdx = 0;
 		while (jdx < 4)
 		{
-			// cofac = cofactor_matr3x3(sub_matr4x4(mat, idx, jdx), idx, jdx);
 			cofac = determ_matr3x3(sub_matr4x4(mat, idx, jdx));
 			ret.m[jdx][idx] = cofac / determ;
 			if ((idx + jdx) % 2 != 0)
 			{
 				ret.m[jdx][idx] *= -1;
 			}
-			// ret.m[idx][jdx] = cofac / determ;
 			jdx++;
 		}
 		idx++;

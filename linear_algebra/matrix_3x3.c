@@ -6,11 +6,9 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:00:52 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/28 14:58:06 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:24:52 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// print matric add 2 matrice multiple 2matri sub2matr divid 2mat
 
 #include "../include/linear_algebra.h"
 #include "../include/declarations.h"
@@ -70,12 +68,6 @@ float	cofactor_matr3x3(t_matrix_3x3 mat, int row, int col)
 		return (determ_matr2x2(sub_matr3x3(mat, row, col)) * -1);
 	}
 	return (determ_matr2x2(sub_matr3x3(mat, row, col)));
-	;
-	// if ((row + col) % 2 != 0)
-	// {
-	// 	return (minor_matr3x3(mat, row, col) * -1);
-	// }
-	// return (minor_matr3x3(mat, row, col));
 }
 
 float	determ_matr3x3(t_matrix_3x3 mat)
@@ -88,7 +80,6 @@ float	determ_matr3x3(t_matrix_3x3 mat)
 	while (idx < 3)
 	{
 		res += (cofactor_matr3x3(mat, 0, idx) * mat.m[0][idx]);
-		// res += (minor_matr3x3(mat, 0, idx) * mat.m[0][idx]);
 		idx++;
 	}
 	return (res);

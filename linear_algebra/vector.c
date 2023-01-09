@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 09:26:44 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/26 17:03:29 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 08:47:26 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ t_vec	vec_normalize(t_vec vec)
 	return (vec);
 }
 
-float	vec_dot_prodact(const t_vec vec)
+float	vec_dot_product(const t_vec vec)
 {
 	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z)
 		+ (vec.w * vec.w));
 }
 
-t_vec	vec_cross_prodact(const t_vec first, const t_vec second)
+t_vec	vec_cross_product(const t_vec first, const t_vec second)
 {
 	return ((t_vec){
 		.x = (first.y * second.z) - (first.z * second.y),

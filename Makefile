@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2022/12/28 14:55:41 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/08 17:10:52 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address 
+# LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address 
+LINK = -Ofast -lmlx -framework OpenGL -framework AppKit #-g -fsanitize=address 
 
 INC =	include/declarations.h \
 		include/enums.h \
@@ -31,6 +32,7 @@ SRCS =	main.c \
 		test_utils.c \
 		test_utils1.c \
 		libft/ft_strlen.c \
+		libft/ft_itoa.c \
 		linear_algebra/debug_vec.c \
 		linear_algebra/is_equal.c \
 		linear_algebra/vector.c \
@@ -41,6 +43,10 @@ SRCS =	main.c \
 		linear_algebra/matrix_3x3_utils.c \
 		linear_algebra/matrix_4x4.c \
 		linear_algebra/matrix_4x4_utils.c \
+		linear_algebra/matrix_4x4_utils2.c \
+		linear_algebra/matrix_transformation.c \
+		linear_algebra/geometry_conversion.c \
+		linear_algebra/matrix_rotation.c \
 		parser/parse.c \
 		srcs/utils.c
 

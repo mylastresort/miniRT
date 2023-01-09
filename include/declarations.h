@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/28 18:10:29 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:24:14 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			parse(int file, t_scene *scn);
 size_t			ft_strlen(const char *str);
 void			write_error(const char *str);
 bool			is_equal(float val1, float val2);
-void			print_pnt(t_vec vec);
+void			print_pnt(t_point pnt);
 void			print_vec(t_vec vec);
 t_projectile	tick(t_environment env, t_projectile prj);
 t_vec			vec_div_value(t_vec vec, float val);
@@ -62,5 +62,21 @@ float			cofactor_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat);
 t_matrix_4x4	my_invers_matr4x4(t_matrix_4x4 mat);
 t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2);
+char			*ft_itoa(int n);
+float			vec_dot_product(t_vec vec);
+t_vec			vec_cross_product(t_vec first, t_vec second);
+t_matrix_4x4	matr4x4_translation(float x, float y,
+					float z);
+t_matrix_4x4	matr4x4_scaling(float x, float y, float z);
+t_matrix_4x4	matr4x4_rotation(float x, float y, float z);
+t_matrix_4x4	matr4x4_rotation_x(t_rad rad);
+t_rad			deg_to_rad(t_deg deg);
+t_deg			rad_to_deg(t_rad rad);
+t_tuple			matr4x4_multi_tuple(t_matrix_4x4 mat, t_tuple tup);
+t_vec			matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec);
+t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
+// t_matrix_4x4	matr4x4_shearing(float x[2], float y[2], float z[2]);
+t_matrix_4x4	matr4x4_shearing(const float x[2],
+					const float y[2], const float z[2]);
 
 #endif

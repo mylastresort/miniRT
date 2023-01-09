@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/06 14:39:34 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/08 13:31:28 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef enum e_keycode	t_keycode;
 typedef t_vec			t_color;
 typedef t_vec			t_point;
 typedef t_vec			t_tuple;
+typedef float			t_rad;
+typedef float			t_deg;
 
 typedef struct cam
 {
@@ -47,6 +49,7 @@ typedef struct scene
 	void	*mlx;
 }	t_scene;
 
+// NOLINTNEXTLINE
 typedef struct s_projectile
 {
 	// t_vec	position;
@@ -56,6 +59,7 @@ typedef struct s_projectile
 	t_tuple	vec_velocity;
 }	t_projectile;
 
+// NOLINTNEXTLINE
 typedef struct s_environment
 {
 	// t_vec	vec_gravity;

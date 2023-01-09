@@ -6,12 +6,9 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:01:03 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/27 10:32:18 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 13:13:55 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// add 2 matrice multiple 2matri sub2matr divid 2mat
-//for the invers of a matrix we need to create a dot prodact for a matrix first
 
 #include "../include/linear_algebra.h"
 #include "../include/types.h"
@@ -43,92 +40,69 @@ t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2)
 
 t_tuple	matr4x4_multi_tuple(t_matrix_4x4 mat, t_tuple tup)
 {
-	int		rows;
 	t_tuple	ret;
 
-	rows = 0;
-	ret.x = (mat.m[rows][0] * tup.x)
-		+ (mat.m[rows][1] * tup.y)
-		+ (mat.m[rows][2] * tup.z)
-		+ (mat.m[rows][3] * tup.w);
-	rows++;
-	ret.y = (mat.m[rows][0] * tup.x)
-		+ (mat.m[rows][1] * tup.y)
-		+ (mat.m[rows][2] * tup.z)
-		+ (mat.m[rows][3] * tup.w);
-	rows++;
-	ret.z = (mat.m[rows][0] * tup.x)
-		+ (mat.m[rows][1] * tup.y)
-		+ (mat.m[rows][2] * tup.z)
-		+ (mat.m[rows][3] * tup.w);
-	rows++;
-	ret.w = (mat.m[rows][0] * tup.x)
-		+ (mat.m[rows][1] * tup.y)
-		+ (mat.m[rows][2] * tup.z)
-		+ (mat.m[rows][3] * tup.w);
+	ret.x = (mat.m[0][0] * tup.x)
+		+ (mat.m[0][1] * tup.y)
+		+ (mat.m[0][2] * tup.z)
+		+ (mat.m[0][3] * tup.w);
+	ret.y = (mat.m[1][0] * tup.x)
+		+ (mat.m[1][1] * tup.y)
+		+ (mat.m[1][2] * tup.z)
+		+ (mat.m[1][3] * tup.w);
+	ret.z = (mat.m[2][0] * tup.x)
+		+ (mat.m[2][1] * tup.y)
+		+ (mat.m[2][2] * tup.z)
+		+ (mat.m[2][3] * tup.w);
+	ret.w = (mat.m[3][0] * tup.x)
+		+ (mat.m[3][1] * tup.y)
+		+ (mat.m[3][2] * tup.z)
+		+ (mat.m[3][3] * tup.w);
 	return (ret);
 }
 
-void	print_matr4x4(t_matrix_4x4 mat)
+t_vec	matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec)
 {
-	int	rows;
+	t_vec	ret;
 
-	rows = 0;
-	while (rows < 4)
-	{
-		printf("| %f | %f | %f | %f |\n", mat.m[rows][0], mat.m[rows][1],
-			mat.m[rows][2], mat.m[rows][3]);
-		rows++;
-	}
+	ret.x = (mat.m[0][0] * vec.x)
+		+ (mat.m[0][1] * vec.y)
+		+ (mat.m[0][2] * vec.z)
+		+ (mat.m[0][3] * vec.w);
+	ret.y = (mat.m[1][0] * vec.x)
+		+ (mat.m[1][1] * vec.y)
+		+ (mat.m[1][2] * vec.z)
+		+ (mat.m[1][3] * vec.w);
+	ret.z = (mat.m[2][0] * vec.x)
+		+ (mat.m[2][1] * vec.y)
+		+ (mat.m[2][2] * vec.z)
+		+ (mat.m[2][3] * vec.w);
+	ret.w = (mat.m[3][0] * vec.x)
+		+ (mat.m[3][1] * vec.y)
+		+ (mat.m[3][2] * vec.z)
+		+ (mat.m[3][3] * vec.w);
+	return (ret);
 }
 
-t_matrix_4x4	matr4x4_transpos(t_matrix_4x4 mat)
+t_point	matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt)
 {
-	int		rows;
-	int		cols;
-	float	tmp;
+	t_point	ret;
 
-	rows = 0;
-	while (rows < 4)
-	{
-		cols = rows + 1;
-		while (cols < 4)
-		{
-			tmp = mat.m[rows][cols];
-			mat.m[rows][cols] = mat.m[cols][rows];
-			mat.m[cols][rows] = tmp;
-			cols++;
-		}
-		rows++;
-	}
-	return (mat);
-}
-
-t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col)
-{
-	t_matrix_3x3	ret;
-	int				rows;
-	int				cols;
-	float			iidx;
-	int				jidx;
-
-	rows = 0;
-	iidx = 0;
-	while (rows < 4)
-	{
-		cols = 0;
-		jidx = 0;
-		while (cols < 4 && rows != row)
-		{
-			if (cols != col && rows != row)
-			{
-				ret.m[(int)iidx][jidx] = mat.m[rows][cols];
-				jidx++;
-			}
-			iidx += 0.25;
-			cols++;
-		}
-		rows++;
-	}
+	ret.x = (mat.m[0][0] * pnt.x)
+		+ (mat.m[0][1] * pnt.y)
+		+ (mat.m[0][2] * pnt.z)
+		+ (mat.m[0][3] * pnt.w);
+	ret.y = (mat.m[1][0] * pnt.x)
+		+ (mat.m[1][1] * pnt.y)
+		+ (mat.m[1][2] * pnt.z)
+		+ (mat.m[1][3] * pnt.w);
+	ret.z = (mat.m[2][0] * pnt.x)
+		+ (mat.m[2][1] * pnt.y)
+		+ (mat.m[2][2] * pnt.z)
+		+ (mat.m[2][3] * pnt.w);
+	ret.w = (mat.m[3][0] * pnt.x)
+		+ (mat.m[3][1] * pnt.y)
+		+ (mat.m[3][2] * pnt.z)
+		+ (mat.m[3][3] * pnt.w);
 	return (ret);
 }

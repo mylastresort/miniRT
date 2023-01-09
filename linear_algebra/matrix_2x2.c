@@ -6,11 +6,9 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:00:14 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/27 19:25:55 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:24:41 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// print matric add 2 matrice multiple 2matri sub2matr divid 2mat
 
 #include "../include/linear_algebra.h"
 #include <math.h>
