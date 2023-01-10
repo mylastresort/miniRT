@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/08 17:10:52 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/09 12:22:30 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,9 @@ SRCS =	main.c \
 		linear_algebra/matrix_transformation.c \
 		linear_algebra/geometry_conversion.c \
 		linear_algebra/matrix_rotation.c \
+		objects/camera.c \
+		objects/cylinder.c \
+		objects/sphere.c \
 		parser/parse.c \
 		srcs/utils.c
 

@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/08 17:24:14 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:38:55 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ float			determ_matr3x3(t_matrix_3x3 mat);
 float			determ_matr4x4(t_matrix_4x4 mat);
 float			cofactor_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat);
-t_matrix_4x4	my_invers_matr4x4(t_matrix_4x4 mat);
 t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2);
 char			*ft_itoa(int n);
 float			vec_dot_product(t_vec vec);
@@ -78,5 +77,11 @@ t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
 // t_matrix_4x4	matr4x4_shearing(float x[2], float y[2], float z[2]);
 t_matrix_4x4	matr4x4_shearing(const float x[2],
 					const float y[2], const float z[2]);
+float			vec_length(t_vec vec);
+t_vec			vec_normalize(t_vec vec);
+float			half_width(const float aspect, const float half_view);
+float			half_height(const float aspect, const float half_view);
+t_my_ray		ray_for_pixel(t_camera cam, uint32_t x, uint32_t y);
+t_color			coloring(t_my_ray ray);
 
 #endif

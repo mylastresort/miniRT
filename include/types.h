@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/08 13:31:28 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:31:21 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,31 @@ typedef struct s_sol
 	t_vec	x1;
 	t_vec	x2;
 }	t_sol;
+
+typedef struct s_camera
+{
+	float			hsize;
+	float			vsize;
+	float			filed_of_view;
+	float			aspect;
+	float			pixel_size;
+	float			half_view;
+	float			half_width;
+	float			half_height;
+	t_matrix_4x4	transform;
+	t_point			cam_ori;
+	t_vec			cam_dir;
+}	t_camera;
+
+typedef struct s_my_ray
+{
+	float			x_offset;
+	float			y_offset;
+	float			world_x;
+	float			world_y;
+	t_vec			pixel;
+	t_vec			origin;
+	t_vec			direction;
+}	t_my_ray;
 
 #endif

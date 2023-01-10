@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:26:31 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/06 14:36:52 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/09 12:24:13 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linear_algebra.h"
+#include "../include/linear_algebra.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -65,7 +65,7 @@ t_sol	cy_get_intersections(const t_ray r, const t_cy cyl)
 	return ((t_sol){.count = 0});
 }
 
-void	sp_translate(t_cy *const cy, const t_vec fac)
+void	cy_translate(t_cy *const cy, const t_vec fac)
 {
 	cy->c.x += fac.x;
 	cy->c.y += fac.y;

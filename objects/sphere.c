@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:48:09 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/06 14:35:42 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/09 12:23:28 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "declarations.h"
-#include "linear_algebra.h"
-#include "types.h"
+#include "../include/declarations.h"
+#include "../include/linear_algebra.h"
+#include "../include/types.h"
 
 t_sol	sp_get_intersections(const t_ray r, const t_sp sp)
 {
