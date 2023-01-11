@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/10 17:31:21 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:17:37 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "linear_algebra.h"
 # include <stdint.h>
 # include <fcntl.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -82,9 +82,20 @@ typedef struct s_sp
 	int		rgb;
 }	t_sp;
 
+typedef struct s_pl
+{
+	t_vec	n;
+	t_vec	p;
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+	int		rgb;
+}	t_pl;
+
 typedef struct s_sol
 {
-	int		count;
+	int		c;
 	t_vec	x1;
 	t_vec	x2;
 }	t_sol;

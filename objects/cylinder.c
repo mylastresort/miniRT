@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:26:31 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/09 12:24:13 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:17:43 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_cy
 
 typedef struct s_sol
 {
-	int		count;
+	int		c;
 	t_vec	x1;
 	t_vec	x2;
 }	t_sol;
@@ -47,7 +47,7 @@ t_sol	cy_get_intersections(const t_ray r, const t_cy cyl)
 	if (d == 0)
 	{
 		s[0] = -b / (2 * a);
-		return ((t_sol){.count = 1,
+		return ((t_sol){.c = 1,
 			.x1 = {.x = r.o.x + r.d.x * s[0],
 				.y = r.o.y + r.d.y * s[0], .z = r.o.z + r.d.z * s[0]}});
 	}
@@ -55,14 +55,14 @@ t_sol	cy_get_intersections(const t_ray r, const t_cy cyl)
 	{
 		s[0] = -b + sqrtf(d) / (2 * a);
 		s[1] = -b - sqrtf(d) / (2 * a);
-		return ((t_sol){.count = 2,
+		return ((t_sol){.c = 2,
 			.x1 = {.x = r.o.x + r.d.x * s[0],
 				.y = r.o.y + r.d.y * s[0],
 				.z = r.o.z + r.d.z * s[0]},
 			.x2 = {.x = r.o.x + r.d.x * s[1],
 				.y = r.o.y + r.d.y * s[1], .z = r.o.z + r.d.z * s[1]}});
 	}
-	return ((t_sol){.count = 0});
+	return ((t_sol){.c = 0});
 }
 
 void	cy_translate(t_cy *const cy, const t_vec fac)
