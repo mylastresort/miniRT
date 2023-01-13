@@ -6,13 +6,14 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/10 19:59:25 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:25:54 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/declarations.h"
 #include "../include/linear_algebra.h"
 #include "../include/types.h"
+#include <math.h>
 #include <stdint.h>
 
 float	half_width(const float aspect, const float half_view)
@@ -33,7 +34,8 @@ float	half_height(const float aspect, const float half_view)
 	return (half_view);
 }
 
-t_my_ray	ray_for_pixel(t_camera cam, uint32_t x, uint32_t y)
+// t_my_ray	ray_for_pixel(t_camera cam, uint32_t x, uint32_t y)
+t_my_ray	ray_for_pixel(t_camera cam, int x, int y)
 {
 	t_my_ray	ray;
 
@@ -49,19 +51,51 @@ t_my_ray	ray_for_pixel(t_camera cam, uint32_t x, uint32_t y)
 	return (ray);
 }
 
-t_color	coloring(t_my_ray ray)
+int	coloring(t_my_ray ray)
 {
-	t_color	colr;
-	t_sphe
+	t_color		colr;
+	t_sp		sp;
+	t_pl		pln;
+	t_sol		inters;
+	int 		clr;
 
-	colr.x = ;
-	colr.y = ;
-	colr.z = ;
-	return (colr);
-	// return ((t_color){
-	// 	.x = ,
-	// 	.y = ,
-	// 	.z = ,
-	// 	.w = ,
-	// });
+	sp = (t_sp){
+		.n = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1},
+		.c = (t_vec){.x = 2, .y = 2, .z = 20, .w = 1},
+		.d = 2,
+		.rgb = 56413,
+	};
+	(void)pln;
+	inters = sp_get_intersections(ray, sp);
+	clr = 0;
+	if (inters.c == 1)
+	{
+		colr.x = 0xFFFFFF;
+		colr.y = 0xFFFFFF;
+		colr.z = 0xFFFFFF;
+		clr = 0xFFFFFF;
+	}
+	if (inters.c == 2)
+	{
+		colr.x = sp.rgb;
+		colr.y = sp.rgb;
+		colr.z = sp.rgb;
+		clr = sp.rgb;
+	}
+	return (clr);
+}
+
+void	debug_camera(t_camera cam)
+{
+	print_vec(cam.cam_ori);
+	print_vec(cam.cam_dir);
+	printf("file_view: %.2f\n", cam.filed_of_view);
+	printf("hsize %.2f\n", cam.hsize);
+	printf("vsize %.2f\n", cam.vsize);
+	print_matr4x4(cam.transform);
+	printf("aspect %.2f\n", cam.aspect);
+	printf("half_view %.2f\n", cam.half_view);
+	printf("half_width %.2f\n", cam.half_width);
+	printf("half_height %.2f\n", cam.half_height);
+	printf("pixel_size %.2f\n", cam.pixel_size);
 }

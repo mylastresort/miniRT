@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/11 12:17:37 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:46:18 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "enums.h"
 # include "linear_algebra.h"
-# include <stdint.h>
 # include <fcntl.h>
 // # include <mlx.h>
 # include <stdio.h>
@@ -48,25 +47,6 @@ typedef struct scene
 	void	*win;
 	void	*mlx;
 }	t_scene;
-
-// NOLINTNEXTLINE
-typedef struct s_projectile
-{
-	// t_vec	position;
-	// t_point	pnt_position;
-	// t_vec	vec_velocity;
-	t_tuple	pnt_position;
-	t_tuple	vec_velocity;
-}	t_projectile;
-
-// NOLINTNEXTLINE
-typedef struct s_environment
-{
-	// t_vec	vec_gravity;
-	// t_vec	vec_wind;
-	t_tuple	vec_gravity;
-	t_tuple	vec_wind;
-}	t_environment;
 
 typedef struct s_ray
 {

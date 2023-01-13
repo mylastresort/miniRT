@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/10 18:22:56 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:25:11 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,79 +19,61 @@
 #include <i386/types.h>
 #include <math.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
 
-// void	test(void)
-// {
-// 	;
-// }
-
-// int	generate_rgb(int r, int g, int b)
-int	generate_rgb(t_color colr)
+// t_my_ray	generate_ray(t_camera cam, uint32_t x, uint32_t y)
+t_my_ray	generate_ray(t_camera cam, int x, int y)
 {
-	return (((int)colr.x << 16) | ((int)colr.y << 8) | (int)colr.y);
+	t_my_ray	ray;
+
+	ray.x_offset = (x + 0.5) * cam.pixel_size;
+	ray.y_offset = (y + 0.5) * cam.pixel_size;
+	ray.world_x = cam.half_width - ray.x_offset;
+	ray.world_y = cam.half_height - ray.y_offset;
+	ray.pixel = matr4x4_multi_vec(invers_matr4x4(cam.transform),
+			(t_vec){.x = ray.world_x, .y = ray.world_y, .z = 1, .w = 1});
+	ray.origin = matr4x4_multi_vec(invers_matr4x4(cam.transform),
+			(t_vec){.x = 0, .y = 0, .z = 0, .w = 1});
+	ray.direction = vec_normalize(vec_sub_vec(ray.pixel, ray.origin));
+	return (ray);
 }
-
-// t_tuple	at(const float t, const t_tuple orig, const t_tuple dir)
-// {
-// 	return (tup_multi_vec(orig, tup_multi_value(dir, t)));
-// }
-
-// int	shade_point(t_vec pnt, t_vec norm)
-// {
-// 	;
-// 	return (0);
-}
-
-// t_vec	closest_intersection(t_sol *sol, int count_list)
-// {
-// 	t_vec	min;
-// 	while(count_list > -1)
-// 	{
-// 		sol[count_list - 1];
-// 		count_list--;
-// 	}
-// 	return (min);
-// }
 
 static void	sample(uint32_t (*const buf)[H][W])
 {
-	volatile uint32_t	indx[2];
+	// volatile uint32_t	indx[2];
+	int					indx[2];
 	t_color				colr;
+	t_my_ray			ray;
+	t_camera			cam;
 	t_vec				pnt;
 	t_vec				norm;
-	t_my_ray			ray;
-	const t_camera		cam = (t_camera){
-		.cam_ori = {.x = -50, .y = 0, .z = 20, .w = 1},
-		.cam_dir = {.x = 0, .y = 0, .z = 0, .w = 0},
-		.filed_of_view = 70,
-		.hsize = W,
-		.vsize = H,
-		.transform = matr4x4_translation(cam.cam_ori.x, cam.cam_ori.y,
-			cam.cam_ori.z),
-		.aspect = cam.hsize / cam.vsize,
-		.half_view = tanf(cam.filed_of_view / 2),
-		.half_width = half_width(cam.aspect, cam.half_view),
-		.half_height = half_height(cam.aspect, cam.half_view),
-		.pixel_size = (cam.half_width * 2) / cam.hsize,
-	};
+	t_sol				sol;
 
-	(void)cam;
-	(void)colr;
-	(void)norm;
-	(void)pnt;
-	(void)ray;
+	cam.cam_ori = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1};
+	cam.cam_dir = (t_vec){.x = 0, .y = 0, .z = -1, .w = 0};
+	cam.filed_of_view = M_PI / 2;//100;
+	cam.hsize = H;
+	cam.vsize = W;
+	cam.transform = matr4x4_translation(cam.cam_ori.x, cam.cam_ori.y,
+		cam.cam_ori.z);
+	cam.aspect = cam.hsize / cam.vsize;
+	cam.half_view = tanf(cam.filed_of_view / 2);
+	cam.half_width = half_width(cam.aspect, cam.half_view);
+	cam.half_height = half_height(cam.aspect, cam.half_view);
+	cam.pixel_size = (cam.half_width * 2) / cam.hsize;
+	((void)cam, (void)colr, (void)norm, (void)pnt, (void)ray, (void)sol);
 	indx[0] = 0;
+	puts("loops start");
 	while (indx[0] < H)
 	{
 		indx[1] = 0;
 		while (indx[1] < W)
 		{
 			ray = ray_for_pixel(cam, indx[0], indx[1]);
-			colr = coloring(ray);
-			(*buf)[indx[0]][indx[1]] = generate_rgb(colr);
+			(*buf)[indx[0]][indx[1]] = coloring(ray);
 			indx[1] += 1;
 		}
 		indx[0] += 1;

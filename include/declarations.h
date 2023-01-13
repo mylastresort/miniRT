@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/10 18:38:55 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/13 11:24:24 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void			write_error(const char *str);
 bool			is_equal(float val1, float val2);
 void			print_pnt(t_point pnt);
 void			print_vec(t_vec vec);
-t_projectile	tick(t_environment env, t_projectile prj);
 t_vec			vec_div_value(t_vec vec, float val);
 t_vec			vec_div_vec(t_vec vec, t_vec val);
 t_vec			vec_multi_value(t_vec vec, float val);
@@ -74,14 +73,25 @@ t_deg			rad_to_deg(t_rad rad);
 t_tuple			matr4x4_multi_tuple(t_matrix_4x4 mat, t_tuple tup);
 t_vec			matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec);
 t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
-// t_matrix_4x4	matr4x4_shearing(float x[2], float y[2], float z[2]);
 t_matrix_4x4	matr4x4_shearing(const float x[2],
 					const float y[2], const float z[2]);
 float			vec_length(t_vec vec);
 t_vec			vec_normalize(t_vec vec);
 float			half_width(const float aspect, const float half_view);
 float			half_height(const float aspect, const float half_view);
-t_my_ray		ray_for_pixel(t_camera cam, uint32_t x, uint32_t y);
-t_color			coloring(t_my_ray ray);
+// t_my_ray		ray_for_pixel(t_camera cam, uint32_t x, uint32_t y);
+t_my_ray		ray_for_pixel(t_camera cam, int x, int y);
+// t_color			coloring(t_my_ray ray);
+int				coloring(t_my_ray ray);
+t_point			ray_position(t_ray ray, float t);
+void			sp_translate(t_sp *const sp, const t_vec fac);
+// t_sol			sp_get_intersections(const t_ray r, const t_sp sp);
+t_sol			sp_get_intersections(const t_my_ray r, const t_sp sp);
+float			vec_dot_product_vec(const t_vec vec1, const t_vec vec2);
+// t_sol			pl_get_intersections(const t_pl pl, const t_ray r);
+t_sol			pl_get_intersections(const t_pl pl, const t_my_ray r);
+void			pl_get_coefficients(t_pl *const pl);
+void			debug_camera(t_camera cam);
+void			debug_ray(t_my_ray ray);
 
 #endif

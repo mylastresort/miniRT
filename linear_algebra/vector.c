@@ -6,12 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 09:26:44 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:35 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:35:29 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/linear_algebra.h"
-#include "../include/macros.h"
 
 float	vec_length(const t_vec vec)
 {
@@ -35,8 +34,12 @@ t_vec	vec_normalize(t_vec vec)
 
 float	vec_dot_product(const t_vec vec)
 {
-	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z)
-		+ (vec.w * vec.w));
+	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
+}
+
+float	vec_dot_product_vec(const t_vec vec1, const t_vec vec2)
+{
+	return ((vec1.x * vec2.x) + (vec1.y * vec2.y) + (vec1.z * vec2.z));
 }
 
 t_vec	vec_cross_product(const t_vec first, const t_vec second)

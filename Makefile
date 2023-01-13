@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/09 12:22:30 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/12 15:01:29 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ INC =	include/declarations.h \
 RM = rm -f
 
 SRCS =	main.c \
-		test.c \
 		test_utils.c \
 		test_utils1.c \
 		libft/ft_strlen.c \
@@ -48,8 +47,10 @@ SRCS =	main.c \
 		linear_algebra/geometry_conversion.c \
 		linear_algebra/matrix_rotation.c \
 		objects/camera.c \
+		objects/ray.c \
 		objects/cylinder.c \
 		objects/sphere.c \
+		objects/plane.c \
 		parser/parse.c \
 		srcs/utils.c
 
@@ -61,7 +62,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LINK) -o $(NAME)
 
 %.o: %.c $(INC)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -Iinclude -o $@
 
 clean: 
 	$(RM) $(OBJS)
