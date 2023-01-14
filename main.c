@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:11 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:17:42 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ static void	sample(uint32_t (*const buf)[H][W])
 	t_vec				pnt;
 	t_vec				norm;
 	t_sol				sol;
+	int					n;
 
 	cam.cam_ori = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1};
 	cam.cam_dir = (t_vec){.x = 0, .y = 0, .z = -1, .w = 0};
-	cam.filed_of_view = M_PI / 2;//100;
+	cam.filed_of_view = M_PI / 2;
 	cam.hsize = H;
 	cam.vsize = W;
 	cam.transform = matr4x4_translation(cam.cam_ori.x, cam.cam_ori.y,
@@ -73,7 +74,26 @@ static void	sample(uint32_t (*const buf)[H][W])
 		while (indx[1] < W)
 		{
 			ray = ray_for_pixel(cam, indx[0], indx[1]);
-			(*buf)[indx[0]][indx[1]] = coloring(ray);
+			// (*buf)[indx[0]][indx[1]] = coloring(ray, 0);
+			n = coloring(ray, 0);
+			if (n != 0)
+				(*buf)[indx[0]][indx[1]] = n;
+			indx[1] += 1;
+		}
+		indx[0] += 1;
+	}
+	indx[0] = 0;
+	puts("loops start");
+	while (indx[0] < H)
+	{
+		indx[1] = 0;
+		while (indx[1] < W)
+		{
+			ray = ray_for_pixel(cam, indx[0], indx[1]);
+			// (*buf)[indx[0]][indx[1]] = coloring(ray);
+			n = coloring(ray, 1);
+			if (n != 0)
+				(*buf)[indx[0]][indx[1]] = n;
 			indx[1] += 1;
 		}
 		indx[0] += 1;

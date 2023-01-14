@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/12 15:01:29 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/14 16:12:16 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SRCS =	main.c \
 		objects/cylinder.c \
 		objects/sphere.c \
 		objects/plane.c \
+		objects/light.c \
+		objects/debug_obj.c \
 		parser/parse.c \
 		srcs/utils.c
 

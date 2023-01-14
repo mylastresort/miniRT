@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/13 11:24:24 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:16:30 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ float			half_height(const float aspect, const float half_view);
 // t_my_ray		ray_for_pixel(t_camera cam, uint32_t x, uint32_t y);
 t_my_ray		ray_for_pixel(t_camera cam, int x, int y);
 // t_color			coloring(t_my_ray ray);
-int				coloring(t_my_ray ray);
-t_point			ray_position(t_ray ray, float t);
+// int				coloring(t_my_ray ray);
+int				coloring(t_my_ray ray, int n);
+// t_point			ray_position(t_ray ray, float t);
+t_point			ray_position(t_my_ray ray, float t);
 void			sp_translate(t_sp *const sp, const t_vec fac);
 // t_sol			sp_get_intersections(const t_ray r, const t_sp sp);
 t_sol			sp_get_intersections(const t_my_ray r, const t_sp sp);
@@ -93,5 +95,10 @@ t_sol			pl_get_intersections(const t_pl pl, const t_my_ray r);
 void			pl_get_coefficients(t_pl *const pl);
 void			debug_camera(t_camera cam);
 void			debug_ray(t_my_ray ray);
+t_color			lighting(t_material mat, t_light light, t_point pos, t_vec eye, t_vec normal);
+t_vec			normal_at(t_point obj_ori, t_point pnt);
+t_vec			reflect(t_vec in, t_vec normal);
+int				generate_color(t_color clr);
+int				get_color(t_my_ray ray, t_sp sp, t_amb amb);
 
 #endif

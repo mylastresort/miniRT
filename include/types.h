@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/11 14:46:18 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/14 15:45:14 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef enum e_keycode	t_keycode;
-typedef t_vec			t_color;
-typedef t_vec			t_point;
-typedef t_vec			t_tuple;
-typedef float			t_rad;
-typedef float			t_deg;
+typedef enum e_keycode		t_keycode;
+typedef t_vec				t_color;
+typedef t_vec				t_point;
+typedef t_vec				t_tuple;
+typedef float				t_rad;
+typedef float				t_deg;
+// typedef struct s_material	t_material;
 
 typedef struct cam
 {
@@ -35,7 +36,8 @@ typedef struct cam
 
 typedef struct amb
 {
-	uint32_t	val;
+	uint32_t	la;
+	float		ka;
 }	t_amb;
 
 // NOLINTNEXTLINE
@@ -56,10 +58,11 @@ typedef struct s_ray
 
 typedef struct s_sp
 {
-	t_vec	n;
-	t_vec	c;
-	float	d;
-	int		rgb;
+	t_vec		n;
+	t_vec		c;
+	float		d;
+	int			rgb;
+	// t_material	mat;
 }	t_sp;
 
 typedef struct s_pl
@@ -78,6 +81,8 @@ typedef struct s_sol
 	int		c;
 	t_vec	x1;
 	t_vec	x2;
+	int		t_val[2];
+	int		clr_surf;
 }	t_sol;
 
 typedef struct s_camera
@@ -105,5 +110,20 @@ typedef struct s_my_ray
 	t_vec			origin;
 	t_vec			direction;
 }	t_my_ray;
+
+typedef struct s_light
+{
+	t_color	intensity;
+	t_point	position;
+}	t_light;
+
+typedef struct s_material
+{
+	t_color	clr;
+	float	ambient;
+	float	diffuse;
+	float	specular;
+	float	shininess;
+}	t_material;
 
 #endif

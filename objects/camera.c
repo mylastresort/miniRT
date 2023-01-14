@@ -6,15 +6,17 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:54 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:26:23 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/declarations.h"
 #include "../include/linear_algebra.h"
 #include "../include/types.h"
+#include "enums.h"
 #include <math.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 float	half_width(const float aspect, const float half_view)
 {
@@ -51,51 +53,83 @@ t_my_ray	ray_for_pixel(t_camera cam, int x, int y)
 	return (ray);
 }
 
-int	coloring(t_my_ray ray)
+t_vec	normal_at(t_point obj_ori, t_point pnt)
 {
-	t_color		colr;
-	t_sp		sp;
-	t_pl		pln;
-	t_sol		inters;
-	int 		clr;
-
-	sp = (t_sp){
-		.n = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1},
-		.c = (t_vec){.x = 2, .y = 2, .z = 20, .w = 1},
-		.d = 2,
-		.rgb = 56413,
-	};
-	(void)pln;
-	inters = sp_get_intersections(ray, sp);
-	clr = 0;
-	if (inters.c == 1)
-	{
-		colr.x = 0xFFFFFF;
-		colr.y = 0xFFFFFF;
-		colr.z = 0xFFFFFF;
-		clr = 0xFFFFFF;
-	}
-	if (inters.c == 2)
-	{
-		colr.x = sp.rgb;
-		colr.y = sp.rgb;
-		colr.z = sp.rgb;
-		clr = sp.rgb;
-	}
-	return (clr);
+	return (vec_normalize(vec_sub_vec(pnt, obj_ori)));
 }
 
-void	debug_camera(t_camera cam)
+t_vec	reflect(t_vec in, t_vec normal)
 {
-	print_vec(cam.cam_ori);
-	print_vec(cam.cam_dir);
-	printf("file_view: %.2f\n", cam.filed_of_view);
-	printf("hsize %.2f\n", cam.hsize);
-	printf("vsize %.2f\n", cam.vsize);
-	print_matr4x4(cam.transform);
-	printf("aspect %.2f\n", cam.aspect);
-	printf("half_view %.2f\n", cam.half_view);
-	printf("half_width %.2f\n", cam.half_width);
-	printf("half_height %.2f\n", cam.half_height);
-	printf("pixel_size %.2f\n", cam.pixel_size);
+	return (vec_sub_vec(in, vec_multi_value(normal,
+				(2 * vec_dot_product_vec(in, normal)))));
+}
+
+// int	coloring(t_my_ray ray)
+int	coloring(t_my_ray ray, int n)
+{
+	t_color		colr;
+	t_sp		sp = (t_sp){
+		.n = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1},
+		.c = (t_vec){.x = 0, .y = 0, .z = 30, .w = 1},
+		.d = 25,
+		.rgb = RED,
+	};
+	t_pl		pln;
+	t_sol		inters;
+	// t_amb		amb = (t_amb){
+	// 	.la = 0x00FF,
+	// 	.ka = 0.2,
+	// };
+	;
+	t_material	mat = (t_material){
+		.clr = (t_color){150, 100, 255, 0},
+		.ambient = 0.1,
+		.diffuse = 0.9,
+		.specular = 0.9,
+		.shininess = 200.0,
+	};
+	t_color		result;
+	t_light		light = (t_light){
+		.intensity = (t_color){190,190,190,0},
+		.position = (t_point){-15,25,-15,0},
+		// .position = (t_point){-15,25,10,0},
+	};
+	t_point		pnt;
+	t_vec		eye = (t_vec){0,0,-1,0};
+	t_vec		normal;
+	int 		clr;
+	// result = lighting(mat, light, pnt, eye, normal);
+	// print_vec(result);
+	;
+	// exit(EXIT_FAILURE);
+	;
+	(void)pln;
+	(void)colr;
+	// clr = get_color(ray, sp, amb);
+	inters = sp_get_intersections(ray, sp);
+	clr = 0;
+	// if (inters.c == 1)
+	// {
+	// 	pnt = ray_position(ray, inters.t_val[0]);
+	// 	clr = generate_color(result);
+	// }
+	if ((inters.c == 1 || inters.c == 2 ) && n == 0)
+	{
+		// clr = inters.rgb;
+		clr = sp.rgb;
+	}
+	if (inters.c == 2 && n == 1)
+	{
+		pnt = ray_position(ray, inters.t_val[0]);
+		normal = normal_at(sp.c, pnt);
+		eye = (t_vec){.x = -ray.direction.x, .y = -ray.direction.y, .z = -ray.direction.z, .w = 0};
+		result = lighting(mat, light, pnt, eye, normal);
+		clr = generate_color(result);
+		// if (clr != 0)
+		// {
+		// 	clr = RED;
+		// 	// printf("%d\n", clr);
+		// }
+	}
+	return (clr);
 }

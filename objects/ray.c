@@ -14,9 +14,11 @@
 #include "../include/types.h"
 #include "../include/declarations.h"
 
-t_point	ray_position(t_ray ray, float t)
+// t_point	ray_position(t_ray ray, float t)
+t_point	ray_position(t_my_ray ray, float t)
 {
-	return (vec_add_vec(ray.o, vec_multi_value(ray.d, t)));
+	// return (vec_add_vec(ray.o, vec_multi_value(ray.d, t)));
+	return (vec_add_vec(ray.origin, vec_multi_value(ray.direction, t)));
 }
 
 void	debug_ray(t_my_ray ray)

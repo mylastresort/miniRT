@@ -12,6 +12,7 @@
 
 #include "../include/types.h"
 #include "../include/declarations.h"
+#include "linear_algebra.h"
 #include <sys/time.h>
 
 void	sp_translate(t_sp *const sp, const t_vec fac)
@@ -72,7 +73,7 @@ t_sol	sp_get_intersections(const t_my_ray r, const t_sp sp)
 		s[0] = -b / (2 * a);
 		// printf("%.2f\n", s[0]);
 		return ((t_sol){.c = 1, .x1 = {.x = r.origin.x + r.direction.x * s[0], .y = r.origin.y
-				+ r.direction.y * s[0], .z = r.origin.z + r.direction.z * s[0]}});
+				+ r.direction.y * s[0], .z = r.origin.z + r.direction.z * s[0]}, .t_val[0] = s[0]});
 	}
 	if (d > 0)
 	{
@@ -82,7 +83,7 @@ t_sol	sp_get_intersections(const t_my_ray r, const t_sp sp)
 		return ((t_sol){.c = 2, .x1 = {.x = r.origin.x + r.direction.x * s[0], .y = r.origin.y
 				+ r.direction.y * s[0], .z = r.origin.z + r.direction.z * s[0]}, .x2 = {.x = r.origin.x
 				+ r.direction.x * s[1], .y = r.origin.y + r.direction.y * s[1], .z = r.origin.z + r.direction.z
-				* s[1]}});
+				* s[1]}, .t_val[0] = s[0], .t_val[1] = s[1]});
 	}
 	return ((t_sol){.c = 0});
 }

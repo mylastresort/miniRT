@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:06 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:10:35 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_mask : uint32_t {
 	BLU = 0xFF,
 	GRN = 0xFF00,
 	RED = 0xFF0000,
+	CYN = 0x00BCFF,
 };
 
 enum e_instruction : uint8_t {
