@@ -6,15 +6,12 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:32:06 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 18:53:11 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:54:20 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include "../include/declarations.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "types.h"
+#include "declarations.h"
 
 void	print_matr4x4(t_matrix_4x4 mat)
 {

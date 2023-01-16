@@ -6,13 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 12:05:03 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 17:24:54 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:53:19 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/declarations.h"
-#include "../include/linear_algebra.h"
-#include "../include/types.h"
+#include "types.h"
 
 t_matrix_4x4	matr4x4_translation(const float x, const float y, const float z)
 {

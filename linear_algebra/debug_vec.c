@@ -6,12 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:11 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/11 11:23:17 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:52:14 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include "../include/types.h"
+#include "types.h"
 
 void	print_vec(t_vec vec)
 {

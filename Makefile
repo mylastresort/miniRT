@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/14 16:12:16 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/16 10:36:26 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LINK = -Ofast -lmlx -framework OpenGL -framework AppKit #-g -fsanitize=address
 
 INC =	include/declarations.h \
 		include/enums.h \
-		include/linear_algebra.h \
 		include/macros.h \
 		include/types.h
 

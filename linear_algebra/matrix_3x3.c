@@ -6,13 +6,12 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:00:52 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 12:24:52 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:53:03 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include "../include/declarations.h"
-#include <stdbool.h>
+#include "types.h"
+#include "declarations.h"
 
 void	print_matr3x3(t_matrix_3x3 mat)
 {

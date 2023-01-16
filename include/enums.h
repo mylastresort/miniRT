@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/14 21:10:35 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:29:15 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ enum e_keycode : int {
 };
 
 enum e_window : int {
-	// H = 1080,
-	// W = 1920
-	H = 500,
-	W = 900
+	height = 500,
+	width = 900,
 };
 
 enum e_mask : uint32_t {

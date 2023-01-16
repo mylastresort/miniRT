@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 12:26:31 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/11 12:17:43 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/16 11:00:04 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
+#include "types.h"
 #include <math.h>
 #include <stdbool.h>
-
-typedef struct s_ray
-{
-	t_vec	o;
-	t_vec	d;
-}	t_ray;
 
 typedef struct s_cy
 {
@@ -29,12 +23,12 @@ typedef struct s_cy
 	int		rgb;
 }	t_cy;
 
-typedef struct s_sol
-{
-	int		c;
-	t_vec	x1;
-	t_vec	x2;
-}	t_sol;
+// typedef struct s_sol
+// {
+// 	int		c;
+// 	t_vec	x1;
+// 	t_vec	x2;
+// }	t_sol;
 
 t_sol	cy_get_intersections(const t_ray r, const t_cy cyl)
 {

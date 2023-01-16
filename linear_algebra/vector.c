@@ -6,11 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 09:26:44 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/11 14:35:29 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:51:39 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
+#include "types.h"
 
 float	vec_length(const t_vec vec)
 {

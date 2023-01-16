@@ -1,8 +1,0 @@
-cmake_minimum_required(VERSION 3.20)
-project(minirt)
-set(CMAKE_C_COMPILER "cc")
-set(CMAKE_C_FLAGS "-Werror -Wall -Wextra -Ofast -flto")
-set(CMAKE_PROJECT_INCLUDE PATH include)
-add_executable(minirt main.c)
-enable_testing()
-add_test(NAME test1 COMMAND true)

@@ -6,12 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 13:31:00 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/11 13:22:31 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:52:29 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/types.h"
-#include <math.h>
+#include "types.h"
 
 t_rad	deg_to_rad(t_deg deg)
 {

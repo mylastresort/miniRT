@@ -6,15 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 13:13:30 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 13:14:30 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:54:07 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include "../include/declarations.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "types.h"
 
 t_matrix_4x4	matr4x4_transpos(t_matrix_4x4 mat)
 {

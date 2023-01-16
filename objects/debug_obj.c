@@ -6,12 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:12:27 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/14 21:21:17 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:59:12 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/declarations.h"
-#include "../include/linear_algebra.h"
 #include "../include/types.h"
 #include "enums.h"
 #include <math.h>
@@ -34,16 +33,10 @@ void	debug_camera(t_camera cam)
 
 int	generate_color(t_color clr)
 {
-	return (((int)clr.x << 16) | ((int)clr.y << 8) | ((int)clr.z << 4));
-}
+	int	res;
 
-int	get_color(t_my_ray ray, t_sp sp, t_amb amb)
-{
-	int	clr;
-
-	(void)ray;
-	(void)sp;
-	(void)amb;
-	clr = sp.rgb;
-	return (clr);
+	res = (((int)clr.x << 16) | ((int)clr.y << 8) | (int)clr.z);
+	if (res > 255)
+		res = 255;
+	return (res);
 }

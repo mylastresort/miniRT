@@ -6,14 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:01:03 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 13:13:55 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:53:49 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include "../include/types.h"
-#include "../include/declarations.h"
-#include <stdio.h>
+#include "types.h"
 
 t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2)
 {

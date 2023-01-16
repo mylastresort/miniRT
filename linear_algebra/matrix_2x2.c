@@ -6,13 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:00:14 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/08 12:24:41 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:52:43 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
-#include <math.h>
-#include <stdbool.h>
+#include "types.h"
 
 void	print_matr2x2(t_matrix_2x2 mat)
 {

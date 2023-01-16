@@ -6,12 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:50 by hjabbour          #+#    #+#             */
-/*   Updated: 2022/12/27 07:53:49 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:50:36 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/declarations.h"
-#include "../include/linear_algebra.h"
+#include "declarations.h"
 
 bool	is_equal(float val1, float val2)
 {

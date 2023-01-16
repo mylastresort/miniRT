@@ -6,11 +6,11 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 11:06:39 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/11 11:37:42 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:51:34 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/linear_algebra.h"
+#include "types.h"
 
 t_vec	vec_div_value(t_vec vec, float val)
 {
