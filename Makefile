@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
+#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/16 10:36:26 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/17 10:51:03 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-# LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address 
-LINK = -Ofast -lmlx -framework OpenGL -framework AppKit #-g -fsanitize=address 
+# LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
+LINK = -Ofast -lmlx -framework OpenGL -framework AppKit #-g -fsanitize=address
 
 INC =	include/declarations.h \
 		include/enums.h \
@@ -27,9 +27,13 @@ INC =	include/declarations.h \
 RM = rm -f
 
 SRCS =	main.c \
-		test_utils.c \
-		test_utils1.c \
+		rt_open.c \
+		rt_parse_basic.c \
+		rt_parse_object.c \
+		rt_parse.c \
 		libft/ft_strlen.c \
+		libft/ft_strcmp.c \
+		libft/ft_strncpy.c \
 		libft/ft_itoa.c \
 		linear_algebra/debug_vec.c \
 		linear_algebra/is_equal.c \
@@ -52,7 +56,6 @@ SRCS =	main.c \
 		objects/plane.c \
 		objects/light.c \
 		objects/debug_obj.c \
-		parser/parse.c \
 		srcs/utils.c
 
 OBJS = $(SRCS:.c=.o)
@@ -65,7 +68,7 @@ $(NAME): $(OBJS)
 %.o: %.c $(INC)
 	$(CC) $(CFLAGS) -c $< -Iinclude -o $@
 
-clean: 
+clean:
 	$(RM) $(OBJS)
 
 fclean: clean

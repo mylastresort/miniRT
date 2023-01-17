@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 08:02:52 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:41:22 by stamim           ###   ########.fr       */
+/*   Created: 2023/01/15 16:10:47 by stamim            #+#    #+#             */
+/*   Updated: 2023/01/15 16:24:12 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACROS_H
-# define MACROS_H
+#include <sys/_types/_size_t.h>
 
-# define EPSILON 0.00001
-# define INVLD_ARG "Invalid arguments\n"
-# define INVLD_FILE "Invalid .rt file\n"
-# define INVLD_SCN "Invalid scene\n"
-# define MALLOC_ERR "Malloc failed\n"
-# define NUL (void *)1
-# define TITLE "miniRT"
-# define TOO_ARG "Too many arguments\n"
+int	ft_strcmp(const char *const str, const char *const to_cmp)
+{
+	size_t	len1;
+	size_t	len2;
 
-#endif
+	len1 = 0;
+	len2 = 0;
+	while (str[len1] && to_cmp[len2] && str[len1] != to_cmp[len2])
+	{
+		len1++;
+		len2++;
+	}
+	return (str[len1] - to_cmp[len2]);
+}

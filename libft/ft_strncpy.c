@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2022/12/24 19:19:43 by hjabbour         ###   ########.fr       */
+/*   Created: 2023/01/17 10:18:57 by stamim            #+#    #+#             */
+/*   Updated: 2023/01/17 10:33:16 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/declarations.h"
-#include <unistd.h>
+#include <sys/_types/_size_t.h>
 
-void	parse(const int file, t_scene *scn)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	if (file == -1)
+	size_t	idx;
+
+	idx = 0;
+	while (src[idx] && idx < len)
 	{
-		destroy(scn);
+		dst[idx] = src[idx];
+		idx++;
 	}
-	close(file);
+	return (dst);
 }

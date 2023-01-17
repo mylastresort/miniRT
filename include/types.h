@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/16 11:10:54 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:44:06 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,98 +22,63 @@
 # include <math.h>
 # include <stdbool.h>
 
-typedef struct s_vec {
+typedef struct s_vec
+{
 	float	x;
 	float	y;
 	float	z;
 	float	w;
 }	t_vec;
 
-typedef enum e_keycode		t_keycode;
-typedef t_vec				t_color;
-typedef t_vec				t_point;
-typedef t_vec				t_tuple;
-typedef float				t_rad;
-typedef float				t_deg;
-typedef uint32_t			t_buf[height][width];
-
-typedef struct s_matrix_2x2 {
-	float	m[2][2];
-}	t_matrix_2x2;
-
-typedef struct s_matrix_3x3 {
-	float	m[3][3];
-}	t_matrix_3x3;
-
-typedef struct s_matrix_4x4 {
-	float	m[4][4];
-}	t_matrix_4x4;
-
-typedef struct cam
-{
-	uint32_t	val;
-}	t_cam;
-
-typedef struct amb
-{
-	uint32_t	la;
-	float		ka;
-}	t_amb;
-
-// NOLINTNEXTLINE
-typedef struct scene
-{
-	t_cam	*cam;
-	t_amb	*amb;
-	void	*img;
-	void	*win;
-	void	*mlx;
-}	t_scene;
-
-typedef struct s_ray
-{
-	t_vec	o;
-	t_vec	d;
-}	t_ray;
-typedef struct s_sp
-{
-	t_vec		n;
-	t_vec		c;
-	float		d;
-	int			rgb;
-}	t_sp;
-
-typedef struct s_pl
-{
-	t_vec	n;
-	t_vec	p;
-	float	a;
-	float	b;
-	float	c;
-	float	d;
-	int		rgb;
-}	t_pl;
+typedef enum e_keycode	t_keycode;
+typedef float			t_deg;
+typedef float			t_rad;
+typedef t_vec			t_color;
+typedef t_vec			t_point;
+typedef t_vec			t_tuple;
+typedef uint32_t		t_buf[height][width];
 
 typedef struct s_sol
 {
 	int		c;
+	int		clr;
+	int		t_val[2];
+	t_color	rgb_clr;
 	t_vec	x1;
 	t_vec	x2;
-	int		t_val[2];
-	int		clr;
-	t_color	rgb_clr;
 }	t_sol;
 
-typedef struct s_camera
+typedef struct s_matrix_2x2
 {
-	float			hsize;
-	float			vsize;
-	float			filed_of_view;
+	float	m[2][2];
+}	t_matrix_2x2;
+
+typedef struct s_matrix_3x3
+{
+	float	m[3][3];
+}	t_matrix_3x3;
+
+typedef struct s_matrix_4x4
+{
+	float	m[4][4];
+}	t_matrix_4x4;
+
+typedef struct amb
+{
+	float		ka;
+	uint32_t	la;
+}	t_amb;
+
+typedef struct s_cam
+{
 	float			aspect;
-	float			pixel_size;
+	float			filed_of_view;
+	float			half_height;
 	float			half_view;
 	float			half_width;
-	float			half_height;
+	float			hsize;
+	float			pixel_size;
+	float			vsize;
 	t_matrix_4x4	transform;
 	t_point			cam_ori;
 	t_vec			cam_dir;
@@ -121,18 +86,60 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_color	clr;
 	float	brigth;
+	t_color	clr;
 	t_point	position;
 }	t_light;
 
 typedef struct s_material
 {
-	t_color	clr;
 	float	ambient;
 	float	diffuse;
-	float	specular;
 	float	shininess;
+	float	specular;
+	t_color	clr;
 }	t_material;
+
+typedef struct obj
+{
+	struct obj	*next;
+	uint8_t		type;
+}	t_obj;
+
+typedef struct scn
+{
+	t_amb		amb;
+	t_camera	cam;
+	t_light		light;
+	t_obj		*objs;
+	void		*img;
+	void		*mlx;
+	void		*win;
+}	t_scene;
+
+typedef struct s_ray
+{
+	t_vec	o;
+	t_vec	d;
+}	t_ray;
+
+typedef struct s_sp
+{
+	float	d;
+	int		rgb;
+	t_vec	c;
+	t_vec	n;
+}	t_sp;
+
+typedef struct s_pl
+{
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+	int		rgb;
+	t_vec	n;
+	t_vec	p;
+}	t_pl;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/16 10:29:15 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:41:10 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,27 @@
 
 # include <stdint.h>
 
-enum e_keycode : int {
+enum e_keycode : int
+{
 	ESC = 53,
 	Q = 12,
 };
 
-enum e_window : int {
+enum e_window : int
+{
 	height = 500,
-	width = 900,
+	width = 900
 };
 
-enum e_mask : uint32_t {
+enum e_type : uint8_t
+{
+	PLANE = 1,
+	SPHERE = 2,
+	CYLINDER = 3,
+};
+
+enum e_mask : uint32_t
+{
 	ALPHA_1 = 0x00000000,
 	ALPHA_2 = 0x99000000,
 	ALPHA_3 = 0xFF000000,
@@ -35,16 +45,8 @@ enum e_mask : uint32_t {
 	CYN = 0x00BCFF,
 };
 
-enum e_instruction : uint8_t {
-	A = 1,
-	C = 2,
-	cy = 3,
-	L = 4,
-	pl = 5,
-	sp = 6,
-};
-
-enum e_event : int {
+enum e_event : int
+{
 	ON_DESTROY = 17,
 	ON_EXPOSE = 12,
 	ON_KEYDOWN = 2,

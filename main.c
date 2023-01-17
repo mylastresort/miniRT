@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/16 11:04:54 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:39:42 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,23 @@ static void	sample(const t_scene scn, t_buf *const buf)
 	}
 }
 
-static void	init(t_scene *const scn, const int file)
+static void	rt_init(t_scene *const scn, const int file)
 {
+	rt_parse(scn, file);
 	scn->mlx = mlx_init();
 	if (!scn->mlx)
 	{
 		close(file);
 		exit(EXIT_FAILURE);
 	}
-	scn->win = mlx_new_window(scn->mlx, W, H, TITLE);
+	scn->win = mlx_new_window(scn->mlx, width, height, TITLE);
 	if (!scn->win)
 	{
 		close(file);
 		free(scn->mlx);
 		exit(EXIT_FAILURE);
 	}
-	scn->img = mlx_new_image(scn->mlx, W, H);
+	scn->img = mlx_new_image(scn->mlx, width, height);
 	if (!scn->img)
 	{
 		close(file);
@@ -85,50 +86,17 @@ static void	init(t_scene *const scn, const int file)
 		free(scn->mlx);
 		exit(EXIT_FAILURE);
 	}
-	parse(file, scn);
-}
-
-int	destroy(t_scene *scn)
-{
-	mlx_destroy_image(scn->mlx, scn->img);
-	mlx_destroy_window(scn->mlx, scn->win);
-	free(scn->mlx);
-	exit(EXIT_SUCCESS);
-}
-
-static int	on_keydown(t_keycode key, void *arg)
-{
-	if (key == ESC || key == Q)
-	{
-		destroy(arg);
-	}
-	return (1);
 }
 
 int	main(const int argc, const char *argv[])
 {
-	int		arg;
 	t_scene	scn;
 
-	if (argc != 2)
-	{
-		write_error(INVLD_ARG);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		arg = open(argv[1], O_CLOEXEC, S_IRUSR);
-		if (arg == -1)
-		{
-			perror("open");
-			exit(EXIT_FAILURE);
-		}
-	}
-	init(&scn, arg);
-	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
-	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
-	sample((uint32_t (*)[H][W])
-		mlx_get_data_addr(scn.img, &arg, &arg, &arg));
+	scn.objs = NULL;
+	rt_init(&scn, rt_open(argc, argv[1]));
+	mlx_hook(scn.win, ON_DESTROY, 0, rt_destroy, (void *)&scn);
+	mlx_hook(scn.win, ON_KEYDOWN, 0, event_on_keydown, (void *)&scn);
+	sample(scn, (t_buf *)mlx_get_data_addr(scn.img, NUL, NUL, NUL));
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
 }
