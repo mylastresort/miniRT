@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:39:42 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/17 18:57:55 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	sample(const t_scene scn, t_buf *const buf)
 	volatile uint32_t	indx[2];
 	t_ray				ray;
 	t_camera			cam;
-	int					clr;
+	t_color				clr;
 	t_sol				sol;
 
 	cam.cam_ori = (t_vec){.x = 0, .y = 0, .z = 0, .w = 1};
@@ -43,7 +43,7 @@ static void	sample(const t_scene scn, t_buf *const buf)
 	cam.half_width = half_width(cam.aspect, cam.half_view);
 	cam.half_height = half_height(cam.aspect, cam.half_view);
 	cam.pixel_size = (cam.half_width * 2) / cam.hsize;
-	((void)cam, (void)ray, (void)scn);
+	((void)cam, (void)ray, (void)scn, (void)clr, (void)sol);
 	indx[0] = 0;
 	puts("loops start");
 	while (indx[0] < height)
@@ -52,19 +52,16 @@ static void	sample(const t_scene scn, t_buf *const buf)
 		while (indx[1] < width)
 		{
 			ray = ray_for_pixel(cam, indx[0], indx[1]);
-			sol = objects_coloring(ray);
-			clr = light_coloring(ray, sol);
-			if (clr != 0)
-				(*buf)[indx[0]][indx[1]] = clr;
+			clr = objects_coloring(ray);
+			(*buf)[indx[0]][indx[1]] = generate_color(clr);
 			indx[1] += 1;
 		}
 		indx[0] += 1;
 	}
 }
 
-static void	rt_init(t_scene *const scn, const int file)
+static void	init(t_scene *const scn, const int file)
 {
-	rt_parse(scn, file);
 	scn->mlx = mlx_init();
 	if (!scn->mlx)
 	{
@@ -86,17 +83,50 @@ static void	rt_init(t_scene *const scn, const int file)
 		free(scn->mlx);
 		exit(EXIT_FAILURE);
 	}
+	// parse(file, scn);
+}
+
+int	destroy(t_scene *scn)
+{
+	mlx_destroy_image(scn->mlx, scn->img);
+	mlx_destroy_window(scn->mlx, scn->win);
+	free(scn->mlx);
+	exit(EXIT_SUCCESS);
+}
+
+static int	on_keydown(t_keycode key, void *arg)
+{
+	if (key == ESC || key == Q)
+	{
+		destroy(arg);
+	}
+	return (1);
 }
 
 int	main(const int argc, const char *argv[])
 {
+	int		arg;
 	t_scene	scn;
 
-	scn.objs = NULL;
-	rt_init(&scn, rt_open(argc, argv[1]));
-	mlx_hook(scn.win, ON_DESTROY, 0, rt_destroy, (void *)&scn);
-	mlx_hook(scn.win, ON_KEYDOWN, 0, event_on_keydown, (void *)&scn);
-	sample(scn, (t_buf *)mlx_get_data_addr(scn.img, NUL, NUL, NUL));
+	if (argc != 2)
+	{
+		write_error(INVLD_ARG);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		arg = open(argv[1], O_CLOEXEC, S_IRUSR);
+		if (arg == -1)
+		{
+			perror("open");
+			exit(EXIT_FAILURE);
+		}
+	}
+	init(&scn, arg);
+	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
+	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
+	sample(scn, (uint32_t (*)[height][width])
+		mlx_get_data_addr(scn.img, &arg, &arg, &arg));
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
 }

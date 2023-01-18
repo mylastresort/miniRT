@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:12:27 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/16 10:59:12 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:16:03 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,8 @@ void	debug_camera(t_camera cam)
 	printf("pixel_size %.2f\n", cam.pixel_size);
 }
 
+// TODO: (hi-jack) add the alpha transparency 24 bits shifting
 int	generate_color(t_color clr)
 {
-	int	res;
-
-	res = (((int)clr.x << 16) | ((int)clr.y << 8) | (int)clr.z);
-	if (res > 255)
-		res = 255;
-	return (res);
+	return ((clr.r << 16) | (clr.g << 8) | clr.b);
 }

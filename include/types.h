@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:44:06 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:16:30 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "enums.h"
 # include <fcntl.h>
 // # include <mlx.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -29,11 +30,17 @@ typedef struct s_vec
 	float	z;
 	float	w;
 }	t_vec;
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 typedef enum e_keycode	t_keycode;
 typedef float			t_deg;
 typedef float			t_rad;
-typedef t_vec			t_color;
+// typedef t_vec			t_color;
 typedef t_vec			t_point;
 typedef t_vec			t_tuple;
 typedef uint32_t		t_buf[height][width];
@@ -41,9 +48,7 @@ typedef uint32_t		t_buf[height][width];
 typedef struct s_sol
 {
 	int		c;
-	int		clr;
 	int		t_val[2];
-	t_color	rgb_clr;
 	t_vec	x1;
 	t_vec	x2;
 }	t_sol;
@@ -66,7 +71,7 @@ typedef struct s_matrix_4x4
 typedef struct amb
 {
 	float		ka;
-	uint32_t	la;
+	t_color		la;
 }	t_amb;
 
 typedef struct s_cam
@@ -126,9 +131,12 @@ typedef struct s_ray
 typedef struct s_sp
 {
 	float	d;
-	int		rgb;
+	t_color	rgb;
 	t_vec	c;
 	t_vec	n;
+	float	dif_fac;
+	float	amb_fac;
+	float	spec_fac;
 }	t_sp;
 
 typedef struct s_pl

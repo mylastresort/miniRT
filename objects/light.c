@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/16 11:09:17 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:15:00 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,57 @@
 #include <math.h>
 #include <stdint.h>
 
-// t_color	lighting(t_material mat, t_light light,
-// t_point pos, t_vec eye, t_vec normal)
-// {
-// 	t_color	effective_color = vec_multi_vec(mat.clr, light.intensity);
-// 	t_vec	lightv = vec_normalize(vec_sub_vec(light.position, pos));
-// 	t_color	ambient = vec_multi_value(effective_color, mat.ambient);
-// 	float	light_dot_normal = vec_dot_product_vec(lightv, normal);
-// 	t_color	diffuse;
-// 	t_color	specular;
-// 	t_vec	reflectv;
-// 	float	reflect_dot_eye;
-// 	float	factor;
-// 	if (light_dot_normal < 0)
-// 	{
-// 		diffuse = (t_color){0,0,0,0};
-// 		specular = (t_color){0,0,0,0};
-// 	}
-// 	else
-// 	{
-// 		diffuse = vec_multi_value(effective_color,
-// (mat.diffuse * light_dot_normal));
-// 		reflectv = reflect(vec_multi_value(lightv, -1), normal);
-// 		reflect_dot_eye = vec_dot_product_vec(reflectv, eye);
-// 		if (reflect_dot_eye <= 0)
-// 		{
-// 			specular = (t_color){0,0,0,0};
-// 		}
-// 		else
-// 		{
-// 			factor = powf(reflect_dot_eye, mat.shininess);
-// 			specular = vec_multi_value(light.intensity,
-// (mat.specular * factor));
-// 		}
-// 	}
-// 	return (vec_add_vec(vec_add_vec(ambient, diffuse), specular));
-// }
-
-int	light_coloring(const t_ray ray, t_sol sol)
+t_color	clamp(t_color clr)
 {
-	int				clr;
-	const t_light	light = (t_light){
-		.clr = (t_color){190, 190, 190, 0}, .brigth = 0.6F,
-		.position = (t_point){15, 15, 35, 0}
-	};
-
-	((void)ray, (void)clr, (void)light, (void)sol);
-	clr = 0;
+	if (clr.r > 255)
+		clr.r = 255;
+	if (clr.r < 0)
+		clr.r = 0;
+	if (clr.g > 255)
+		clr.g = 255;
+	if (clr.g < 0)
+		clr.g = 0;
+	if (clr.b > 255)
+		clr.b = 255;
+	if (clr.b < 0)
+		clr.b = 0;
 	return (clr);
+}
+
+static t_color	diffuse(t_vec normal, t_vec light_direcion, t_color light_color)
+{
+	float	diffuse_coefficient;
+	t_color	diffuse_color;
+
+	diffuse_coefficient = vec_dot_product_vec(normal, light_direcion);
+	if (diffuse_coefficient < 0.0F)
+	{
+		diffuse_coefficient = 0;
+	}
+	diffuse_color = clr_multi_value(light_color, diffuse_coefficient);
+	return (diffuse_color);
+}
+
+t_color	light_coloring(const t_ray ray, t_sol sol, t_sp sp)
+{
+	const t_amb		amb = (t_amb){
+		.la = (t_color){.r = 5, .g = 6, .b = 5},
+		.ka = 0.2F,
+	};
+	const t_light	light = (t_light){
+		.clr = (t_color){255, 250, 255}, .brigth = 0.6F,
+		.position = (t_point){-10, 10, 10, 0}
+	};
+	const t_vec		light_direcion
+		= vec_normalize(vec_sub_vec(light.position, sol.x1));
+	t_color			final_ambient;
+	t_color			diffuse_color;
+
+	final_ambient = clr_multi_value(amb.la, amb.ka);
+	diffuse_color = diffuse(normal_at_sphere(sp.c, sol.x1),
+			light_direcion, light.clr);
+	diffuse_color = clamp(diffuse_color);
+	final_ambient = clamp(final_ambient);
+	(void)ray;
+	return (clr_add_clr(final_ambient, clr_multi_clr(sp.rgb, diffuse_color)));
 }

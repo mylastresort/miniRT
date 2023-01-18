@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declarations.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:50:27 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:12:46 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ float			vec_length(t_vec vec);
 int				event_on_keydown(t_keycode key, void *arg);
 int				ft_strcmp(const char *const str, const char *const to_cmp);
 int				generate_color(t_color clr);
-int				light_coloring(const t_ray ray, t_sol sol);
 int				rt_destroy(t_scene *scn);
 int				rt_open(int argc, const char *arg);
 size_t			ft_strlen(const char *str);
+// t_color			light_coloring(const t_ray ray, t_sol sol);
+t_color			light_coloring(const t_ray ray, t_sol sol, t_sp sph);
 t_deg			rad_to_deg(t_rad rad);
 t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
@@ -54,7 +55,8 @@ t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
 t_point			ray_position(t_ray ray, float t);
 t_rad			deg_to_rad(t_deg deg);
 t_ray			ray_for_pixel(t_camera cam, int x, int y);
-t_sol			objects_coloring(const t_ray ray);
+// t_sol			objects_coloring(const t_ray ray);
+t_color			objects_coloring(const t_ray ray);
 t_sol			pl_get_intersections(t_pl pl, t_ray r);
 t_sol			sp_get_intersections(t_ray r, t_sp sp);
 t_tuple			matr4x4_multi_tuple(t_matrix_4x4 mat, t_tuple tup);
@@ -68,7 +70,7 @@ t_tuple			tuple_add_vec(t_tuple vec, t_tuple val);
 t_tuple			tuple_sub_value(t_tuple vec, float val);
 t_tuple			tuple_sub_vec(t_tuple vec, t_tuple val);
 t_vec			matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec);
-t_vec			normal_at(t_point obj_ori, t_point pnt);
+t_vec			normal_at_sphere(t_point obj_ori, t_point pnt);
 t_vec			reflect(t_vec in, t_vec normal);
 t_vec			vec_add_value(t_vec vec, float val);
 t_vec			vec_add_vec(t_vec vec, t_vec val);
@@ -98,5 +100,10 @@ void			rt_parse_object(t_scene *scn, const char **args);
 void			rt_parse(t_scene *const scn, const int file);
 void			sp_translate(t_sp *const sp, const t_vec fac);
 void			write_error(const char *str);
+t_color			clr_add_value(t_color vec, float val);
+t_color			clr_add_clr(t_color vec, t_color val);
+t_color			clr_multi_value(t_color vec, float val);
+t_color			clr_multi_clr(t_color vec, t_color val);
+t_color			clamp(t_color clr);
 
 #endif

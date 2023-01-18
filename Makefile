@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
+#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/17 10:51:03 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/18 12:07:19 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRCS =	main.c \
 		linear_algebra/vector.c \
 		linear_algebra/vector_arithmetic.c \
 		linear_algebra/vector_arithmetic_utils.c \
+		linear_algebra/color_arithmetic.c \
+		linear_algebra/color_arithmetic_utils.c \
 		linear_algebra/matrix_2x2.c \
 		linear_algebra/matrix_3x3.c \
 		linear_algebra/matrix_3x3_utils.c \
