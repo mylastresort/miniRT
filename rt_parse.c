@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 11:41:35 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:31:13 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
 #include "types.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-inline static bool	rt_is_space(const char chr)
+static bool	rt_is_space(const char chr)
 {
 	return (chr == ' ' || (chr >= '\t' && chr <= '\r'));
 }
 
-inline static size_t	rt_arg_cnt(const char *line)
+static size_t	rt_arg_cnt(const char *line)
 {
 	size_t	count;
 
@@ -40,7 +39,7 @@ inline static size_t	rt_arg_cnt(const char *line)
 		{
 			count++;
 			line++;
-			while (!rt_is_space(*line))
+			while (*line && !rt_is_space(*line))
 			{
 				line++;
 			}
@@ -49,29 +48,29 @@ inline static size_t	rt_arg_cnt(const char *line)
 	return (count);
 }
 
-inline static const char	**rt_split(char *line)
+static char	**rt_split(char *line)
 {
-	size_t		idx;
-	size_t		len;
-	const char	**args = (const char **)malloc(sizeof(char *) * (len
-				= rt_arg_cnt(line) + 2));
+	char	**args;
+	size_t	idx;
+	size_t	len;
 
+	len = rt_arg_cnt(line);
+	args = (char **)malloc(sizeof(char *) * (len + 2));
 	args[0] = line;
 	idx = 1;
-	while (idx < len)
+	while (idx <= len)
 	{
-		args[idx] = line;
-		while (!rt_is_space(*line))
-		{
+		while (rt_is_space(*line))
 			line++;
-		}
+		args[idx++] = line;
+		while (*line && !rt_is_space(*line))
+			line++;
+		if (*line == '\0')
+			break ;
 		*line = '\0';
 		line++;
 		while (rt_is_space(*line))
-		{
 			line++;
-		}
-		idx++;
 	}
 	args[idx] = NULL;
 	return (args);
@@ -108,28 +107,29 @@ static bool	rt_getline(char **const line, const int file, t_scene *const scn)
 
 void	rt_parse(t_scene *const scn, const int file)
 {
-	char		*line;
-	const char	**args;
+	char	**args;
+	char	*line;
 
 	while (rt_getline(&line, file, scn))
 	{
 		args = rt_split(line);
-		continue ;
-		if (!ft_strcmp(args[0], "A"))
+		if (!args[1])
+			continue ;
+		if (!ft_strcmp(args[1], "A"))
 		{
-			rt_parse_ambient(scn, args);
+			rt_parse_amb(scn, args);
 		}
-		else if (!ft_strcmp(args[0], "C"))
+		else if (!ft_strcmp(args[1], "C"))
 		{
-			rt_parse_camera(scn, args);
+			rt_parse_cam(scn, args);
 		}
-		else if (!ft_strcmp(args[0], "L"))
+		else if (!ft_strcmp(args[1], "L"))
 		{
 			rt_parse_light(scn, args);
 		}
 		else
 		{
-			rt_parse_object(scn, args);
+			rt_parse_obj(scn, args);
 		}
 	}
 }
