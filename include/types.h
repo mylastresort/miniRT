@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/18 15:16:30 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:12:54 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_vec
 	float	z;
 	float	w;
 }	t_vec;
+
 typedef struct s_color
 {
 	int	r;
@@ -77,13 +78,11 @@ typedef struct amb
 typedef struct s_cam
 {
 	float			aspect;
-	float			filed_of_view;
+	float			fov;
 	float			half_height;
 	float			half_view;
 	float			half_width;
-	float			hsize;
 	float			pixel_size;
-	float			vsize;
 	t_matrix_4x4	transform;
 	t_point			cam_ori;
 	t_vec			cam_dir;
@@ -91,9 +90,9 @@ typedef struct s_cam
 
 typedef struct s_light
 {
-	float	brigth;
+	float	bri;
 	t_color	clr;
-	t_point	position;
+	t_point	pos;
 }	t_light;
 
 typedef struct s_material
@@ -104,23 +103,6 @@ typedef struct s_material
 	float	specular;
 	t_color	clr;
 }	t_material;
-
-typedef struct obj
-{
-	struct obj	*next;
-	uint8_t		type;
-}	t_obj;
-
-typedef struct scn
-{
-	t_amb		amb;
-	t_camera	cam;
-	t_light		light;
-	t_obj		*objs;
-	void		*img;
-	void		*mlx;
-	void		*win;
-}	t_scene;
 
 typedef struct s_ray
 {
@@ -139,15 +121,49 @@ typedef struct s_sp
 	float	spec_fac;
 }	t_sp;
 
+typedef struct s_cyl
+{
+	float	d;
+	t_color	rgb;
+	t_vec	c;
+	t_vec	n;
+	float	h;
+	float	dif_fac;
+	float	amb_fac;
+	float	spec_fac;
+}	t_cyl;
+
 typedef struct s_pl
 {
 	float	a;
 	float	b;
 	float	c;
 	float	d;
-	int		rgb;
+	t_color	rgb;
 	t_vec	n;
 	t_vec	p;
 }	t_pl;
+
+typedef struct obj
+{
+	struct obj	*next;
+	uint8_t		type;
+	union {
+		t_sp	sph;
+		t_pl	pln;
+		t_cyl	cyl;
+	};
+}	t_obj;
+
+typedef struct scn
+{
+	t_amb		amb;
+	t_camera	cam;
+	t_light		light;
+	t_obj		*objs;
+	void		*img;
+	void		*mlx;
+	void		*win;
+}	t_scene;
 
 #endif

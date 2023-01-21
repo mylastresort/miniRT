@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/18 17:00:32 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/19 18:50:44 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 # LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
-LINK = -Ofast -lmlx -framework OpenGL -framework AppKit #-g -fsanitize=address
+LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g #-fsanitize=address
 
 INC =	include/declarations.h \
 		include/enums.h \
@@ -30,11 +30,13 @@ SRCS =	main.c \
 		rt_open.c \
 		rt_parse_basic.c \
 		rt_parse_object.c \
+		rt_parse_utils.c \
 		rt_parse.c \
 		libft/ft_strlen.c \
 		libft/ft_strcmp.c \
 		libft/ft_strncpy.c \
 		libft/ft_itoa.c \
+		libft/ft_isdigit.c \
 		linear_algebra/debug_vec.c \
 		linear_algebra/is_equal.c \
 		linear_algebra/vector.c \
@@ -67,7 +69,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LINK) -o $(NAME)
 
 %.o: %.c $(INC)
-	$(CC) $(CFLAGS) -c $< -Iinclude -o $@
+	$(CC) $(CFLAGS) -g -c $< -Iinclude -o $@
 
 clean:
 	$(RM) $(OBJS)

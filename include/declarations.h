@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/18 15:12:46 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:48:32 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int				generate_color(t_color clr);
 int				rt_destroy(t_scene *scn);
 int				rt_open(int argc, const char *arg);
 size_t			ft_strlen(const char *str);
-// t_color			light_coloring(const t_ray ray, t_sol sol);
-t_color			light_coloring(const t_ray ray, t_sol sol, t_sp sph);
+t_color			light_coloring(const t_ray ray, t_sol sol, const t_scene *scn);
 t_deg			rad_to_deg(t_rad rad);
 t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
@@ -55,8 +54,7 @@ t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
 t_point			ray_position(t_ray ray, float t);
 t_rad			deg_to_rad(t_deg deg);
 t_ray			ray_for_pixel(t_camera cam, int x, int y);
-// t_sol			objects_coloring(const t_ray ray);
-t_color			objects_coloring(const t_ray ray);
+t_color			objects_coloring(const t_ray ray, const t_scene *scn);
 t_sol			pl_get_intersections(t_pl pl, t_ray r);
 t_sol			sp_get_intersections(t_ray r, t_sp sp);
 t_tuple			matr4x4_multi_tuple(t_matrix_4x4 mat, t_tuple tup);
@@ -84,7 +82,8 @@ t_vec			vec_sub_value(t_vec vec, float val);
 t_vec			vec_sub_vec(t_vec vec, t_vec val);
 void			debug_camera(t_camera cam);
 void			debug_ray(t_ray ray);
-void			parse(int file, t_scene *scn);
+void			print_clr(t_color clr);
+void			debug_sphere(t_sp sp);
 void			pl_get_coefficients(t_pl *const pl);
 void			print_matr2x2(t_matrix_2x2 mat);
 void			print_matr3x3(t_matrix_3x3 mat);
@@ -93,17 +92,25 @@ void			print_pnt(t_point pnt);
 void			print_vec(t_vec vec);
 void			rt_destroy_objs(t_scene *const scn);
 void			rt_exit(const char *str);
-void			rt_parse_ambient(t_scene *scn, const char **args);
-void			rt_parse_camera(t_scene *scn, const char **args);
-void			rt_parse_light(t_scene *scn, const char **args);
-void			rt_parse_object(t_scene *scn, const char **args);
-void			rt_parse(t_scene *const scn, const int file);
-void			sp_translate(t_sp *const sp, const t_vec fac);
+void			rt_parse_ambient(t_scene *scn, char **args);
+void			rt_parse_camera(t_scene *scn, char **args);
+void			rt_parse_light(t_scene *scn, char **args);
+void			rt_parse_object(t_scene *scn, char **args);
+void			rt_parse(t_scene *scn, int file);
+void			sp_translate(t_sp *sp, t_vec fac);
 void			write_error(const char *str);
 t_color			clr_add_value(t_color vec, float val);
 t_color			clr_add_clr(t_color vec, t_color val);
 t_color			clr_multi_value(t_color vec, float val);
 t_color			clr_multi_clr(t_color vec, t_color val);
 t_color			clamp(t_color clr);
+t_vec			rt_get_coordinates(char *name, bool *const err);
+float			rt_get_val(char *num, bool *const err);
+t_color			rt_get_color(char *color, bool *const err);
+void			rt_parse_amb(t_scene *scn, char **args);
+void			rt_parse_cam(t_scene *scn, char **args);
+void			rt_parse_obj(t_scene *scn, char **args);
+int				ft_isdigit(char c);
+void			generate_camera(t_scene *scn);
 
 #endif

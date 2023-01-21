@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_basic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:25:54 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/21 15:46:16 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	rt_parse_light(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("light point cannot be present twice\n");
 	}
-	scn->light.position = rt_get_coordinates(args[2], &err);
+	scn->light.pos = rt_get_coordinates(args[2], &err);
 	if (err)
 	{
 		rt_destroy_objs(scn);
 		rt_exit("could not parse light point coordinates\n");
 	}
-	scn->light.brigth = rt_get_val(args[3], &err);
+	scn->light.bri = rt_get_val(args[3], &err);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -84,11 +84,11 @@ void	rt_parse_cam(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera normal coordinates"));
-	scn->cam.filed_of_view = rt_get_val(args[4], &err);
+	scn->cam.fov = rt_get_val(args[4], &err);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera field of view"));
-	rt_init_cam(scn);
+	generate_camera(scn);
 	free(args[0]);
 	free(args);
 }

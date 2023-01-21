@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:48:09 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/18 11:28:24 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:25:04 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,9 @@ t_sol	sp_get_intersections(const t_ray r, const t_sp sp)
 				* s[1]}});
 	}
 	return ((t_sol){.c = 0});
+}
+
+t_vec	normal_at_sphere(t_point obj_ori, t_point pnt)
+{
+	return (vec_normalize(vec_sub_vec(pnt, obj_ori)));
 }

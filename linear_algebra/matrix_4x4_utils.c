@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:32:06 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/16 10:54:20 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:45:27 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	print_matr4x4(t_matrix_4x4 mat)
 	rows = 0;
 	while (rows < 4)
 	{
-		printf("| %f | %f | %f | %f |\n", mat.m[rows][0], mat.m[rows][1],
-			mat.m[rows][2], mat.m[rows][3]);
+		printf("| %0.2f | %0.2f | %0.2f | %0.2f |\n", mat.m[rows][0],
+			mat.m[rows][1], mat.m[rows][2], mat.m[rows][3]);
 		rows++;
 	}
 }

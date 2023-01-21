@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 14:31:13 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/19 19:39:43 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
 #include "types.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -80,27 +81,27 @@ static bool	rt_getline(char **const line, const int file, t_scene *const scn)
 {
 	char	*tmp;
 	size_t	len;
+	int		bytes;
 
 	*line = (char *)malloc(sizeof(char));
-	if (!*line || read(file, *line, sizeof(char)) <= 0)
-	{
+	if (!*line)
 		return (rt_destroy_objs(scn), false);
-	}
+	bytes = read(file, *line, sizeof(char));
+	if (bytes == 0)
+		return (false);
+	else if (bytes == -1)
+		return (rt_destroy_objs(scn), false);
 	len = 0;
 	while ((*line)[len] != '\n')
 	{
 		tmp = *line;
 		*line = (char *)malloc((++len + 1) * sizeof(char));
 		if (!*line)
-		{
 			return (free(tmp), rt_destroy_objs(scn), false);
-		}
 		ft_strncpy(*line, tmp, len);
 		free(tmp);
 		if (read(file, *line + len, sizeof(char)) <= 0)
-		{
 			break ;
-		}
 	}
 	return ((*line)[len] = '\0', true);
 }

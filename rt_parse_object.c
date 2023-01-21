@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_object.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 15:35:19 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/19 18:08:24 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static t_obj	*rt_new_obj(t_scene *scn, const int type)
 	obj->type = type;
 	head = scn->objs;
 	obj->next = head;
+	scn->objs = obj;
 	return (obj);
 }
 
@@ -92,11 +93,11 @@ static void	rt_parse_cylinder(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder normal coordinates"));
-	scn->objs->cyl.rgb = rt_get_color(args[4], &err);
+	scn->objs->cyl.d = rt_get_val(args[4], &err);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder diameter"));
-	scn->objs->cyl.rgb = rt_get_color(args[5], &err);
+	scn->objs->cyl.h = rt_get_val(args[5], &err);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder height"));

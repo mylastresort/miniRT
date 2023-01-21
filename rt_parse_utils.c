@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:30:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 16:28:01 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:59:50 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ static float	rt_get_coordinate_val(char **num)
 	if (**num == '+')
 		*num += 1;
 	else if (**num == '-')
-	{
-		sign = true;
-		*num += 1;
-	}
+		*num += ++sign;
 	while (ft_isdigit(**num))
 		val = val * 10 + *(*num)++ - '0';
 	*num += **num == '.';
@@ -67,6 +64,7 @@ static float	rt_get_coordinate_val(char **num)
 		val += ((*num)[idx] - '0') / pow(10, idx + 1);
 		idx++;
 	}
+	*num += idx;
 	if (sign)
 		return (-val);
 	return (val);
