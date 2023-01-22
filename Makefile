@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
+#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/19 18:50:44 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/22 14:19:44 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,13 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
+ifdef debug
+	CFLAGS += -g
+else
+	CFLAGS += -Ofast -flto
+endif
 # LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
-LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g #-fsanitize=address
+LINK = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
 
 INC =	include/declarations.h \
 		include/enums.h \
@@ -69,7 +74,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LINK) -o $(NAME)
 
 %.o: %.c $(INC)
-	$(CC) $(CFLAGS) -g -c $< -Iinclude -o $@
+	$(CC) $(CFLAGS) -c $< -Iinclude -o $@
 
 clean:
 	$(RM) $(OBJS)

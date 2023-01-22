@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_basic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/21 15:46:16 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:20:23 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	rt_parse_light(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	err = false;
 	if (full)
 	{
 		rt_destroy_objs(scn);
@@ -45,6 +46,7 @@ void	rt_parse_amb(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	err = false;
 	if (full)
 	{
 		rt_destroy_objs(scn);
@@ -72,6 +74,7 @@ void	rt_parse_cam(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	err = false;
 	if (full)
 		(rt_destroy_objs(scn),
 			rt_exit("camera cannot be present twice\n"));

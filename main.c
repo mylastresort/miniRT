@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/21 16:20:36 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:21:35 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	main(const int argc, const char *argv[])
 			exit(EXIT_FAILURE);
 		}
 	}
+	scn.objs = NULL;
 	init(&scn, arg);
 	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
 	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
