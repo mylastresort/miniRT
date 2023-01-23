@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declarations.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/21 15:48:32 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:30:43 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
 t_point			ray_position(t_ray ray, float t);
 t_rad			deg_to_rad(t_deg deg);
 t_ray			ray_for_pixel(t_camera cam, int x, int y);
+t_sol			cy_get_intersections(t_ray r, t_cyl cyl);
 t_color			objects_coloring(const t_ray ray, const t_scene *scn);
 t_sol			pl_get_intersections(t_pl pl, t_ray r);
 t_sol			sp_get_intersections(t_ray r, t_sp sp);
