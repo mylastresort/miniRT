@@ -3,33 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:21:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/16 10:58:41 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:20:26 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/types.h"
+#include "declarations.h"
+#include "types.h"
 
-void	pl_get_coefficients(t_pl *const pl)
+void	pl_get_coefficients(t_pl *const pln)
 {
-	pl->a = pl->n.x;
-	pl->b = pl->n.y;
-	pl->c = pl->n.z;
-	pl->d = -(pl->p.x * pl->n.x + pl->p.y * pl->n.y + pl->p.z * pl->n.z);
+	pln->a = pln->n.x;
+	pln->b = pln->n.y;
+	pln->c = pln->n.z;
+	pln->d = -(pln->p.x * pln->n.x + pln->p.y * pln->n.y + pln->p.z * pln->n.z);
 }
 
-t_sol	pl_get_intersections(const t_pl pl, const t_ray r)
+t_sol	pl_get_intersections(const t_pl pln, const t_ray ray)
 {
-	const float	a = pl.n.x * r.d.x + pl.n.y * r.d.y + pl.n.z * r.d.z;
+	const float	den = pln.n.x * ray.d.x + pln.n.y * ray.d.y + pln.n.z * ray.d.z;
+	float		num;
 	float		sol;
 
-	if (a != 0)
+	if (is_equal(den, 0.0F))
 	{
-		sol = -(pl.a * r.o.x + pl.b * r.o.y + pl.c * r.o.z + pl.d) / a;
-		return ((t_sol){.c = 1, .x1 = {.x = r.o.x + r.d.x * sol, .y = r.o.y
-				+ r.d.y * sol, .z = r.o.z + r.d.z * sol}});
+		return ((t_sol){.c = 0});
 	}
-	return ((t_sol){.c = 0});
+	num = pln.a * ray.o.x + pln.b * ray.o.y + pln.c * ray.o.z + pln.d;
+	if (is_equal(num, 0.0F))
+	{
+		return ((t_sol){.c = 0});
+	}
+	sol = -num / den;
+	return ((t_sol){.c = 1,
+		.x1 = {.x = ray.o.x + ray.d.x * sol,
+			.y = ray.o.y + ray.d.y * sol,
+			.z = ray.o.z + ray.d.z * sol}});
 }
