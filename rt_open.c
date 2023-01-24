@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:21:01 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:39:43 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:58:41 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rt_exit(const char *str)
 
 int	event_on_keydown(t_keycode key, void *arg)
 {
-	if (key == ESC || key == Q)
+	if (key == ESC)
 	{
 		rt_destroy(arg);
 	}

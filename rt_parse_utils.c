@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:30:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 17:59:50 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/24 11:56:21 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
+#include "enums.h"
 #include "types.h"
 #include <math.h>
 #include <stdbool.h>
@@ -70,11 +71,13 @@ static float	rt_get_coordinate_val(char **num)
 	return (val);
 }
 
-t_vec	rt_get_coordinates(char *name, bool *const err)
+t_vec	rt_get_coordinates(char *name, bool *const err, const int type)
 {
 	t_vec	vec;
 
-	vec.w = 1;
+	vec.w = 0;
+	if (type == POINT)
+		vec.w = 1;
 	if (!name)
 		return (*err = true, vec);
 	vec.x = rt_get_coordinate_val(&name);
@@ -88,6 +91,8 @@ t_vec	rt_get_coordinates(char *name, bool *const err)
 	vec.z = rt_get_coordinate_val(&name);
 	if (*name)
 		return (*err = true, vec);
+	if (type == NORM && !is_equal(vec.x + vec.y + vec.z, 1.0F))
+		return (printf("non normilized vector\n"), *err = true, vec);
 	return (vec);
 }
 

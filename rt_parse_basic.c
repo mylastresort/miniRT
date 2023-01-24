@@ -6,11 +6,12 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/22 14:20:23 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:59:00 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
+#include "enums.h"
 #include <stdlib.h>
 
 void	rt_parse_light(t_scene *scn, char **args)
@@ -24,7 +25,7 @@ void	rt_parse_light(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("light point cannot be present twice\n");
 	}
-	scn->light.pos = rt_get_coordinates(args[2], &err);
+	scn->light.pos = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -79,11 +80,11 @@ void	rt_parse_cam(t_scene *scn, char **args)
 		(rt_destroy_objs(scn),
 			rt_exit("camera cannot be present twice\n"));
 	full = true;
-	scn->cam.cam_ori = rt_get_coordinates(args[2], &err);
+	scn->cam.cam_ori = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera origin coordinates"));
-	scn->cam.cam_dir = rt_get_coordinates(args[3], &err);
+	scn->cam.cam_dir = rt_get_coordinates(args[3], &err, NORM);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera normal coordinates"));

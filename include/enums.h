@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:41:10 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:51:06 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 enum e_keycode : int
 {
 	ESC = 53,
-	Q = 12,
 };
 
 enum e_window : int
@@ -32,6 +31,9 @@ enum e_type : uint8_t
 	PLANE = 1,
 	SPHERE = 2,
 	CYLINDER = 3,
+	POINT = 0,
+	VECTOR = 1,
+	NORM = 2,
 };
 
 enum e_mask : uint32_t

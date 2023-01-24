@@ -6,4 +6,10 @@ Diagnostics:
   ClangTidy:
     Add: "*"
     Remove:
-      ["llvmlibc*", "cpp*", concurrency-mt-unsafe, modernize-macro-to-enum]
+      [
+        "llvmlibc*",
+        "cpp*",
+        concurrency-mt-unsafe,
+        modernize-macro-to-enum,
+        readability-identifier-length,
+      ]

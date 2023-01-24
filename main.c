@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/22 14:21:35 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:58:29 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	destroy(t_scene *scn)
 
 static int	on_keydown(t_keycode key, void *arg)
 {
-	if (key == ESC || key == Q)
+	if (key == ESC)
 	{
 		destroy(arg);
 	}

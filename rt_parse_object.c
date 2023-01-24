@@ -6,11 +6,12 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/22 14:21:11 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:59:39 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
+#include "enums.h"
 #include "types.h"
 #include <stdbool.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@ static void	rt_parse_sphere(t_scene *scn, char **args)
 	bool	err;
 
 	err = false;
-	scn->objs->sph.c = rt_get_coordinates(args[2], &err);
+	scn->objs->sph.c = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -63,13 +64,13 @@ static void	rt_parse_plane(t_scene *scn, char **args)
 	bool	err;
 
 	err = false;
-	scn->objs->pln.p = rt_get_coordinates(args[2], &err);
+	scn->objs->pln.p = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 	{
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the plane point coordinates");
 	}
-	scn->objs->pln.n = rt_get_coordinates(args[3], &err);
+	scn->objs->pln.n = rt_get_coordinates(args[3], &err, NORM);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -88,11 +89,11 @@ static void	rt_parse_cylinder(t_scene *scn, char **args)
 	bool	err;
 
 	err = false;
-	scn->objs->cyl.c = rt_get_coordinates(args[2], &err);
+	scn->objs->cyl.c = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder coordinates"));
-	scn->objs->cyl.n = rt_get_coordinates(args[3], &err);
+	scn->objs->cyl.n = rt_get_coordinates(args[3], &err, NORM);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder normal coordinates"));

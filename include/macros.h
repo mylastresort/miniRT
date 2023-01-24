@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:02:52 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/17 10:41:22 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:55:27 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@
 # define NUL (void *)1
 # define TITLE "miniRT"
 # define TOO_ARG "Too many arguments\n"
-
 #endif
