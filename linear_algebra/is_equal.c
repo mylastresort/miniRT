@@ -6,16 +6,16 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:50 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/17 10:50:32 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 12:05:02 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
-#include "macros.h"
+#include <float.h>
 
 bool	is_equal(float val1, float val2)
 {
-	if (fabsf(val1 - val2) < EPSILON)
+	if (fabsf(val1 - val2) < FLT_EPSILON)
 	{
 		return (true);
 	}
