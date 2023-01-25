@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:30:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 11:56:21 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:03:45 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_vec	rt_get_coordinates(char *name, bool *const err, const int type)
 	vec.z = rt_get_coordinate_val(&name);
 	if (*name)
 		return (*err = true, vec);
-	if (type == NORM && !is_equal(vec.x + vec.y + vec.z, 1.0F))
+	if (type == NORM && !is_equal(fabs(vec.x + vec.y + vec.z), 1.0F))
 		return (printf("non normilized vector\n"), *err = true, vec);
 	return (vec);
 }

@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/20 13:12:54 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:40:38 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ typedef struct s_cam
 	t_matrix_4x4	transform;
 	t_point			cam_ori;
 	t_vec			cam_dir;
+	t_vec			forward;
+	t_vec			left;
+	t_vec			up;
 }	t_camera;
 
 typedef struct s_light

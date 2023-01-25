@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declarations.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 11:58:05 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:25:22 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool			is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2);
 bool			is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2);
 bool			is_equal_matri4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2);
 bool			is_equal(float val1, float val2);
+bool			is_equal_vec(t_vec vec1, t_vec vec2);
 char			*ft_itoa(int n);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
 float			cofactor_matr3x3(t_matrix_3x3 mat, int row, int col);
@@ -52,17 +53,21 @@ t_deg			rad_to_deg(t_rad rad);
 t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
 t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat);
+t_matrix_4x4	matr4x4_identity(void);
 t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2);
 t_matrix_4x4	matr4x4_rotation_x(t_rad rad);
+t_matrix_4x4	matr4x4_rotation_y(const t_rad rad);
+t_matrix_4x4	matr4x4_rotation_z(const t_rad rad);
 t_matrix_4x4	matr4x4_rotation(float x, float y, float z);
 t_matrix_4x4	matr4x4_scaling(float x, float y, float z);
 t_matrix_4x4	matr4x4_shearing(float x[2], float y[2], float z[2]);
 t_matrix_4x4	matr4x4_translation(float x, float y, float z);
 t_matrix_4x4	matr4x4_transpos(t_matrix_4x4 mat);
+t_matrix_4x4	view_transform(t_vec forward, t_point from, t_vec up);
 t_point			matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt);
 t_point			ray_position(t_ray ray, float t);
 t_rad			deg_to_rad(t_deg deg);
-t_ray			ray_for_pixel(t_camera cam, int x, int y);
+t_ray			ray_for_pixel(t_camera cam, int y, int x);
 t_sol			cy_get_intersections(t_ray r, t_cyl cyl);
 t_sol			pl_get_intersections(t_pl pl, t_ray r);
 t_sol			sp_get_intersections(t_ray r, t_sp sp);
@@ -80,6 +85,7 @@ t_vec			matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec);
 t_vec			normal_at_sphere(t_point obj_ori, t_point pnt);
 t_vec			reflect(t_vec in, t_vec normal);
 t_vec			rt_get_coordinates(char *name, bool *err, int type);
+t_vec			up_vec(t_vec forw);
 t_vec			vec_add_value(t_vec vec, float val);
 t_vec			vec_add_vec(t_vec vec, t_vec val);
 t_vec			vec_cross_product(t_vec first, t_vec second);
@@ -113,5 +119,7 @@ void			rt_parse_object(t_scene *scn, char **args);
 void			rt_parse(t_scene *scn, int file);
 void			sp_translate(t_sp *sp, t_vec fac);
 void			write_error(const char *str);
+t_point			point(const float x, const float y, const float z);
+t_vec			vector(const float x, const float y, const float z);
 
 #endif

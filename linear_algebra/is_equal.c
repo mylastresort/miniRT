@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_equal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:50 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/24 12:05:02 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/24 17:59:50 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ bool	is_equal(float val1, float val2)
 		return (true);
 	}
 	return (false);
+}
+
+bool	is_equal_vec(t_vec vec1, t_vec vec2)
+{
+	return (is_equal(vec1.x, vec2.x)
+		&& is_equal(vec1.y, vec2.y)
+		&& is_equal(vec1.z, vec2.z)
+		&& is_equal(vec1.w, vec2.w));
 }
 
 bool	is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2)

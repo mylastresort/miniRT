@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
+#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/24 12:02:45 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/25 11:44:42 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 ifdef debug
-	CFLAGS += -g
+	CFL
+	AGS += -g
 else
-	CFLAGS += -Ofast -flto
+	CFLAGS += -Ofast -flto -Rpass
 endif
 # LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
 LINK = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
@@ -45,6 +46,7 @@ SRCS =	main.c \
 		linear_algebra/debug_vec.c \
 		linear_algebra/is_equal.c \
 		linear_algebra/vector.c \
+		linear_algebra/vector_utils.c \
 		linear_algebra/vector_arithmetic.c \
 		linear_algebra/vector_arithmetic_utils.c \
 		linear_algebra/color_arithmetic.c \

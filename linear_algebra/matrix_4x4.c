@@ -6,11 +6,12 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 16:01:03 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/16 10:53:49 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:49:05 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+#include "declarations.h"
 
 t_matrix_4x4	matr4x4_multi_matr4x4(t_matrix_4x4 mat1, t_matrix_4x4 mat2)
 {
@@ -78,7 +79,7 @@ t_vec	matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec)
 		+ (mat.m[3][1] * vec.y)
 		+ (mat.m[3][2] * vec.z)
 		+ (mat.m[3][3] * vec.w);
-	return (ret);
+	return (vector(ret.x, ret.y, ret.z));
 }
 
 t_point	matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt)
@@ -101,5 +102,5 @@ t_point	matr4x4_multi_point(t_matrix_4x4 mat, t_point pnt)
 		+ (mat.m[3][1] * pnt.y)
 		+ (mat.m[3][2] * pnt.z)
 		+ (mat.m[3][3] * pnt.w);
-	return (ret);
+	return (point(ret.x, ret.y, ret.z));
 }

@@ -6,13 +6,12 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/20 08:46:10 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:11:03 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/declarations.h"
 #include "../include/types.h"
-#include "enums.h"
 #include <math.h>
 #include <stdint.h>
 
