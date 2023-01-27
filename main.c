@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/25 16:11:51 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:33:07 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	sample(const t_scene scn, t_buf *const buf)
 	t_ray				ray;
 	t_color				clr;
 
-	puts("loops start");
 	rows = 0;
 	while (rows < height)
 	{
@@ -38,26 +37,6 @@ static void	sample(const t_scene scn, t_buf *const buf)
 		while (cols < width)
 		{
 			ray = ray_for_pixel(scn.cam, rows, cols);
-			if (rows == 0 && cols == 0)
-			{
-				puts("1");
-				debug_ray(ray);
-			}
-			if (rows == 0 && cols == width - 1)
-			{
-				puts("2");
-				debug_ray(ray);
-			}
-			if (rows == height - 1 && cols == 0)
-			{
-				puts("3");
-				debug_ray(ray);
-			}
-			if (rows == height - 1 && cols == width - 1)
-			{
-				puts("4");
-				debug_ray(ray);
-			}
 			clr = objects_coloring(ray, &scn);
 			(*buf)[rows][cols] = generate_color(clr);
 			cols += 1;

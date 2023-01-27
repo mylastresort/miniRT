@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 11:59:39 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/27 14:31:38 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ static void	rt_parse_plane(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the plane color coordinates");
 	}
+	scn->objs->pln.d = -(scn->objs->pln.p.x * scn->objs->pln.n.x + scn->objs
+			->pln.p.y * scn->objs->pln.n.y + scn->objs->pln.p.z * scn->objs
+			->pln.n.z);
 }
 
 static void	rt_parse_cylinder(t_scene *scn, char **args)
