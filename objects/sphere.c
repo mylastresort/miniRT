@@ -3,49 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:48:09 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/20 11:25:04 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/28 13:31:26 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/types.h"
-#include "../include/declarations.h"
-#include <sys/time.h>
-
-void	sp_translate(t_sp *const sp, const t_vec fac)
-{
-	sp->c.x += fac.x;
-	sp->c.y += fac.y;
-	sp->c.z += fac.z;
-}
+#include "declarations.h"
+#include "types.h"
+#include <math.h>
 
 t_sol	sp_get_intersections(const t_ray r, const t_sp sp)
 {
-	const float	a = powf(r.d.x, 2) + powf(r.d.y, 2) + powf(r.d.z, 2);
-	const float	b = -2 * (r.d.x * (r.o.x + sp.c.x) + r.d.y * (r.o.y + sp.c.y)
-			+ r.d.z * (r.o.z + sp.c.z));
-	const float	c = 2 * (r.o.x * sp.c.x + r.o.y * sp.c.y + r.o.z * sp.c.z)
-		+ powf(r.o.x, 2) + powf(sp.c.x, 2) + powf(r.o.y, 2) + powf(sp.c.y, 2)
-		+ powf(r.o.z, 2) + powf(sp.c.z, 2) - powf(sp.d, 2) / 4;
-	const float	d = powf(b, 2) - (4 * a * c);
+	const t_vec	x = vec_sub_vec(r.o, sp.c);
+	const float	cft[3] = {vec_dot_product(r.d),
+		2 * vec_dot_product_vec(r.d, x),
+		vec_dot_product(x) - powf(sp.d, 2) / 4};
+	const float	dis = powf(cft[1], 2) - 4 * cft[0] * cft[2];
 	float		s[2];
 
-	if (d == 0)
+	if (dis == 0)
 	{
-		s[0] = -b / (2 * a);
-		return ((t_sol){.c = 1, .x1 = {.x = r.o.x + r.d.x * s[0], .y = r.o.y
-				+ r.d.y * s[0], .z = r.o.z + r.d.z * s[0]}});
+		s[0] = -cft[1] / (2 * cft[0]);
+		return ((t_sol){.c = 1,
+			.x1 = vec_add_vec(r.o, vec_multi_value(r.d, s[0]))});
 	}
-	if (d > 0)
+	if (dis > 0)
 	{
-		s[0] = (-b - sqrtf(d)) / (2 * a);
-		s[1] = (-b + sqrtf(d)) / (2 * a);
-		return ((t_sol){.c = 2, .x1 = {.x = r.o.x + r.d.x * s[0], .y = r.o.y
-				+ r.d.y * s[0], .z = r.o.z + r.d.z * s[0]}, .x2 = {.x = r.o.x
-				+ r.d.x * s[1], .y = r.o.y + r.d.y * s[1], .z = r.o.z + r.d.z
-				* s[1]}});
+		s[0] = (-cft[1] - sqrtf(dis)) / (2 * cft[0]);
+		s[1] = (-cft[1] + sqrtf(dis)) / (2 * cft[0]);
+		return ((t_sol){.c = 1,
+			.x1 = vec_add_vec(r.o, vec_multi_value(r.d, s[0])),
+			.x2 = vec_add_vec(r.o, vec_multi_value(r.d, s[1]))});
 	}
 	return ((t_sol){.c = 0});
 }
