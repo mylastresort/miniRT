@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/21 18:11:03 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:58:59 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ t_color	clamp(t_color clr)
 	return (clr);
 }
 
-t_color	light_coloring(const t_ray ray, t_sol sol, const t_scene *scn)
+t_color	light_coloring(const t_ray ray, const t_hit hit, const t_scene *scn)
 {
-	const t_vec	normalv = normal_at_sphere(scn->objs->sph.c, sol.x1);
 	t_color		final_ambient;
 	t_color		dif_clr;
 	float		dif_coef;
-	const t_vec	light_dir = vec_normalize(vec_sub_vec(scn->light.pos, sol.x1));
+	const t_vec	light_dir = vec_normalize(vec_sub_vec(scn->light.pos, hit.pnt));
 
 	final_ambient = clr_multi_value(scn->objs->sph.rgb, scn->amb.ka);
-	dif_coef = vec_dot_product_vec(normalv, light_dir);
+	dif_coef = vec_dot_product_vec(hit.nrm, light_dir);
 	if (dif_coef < 0.0F)
 		dif_coef = 0;
 	dif_clr = clr_multi_value(

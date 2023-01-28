@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:12:27 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/25 12:12:11 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:57:45 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	debug_camera(t_camera cam)
 	print_vec(cam.left);
 }
 
-void	debug_sphere(t_sp sp)
+void	debug_sphere(t_sph sp)
 {
 	printf("diameter: %.5f\n", sp.d);
 	print_clr(sp.rgb);

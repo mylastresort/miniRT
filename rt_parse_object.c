@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/27 14:31:38 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/28 16:00:17 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_obj	*rt_new_obj(t_scene *scn, const int type)
 	return (obj);
 }
 
-static void	rt_parse_sphere(t_scene *scn, char **args)
+static void	rt_parse_sph(t_scene *scn, char **args)
 {
 	bool	err;
 
@@ -59,7 +59,7 @@ static void	rt_parse_sphere(t_scene *scn, char **args)
 	}
 }
 
-static void	rt_parse_plane(t_scene *scn, char **args)
+static void	rt_parse_pln(t_scene *scn, char **args)
 {
 	bool	err;
 
@@ -87,7 +87,7 @@ static void	rt_parse_plane(t_scene *scn, char **args)
 			->pln.n.z);
 }
 
-static void	rt_parse_cylinder(t_scene *scn, char **args)
+static void	rt_parse_cyl(t_scene *scn, char **args)
 {
 	bool	err;
 
@@ -119,17 +119,17 @@ void	rt_parse_obj(t_scene *scn, char **args)
 	if (!ft_strcmp(args[1], "sp"))
 	{
 		rt_new_obj(scn, SPHERE);
-		rt_parse_sphere(scn, args);
+		rt_parse_sph(scn, args);
 	}
 	else if (!ft_strcmp(args[1], "pl"))
 	{
 		rt_new_obj(scn, PLANE);
-		rt_parse_plane(scn, args);
+		rt_parse_pln(scn, args);
 	}
 	else if (!ft_strcmp(args[1], "cy"))
 	{
 		rt_new_obj(scn, CYLINDER);
-		rt_parse_cylinder(scn, args);
+		rt_parse_cyl(scn, args);
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/25 16:11:32 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:59:47 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,13 @@ void	generate_camera(t_scene *scn)
 
 t_color	objects_coloring(const t_ray ray, const t_scene *scn)
 {
-	t_sol		inters;
+	t_hit		inters;
 	t_color		clr;
-	float		tmp;
 
-	inters = sp_get_intersections(ray, scn->objs->sph);
+	inters = rt_sph_closest_hit(scn->objs->sph, ray);
 	clr = (t_color){0};
-	tmp = 0;
-	if (inters.c > 0 && (inters.t_val[0] >= 0 || inters.t_val[1] >= 0))
+	if (inters.exist)
 	{
-		if (inters.t_val[0] > inters.t_val[1])
-		{
-			tmp = inters.t_val[0];
-			inters.t_val[0] = inters.t_val[1];
-			inters.t_val[1] = tmp;
-		}
 		clr = light_coloring(ray, inters, scn);
 		clr = clamp(clr);
 		return (clr);

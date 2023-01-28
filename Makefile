@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
+#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/25 11:44:42 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/01/28 18:58:09 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ifdef debug
 	CFL
 	AGS += -g
 else
-	CFLAGS += -Ofast -flto -Rpass
+	CFLAGS += -Ofast -flto
 endif
 # LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
 LINK = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
@@ -38,6 +38,7 @@ SRCS =	main.c \
 		rt_parse_object.c \
 		rt_parse_utils.c \
 		rt_parse.c \
+		rt_solve_object.c \
 		libft/ft_strlen.c \
 		libft/ft_strcmp.c \
 		libft/ft_strncpy.c \
@@ -61,9 +62,6 @@ SRCS =	main.c \
 		linear_algebra/matrix_rotation.c \
 		objects/camera.c \
 		objects/ray.c \
-		objects/cylinder.c \
-		objects/sphere.c \
-		objects/plane.c \
 		objects/light.c \
 		objects/debug_obj.c \
 		srcs/utils.c

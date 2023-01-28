@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/27 14:30:10 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/28 18:56:56 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,19 @@ typedef t_vec			t_point;
 typedef t_vec			t_tuple;
 typedef uint32_t		t_buf[height][width];
 
+typedef struct s_hit
+{
+	bool	exist;
+	t_vec	nrm;
+	t_vec	pnt;
+}	t_hit;
+
 typedef struct s_sol
 {
-	int		c;
-	int		t_val[2];
-	t_vec	x1;
-	t_vec	x2;
-}	t_sol;
+	int		count;
+	float	sl1;
+	float	sl2;
+}	t_qud;
 
 typedef struct s_matrix_2x2
 {
@@ -113,7 +119,7 @@ typedef struct s_ray
 	t_vec	d;
 }	t_ray;
 
-typedef struct s_sp
+typedef struct s_sph
 {
 	float	d;
 	t_color	rgb;
@@ -122,7 +128,7 @@ typedef struct s_sp
 	float	dif_fac;
 	float	amb_fac;
 	float	spec_fac;
-}	t_sp;
+}	t_sph;
 
 typedef struct s_cyl
 {
@@ -136,21 +142,21 @@ typedef struct s_cyl
 	float	spec_fac;
 }	t_cyl;
 
-typedef struct s_pl
+typedef struct s_pln
 {
 	float	d;
 	t_color	rgb;
 	t_vec	n;
 	t_vec	p;
-}	t_pl;
+}	t_pln;
 
 typedef struct obj
 {
 	struct obj	*next;
 	uint8_t		type;
 	union {
-		t_sp	sph;
-		t_pl	pln;
+		t_sph	sph;
+		t_pln	pln;
 		t_cyl	cyl;
 	};
 }	t_obj;
