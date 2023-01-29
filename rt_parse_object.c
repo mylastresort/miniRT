@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/28 16:00:17 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 19:07:50 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	rt_parse_sph(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the sphere coordinates");
 	}
-	scn->objs->sph.d = rt_get_val(args[3], &err);
+	scn->objs->sph.sqrt_radius = powf(rt_get_val(args[3], &err), 2);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -82,9 +82,6 @@ static void	rt_parse_pln(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the plane color coordinates");
 	}
-	scn->objs->pln.d = -(scn->objs->pln.p.x * scn->objs->pln.n.x + scn->objs
-			->pln.p.y * scn->objs->pln.n.y + scn->objs->pln.p.z * scn->objs
-			->pln.n.z);
 }
 
 static void	rt_parse_cyl(t_scene *scn, char **args)
@@ -100,7 +97,7 @@ static void	rt_parse_cyl(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder normal coordinates"));
-	scn->objs->cyl.d = rt_get_val(args[4], &err);
+	scn->objs->cyl.sqrt_radius = powf(rt_get_val(args[4], &err), 2) / 4;
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder diameter"));

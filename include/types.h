@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 17:16:57 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:05:43 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,18 @@ typedef t_vec			t_point;
 typedef t_vec			t_tuple;
 typedef uint32_t		t_buf[height][width];
 
-typedef struct s_hit
-{
-	bool	exist;
-	float	sol;
-	t_vec	pnt;
-}	t_hit;
-
 typedef struct s_sol
 {
 	int		count;
 	float	sl1;
 	float	sl2;
 }	t_qud;
+
+typedef struct s_hit
+{
+	float	dis;
+	uint8_t	type;
+}	t_hit;
 
 typedef struct s_matrix_2x2
 {
@@ -121,7 +120,7 @@ typedef struct s_ray
 
 typedef struct s_sph
 {
-	float	d;
+	float	sqrt_radius;
 	t_color	rgb;
 	t_vec	c;
 	t_vec	n;
@@ -132,7 +131,7 @@ typedef struct s_sph
 
 typedef struct s_cyl
 {
-	float	d;
+	float	sqrt_radius;
 	t_color	rgb;
 	t_vec	c;
 	t_vec	n;

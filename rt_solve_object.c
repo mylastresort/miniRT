@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 17:17:11 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:26:39 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,65 +48,71 @@ t_hit	rt_pln_closest_hit(const t_pln pln, const t_ray ray)
 
 	if (den != .0F && ((den > .0F && num > .0F) || (den < .0F && num < .0F)))
 	{
-		hit.exist = true;
-		hit.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, num / den));
+		hit.dis = num / den;
 		return (hit);
 	}
-	hit.exist = false;
+	hit.dis = -1;
 	return (hit);
 }
 
 t_hit	rt_sph_closest_hit(const t_sph sph, const t_ray ray)
 {
 	const t_vec	org = vec_sub_vec(ray.o, sph.c);
-	t_hit		hit;
-	t_qud		sol;
-
-	sol = rt_sol_qua_eq(vec_dot_product(ray.d),
+	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d),
 			2 * vec_dot_product_vec(ray.d, org),
-			vec_dot_product(org) - powf(sph.d, 2) / 4);
+			vec_dot_product(org) - sph.sqrt_radius);
+	t_hit		hit;
+
 	if (sol.count >= 1)
 	{
-		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < sol.sl1)
+		hit.dis = sol.sl1;
+		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < hit.dis)
 		{
-			sol.sl1 = sol.sl2;
+			hit.dis = sol.sl2;
 		}
-		if (sol.sl1 > 0)
+		if (hit.dis > 0)
 		{
-			hit.exist = true;
-			hit.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, sol.sl1));
 			return (hit);
 		}
 	}
-	hit.exist = false;
+	hit.dis = -1;
+	return (hit);
+}
+
+static t_hit	rt_cyl_closest_hit_disk(void)
+{
+	t_hit	hit;
+
+	hit.dis = -1;
+	hit.type = 0;
 	return (hit);
 }
 
 t_hit	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray)
 {
-	const t_vec	o = vec_sub_vec(ray.o, cyl.c);
-	float		v[4];
-	t_qud		sol;
+	const t_vec	org = vec_sub_vec(ray.o, cyl.c);
+	const float	dp[2] = {vec_dot_product_vec(ray.d, cyl.n),
+		vec_dot_product_vec(org, cyl.n)};
+	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dp[0], 2),
+			2 * (vec_dot_product_vec(ray.d, org) - dp[0] * dp[1]),
+			vec_dot_product_vec(org, org) - powf(dp[1], 2) - cyl.sqrt_radius);
+	float		*hgt;
+	t_hit		hit;
 
-	v[0] = vec_dot_product_vec(ray.d, cyl.n);
-	v[1] = vec_dot_product_vec(o, cyl.n);
-	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(v[0], 2),
-			2 * (vec_dot_product_vec(ray.d, o) - v[0] * v[1]),
-			vec_dot_product_vec(o, o) - powf(v[1], 2) - powf(cyl.d, 2) / 4);
 	if (sol.count >= 1)
 	{
-		v[2] = v[0] * sol.sl1 + v[1];
-		v[3] = v[0] * sol.sl2 + v[1];
-		if (sol.sl1 < .0F || v[2] <= -cyl.h / 2 || v[2] >= cyl.h / 2)
+		hit = rt_cyl_closest_hit_disk();
+		if (hit.type != 0)
+			return (hit);
+		hit.dis = sol.sl1;
+		hgt = (float [2]){dp[0] * sol.sl1 + dp[1], dp[0] * sol.sl2 + dp[1]};
+		if (hit.dis < .0F || hgt[0] <= -cyl.h / 2 || hgt[0] >= cyl.h / 2)
 		{
-			v[2] = v[3];
-			sol.sl1 = sol.sl2;
+			hgt[0] = hgt[1];
+			hit.dis = sol.sl2;
 		}
-		if (sol.sl1 > .0F && v[2] >= -cyl.h / 2 && v[2] <= cyl.h / 2)
-		{
-			return ((t_hit){.exist = true, .sol = sol.sl1,
-				.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, sol.sl1))});
-		}
+		if (hit.dis > .0F && hgt[0] >= -cyl.h / 2 && hgt[0] <= cyl.h / 2)
+			return (hit);
 	}
-	return ((t_hit){.exist = false});
+	return ((t_hit){.dis = -1});
 }

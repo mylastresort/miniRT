@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/28 19:04:03 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:15:20 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_color	objects_coloring(const t_ray ray, const t_scene *scn)
 
 	inters = rt_cyl_closest_hit(scn->objs->cyl, ray);
 	clr = (t_color){0};
-	if (inters.exist)
+	if (inters.dis > 0)
 	{
 		clr = light_coloring(ray, inters, scn);
 		clr = clamp(clr);

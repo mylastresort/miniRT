@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:12:27 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/28 18:57:45 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:17:35 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	debug_camera(t_camera cam)
 
 void	debug_sphere(t_sph sp)
 {
-	printf("diameter: %.5f\n", sp.d);
+	printf("diameter: %.5f\n", sp.sqrt_radius);
 	print_clr(sp.rgb);
 	print_vec(sp.c);
 	print_vec(sp.n);
