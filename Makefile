@@ -6,7 +6,7 @@
 #    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/28 18:58:09 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/29 16:31:19 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ifdef debug
 	CFL
 	AGS += -g
 else
-	CFLAGS += -Ofast -flto
+	CFLAGS +=
 endif
 # LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
 LINK = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
