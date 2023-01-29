@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 11:49:08 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 13:05:30 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_hit	rt_sph_closest_hit(const t_sph sph, const t_ray ray)
 t_hit	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray)
 {
 	const t_vec	o = vec_sub_vec(ray.o, cyl.c);
-	float		v[3];
+	float		v[4];
 	t_qud		sol;
 
 	v[0] = vec_dot_product_vec(ray.d, cyl.n);
@@ -106,18 +106,18 @@ t_hit	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray)
 			vec_dot_product_vec(o, o) - powf(v[1], 2) - powf(cyl.d, 2) / 4);
 	if (sol.count >= 1)
 	{
-		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < sol.sl1)
-			sol.sl1 = sol.sl2;
-		if (sol.sl1 > 0)
+		v[2] = v[0] * sol.sl1 + v[1];
+		v[3] = v[0] * sol.sl2 + v[1];
+		if (sol.sl1 < 0 || v[2] <= .0F || v[2] >= cyl.h)
 		{
-			v[2] = v[0] * sol.sl1 + v[1];
-			if (!(v[2] >= .0F && v[2] <= cyl.h))
-				return ((t_hit){.exist = false});
+			v[2] = v[3];
+			sol.sl1 = sol.sl2;
+		}
+		if (sol.sl1 > .0F && v[2] >= .0F && v[2] <= cyl.h)
 			return ((t_hit){.exist = true, .pnt = vec_add_vec(ray.o,
 					vec_multi_value(ray.d, sol.sl1)), .nrm = vec_normalize(
 					vec_sub_vec(vec_add_vec(vec_multi_value(ray.d, sol.sl1), o),
 						vec_multi_value(cyl.n, v[2])))});
-		}
 	}
 	return ((t_hit){.exist = false});
 }
