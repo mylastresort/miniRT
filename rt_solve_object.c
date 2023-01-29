@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 13:05:30 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 17:17:11 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,7 @@ t_hit	rt_pln_closest_hit(const t_pln pln, const t_ray ray)
 	if (den != .0F && ((den > .0F && num > .0F) || (den < .0F && num < .0F)))
 	{
 		hit.exist = true;
-		hit.pnt = vec_add_vec(
-				ray.o, vec_multi_value(ray.d, num / den));
-		if (den > .0F)
-		{
-			hit.nrm = pln.n;
-		}
-		else
-		{
-			hit.nrm = vec_multi_value(pln.n, -1);
-		}
+		hit.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, num / den));
 		return (hit);
 	}
 	hit.exist = false;
@@ -83,9 +74,7 @@ t_hit	rt_sph_closest_hit(const t_sph sph, const t_ray ray)
 		if (sol.sl1 > 0)
 		{
 			hit.exist = true;
-			hit.pnt = vec_add_vec(ray.o,
-					vec_multi_value(ray.d, sol.sl1));
-			hit.nrm = vec_normalize(vec_sub_vec(hit.pnt, sph.c));
+			hit.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, sol.sl1));
 			return (hit);
 		}
 	}
@@ -108,16 +97,16 @@ t_hit	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray)
 	{
 		v[2] = v[0] * sol.sl1 + v[1];
 		v[3] = v[0] * sol.sl2 + v[1];
-		if (sol.sl1 < 0 || v[2] <= .0F || v[2] >= cyl.h)
+		if (sol.sl1 < .0F || v[2] <= -cyl.h / 2 || v[2] >= cyl.h / 2)
 		{
 			v[2] = v[3];
 			sol.sl1 = sol.sl2;
 		}
-		if (sol.sl1 > .0F && v[2] >= .0F && v[2] <= cyl.h)
-			return ((t_hit){.exist = true, .pnt = vec_add_vec(ray.o,
-					vec_multi_value(ray.d, sol.sl1)), .nrm = vec_normalize(
-					vec_sub_vec(vec_add_vec(vec_multi_value(ray.d, sol.sl1), o),
-						vec_multi_value(cyl.n, v[2])))});
+		if (sol.sl1 > .0F && v[2] >= -cyl.h / 2 && v[2] <= cyl.h / 2)
+		{
+			return ((t_hit){.exist = true, .sol = sol.sl1,
+				.pnt = vec_add_vec(ray.o, vec_multi_value(ray.d, sol.sl1))});
+		}
 	}
 	return ((t_hit){.exist = false});
 }

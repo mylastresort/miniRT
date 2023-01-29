@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/28 18:56:56 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 17:16:57 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef uint32_t		t_buf[height][width];
 typedef struct s_hit
 {
 	bool	exist;
-	t_vec	nrm;
+	float	sol;
 	t_vec	pnt;
 }	t_hit;
 

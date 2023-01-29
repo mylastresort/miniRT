@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/28 18:59:26 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 17:14:41 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ t_vec			vec_cross_product(t_vec first, t_vec second);
 t_vec			vec_div_value(t_vec vec, float val);
 t_vec			vec_div_vec(t_vec vec, t_vec val);
 t_vec			vec_multi_value(t_vec vec, float val);
+t_vec			rt_sph_get_normal_at(t_sph sph, t_vec pnt);
+t_vec			rt_pln_get_normal_at(t_pln pln, t_vec dir);
+t_vec			rt_cyl_get_normal_at(t_cyl cyl, t_ray ray, float t);
 t_vec			vec_multi_vec(t_vec vec, t_vec val);
 t_vec			vec_normalize(t_vec vec);
 t_vec			vec_sub_value(t_vec vec, float val);

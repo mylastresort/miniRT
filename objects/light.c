@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/28 18:58:59 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 17:17:35 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ t_color	light_coloring(const t_ray ray, const t_hit hit, const t_scene *scn)
 	float		dif_coef;
 	const t_vec	light_dir = vec_normalize(vec_sub_vec(scn->light.pos, hit.pnt));
 
-	final_ambient = clr_multi_value(scn->objs->sph.rgb, scn->amb.ka);
-	dif_coef = vec_dot_product_vec(hit.nrm, light_dir);
+	final_ambient = clr_multi_value(scn->objs->cyl.rgb, scn->amb.ka);
+	dif_coef = vec_dot_product_vec(
+			rt_cyl_get_normal_at(scn->objs->cyl, ray, hit.sol), light_dir);
 	if (dif_coef < 0.0F)
 		dif_coef = 0;
 	dif_clr = clr_multi_value(

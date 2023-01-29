@@ -6,7 +6,7 @@
 #    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/29 16:31:19 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/29 17:18:07 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS =	main.c \
 		rt_parse_utils.c \
 		rt_parse.c \
 		rt_solve_object.c \
+		rt_solve_object_normal.c \
 		libft/ft_strlen.c \
 		libft/ft_strcmp.c \
 		libft/ft_strncpy.c \
