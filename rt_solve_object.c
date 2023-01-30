@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 03:31:56 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 05:47:18 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	rt_sph_closest_hit(const t_sph sph, const t_ray ray, t_hit *const hit)
 	hit->dis = -1;
 }
 
-void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
+static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 {
 	const t_vec	cap1 = vec_multi_value(cyl.nrm, cyl.hgt / 2);
 	const t_vec	cap2 = vec_multi_value(cyl.nrm, -cyl.hgt / 2);
@@ -84,16 +84,18 @@ void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	hit->dis = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
 					cap1)), cyl.nrm) / vec_dot_product_vec(ray.d, cyl.nrm);
 	hit->type = CYLINDER_DISK_1;
-	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d,
-						hit->dis)), vec_add_vec(cyl.cnt, cap1))) <= cyl.rd2)
+	if (hit->dis > .0F && vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
+					vec_multi_value(ray.d, hit->dis)),
+				vec_add_vec(cyl.cnt, cap1))) <= cyl.rd2)
 		return ;
 	hit->dis = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
 					cap2)), cyl.nrm) / vec_dot_product_vec(ray.d, cyl.nrm);
 	hit->type = CYLINDER_DISK_2;
-	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d,
-						hit->dis)), vec_add_vec(cyl.cnt, cap2))) <= cyl.rd2)
+	if (hit->dis > .0F && vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
+					vec_multi_value(ray.d, hit->dis)),
+				vec_add_vec(cyl.cnt, cap2))) <= cyl.rd2)
 		return ;
-	hit->dis = .0F;
+	hit->dis = -1;
 	hit->type = CYLINDER;
 }
 
@@ -105,25 +107,22 @@ void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dpt[0], 2),
 			2 * (vec_dot_product_vec(ray.d, org) - dpt[0] * dpt[1]),
 			vec_dot_product_vec(org, org) - powf(dpt[1], 2) - cyl.rd2);
-	float		prmm[2];
+	float		prm[2];
 
 	if (rt_cyl_hit_disk(cyl, ray, hit), sol.count >= 1)
 	{
-		prmm[0] = sol.sl1;
-		prmm[1] = dpt[0] * sol.sl1 + dpt[1];
-		if (sol.count > 1 && prmm[0] > .0F && (prmm[0] > hit->dis
-				|| prmm[1] <= -cyl.hgt / 2 || prmm[1] >= cyl.hgt / 2))
+		prm[0] = sol.sl1;
+		prm[1] = dpt[0] * sol.sl1 + dpt[1];
+		if (sol.count > 1 && (prm[1] < -cyl.hgt / 2 || prm[1] > cyl.hgt / 2
+				|| prm[0] < .0F || (sol.sl2 > .0F && sol.sl2 < prm[0])))
 		{
-			prmm[0] = sol.sl2;
-			prmm[1] = dpt[0] * sol.sl2 + dpt[1];
+			prm[0] = sol.sl2;
+			prm[1] = dpt[0] * sol.sl2 + dpt[1];
 		}
-		if (hit->dis > .0F && prmm[0] > .0F && prmm[0] > hit->dis)
+		if (hit->dis > .0F && prm[0] > hit->dis)
 			return ;
-		if (prmm[1] <= -cyl.hgt / 2 || prmm[1] >= cyl.hgt / 2)
-		{
-			hit->dis = -1;
-			return ;
-		}
-		hit->dis = prmm[0];
+		if (prm[1] >= -cyl.hgt / 2 && prm[1] <= cyl.hgt / 2)
+			return ((void)(hit->dis = prm[0]));
+		hit->dis = -1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:38:25 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 03:22:57 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 05:40:15 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ t_vec	rt_cyl_normal_at(
 {
 	t_vec	org;
 
-	if (type == CYLINDER_DISK_1)
+	if (type == CYLINDER_DISK_2)
 	{
 		return (vec_multi_value(cyl.nrm, -1));
 	}
-	if (type == CYLINDER_DISK_2)
+	if (type == CYLINDER_DISK_1)
 	{
 		return (cyl.nrm);
 	}
