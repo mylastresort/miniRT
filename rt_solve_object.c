@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 03:16:53 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 03:31:56 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,20 @@ void	rt_sph_closest_hit(const t_sph sph, const t_ray ray, t_hit *const hit)
 
 void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 {
-	float	den;
-	float	num;
+	const t_vec	cap1 = vec_multi_value(cyl.nrm, cyl.hgt / 2);
+	const t_vec	cap2 = vec_multi_value(cyl.nrm, -cyl.hgt / 2);
 
-	den = vec_dot_product_vec(ray.d, cyl.nrm);
-	num = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
-					vec_multi_value(cyl.nrm, cyl.hgt / 2))), cyl.nrm);
-	hit->dis = num / den;
+	hit->dis = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
+					cap1)), cyl.nrm) / vec_dot_product_vec(ray.d, cyl.nrm);
 	hit->type = CYLINDER_DISK_1;
-	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
-					vec_multi_value(ray.d, hit->dis)), vec_add_vec(cyl.cnt,
-					vec_multi_value(cyl.nrm, cyl.hgt / 2)))) <= cyl.rd2)
+	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d,
+						hit->dis)), vec_add_vec(cyl.cnt, cap1))) <= cyl.rd2)
 		return ;
-	den = vec_dot_product_vec(ray.d, cyl.nrm);
-	num = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
-					vec_multi_value(cyl.nrm, -cyl.hgt / 2))), cyl.nrm);
-	hit->dis = num / den;
+	hit->dis = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
+					cap2)), cyl.nrm) / vec_dot_product_vec(ray.d, cyl.nrm);
 	hit->type = CYLINDER_DISK_2;
-	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
-					vec_multi_value(ray.d, hit->dis)), vec_add_vec(cyl.cnt,
-					vec_multi_value(cyl.nrm, -cyl.hgt / 2)))) <= cyl.rd2)
+	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d,
+						hit->dis)), vec_add_vec(cyl.cnt, cap2))) <= cyl.rd2)
 		return ;
 	hit->dis = .0F;
 	hit->type = CYLINDER;
