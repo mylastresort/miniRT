@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 03:00:50 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 03:16:53 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	rt_sph_closest_hit(const t_sph sph, const t_ray ray, t_hit *const hit)
 	hit->dis = -1;
 }
 
-static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
+void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 {
 	float	den;
 	float	num;
@@ -94,7 +94,7 @@ static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	num = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
 					vec_multi_value(cyl.nrm, -cyl.hgt / 2))), cyl.nrm);
 	hit->dis = num / den;
-	hit->type = CYLINDER_DISK_1;
+	hit->type = CYLINDER_DISK_2;
 	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
 					vec_multi_value(ray.d, hit->dis)), vec_add_vec(cyl.cnt,
 					vec_multi_value(cyl.nrm, -cyl.hgt / 2)))) <= cyl.rd2)
@@ -111,28 +111,25 @@ void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dpt[0], 2),
 			2 * (vec_dot_product_vec(ray.d, org) - dpt[0] * dpt[1]),
 			vec_dot_product_vec(org, org) - powf(dpt[1], 2) - cyl.rd2);
-	float		dis;
-	float		prm;
+	float		prmm[2];
 
 	if (rt_cyl_hit_disk(cyl, ray, hit), sol.count >= 1)
 	{
-		dis = sol.sl1;
-		prm = dpt[0] * sol.sl1 + dpt[1];
-		if (sol.count > 1 && dis > .0F && dis > hit->dis)
+		prmm[0] = sol.sl1;
+		prmm[1] = dpt[0] * sol.sl1 + dpt[1];
+		if (sol.count > 1 && prmm[0] > .0F && (prmm[0] > hit->dis
+				|| prmm[1] <= -cyl.hgt / 2 || prmm[1] >= cyl.hgt / 2))
 		{
-			if (prm <= -cyl.hgt / 2 || prm >= cyl.hgt / 2)
-			{
-				dis = sol.sl2;
-				prm = dpt[0] * sol.sl2 + dpt[1];
-			}
+			prmm[0] = sol.sl2;
+			prmm[1] = dpt[0] * sol.sl2 + dpt[1];
 		}
-		if (hit->dis > .0F && dis > .0F && dis > hit->dis)
+		if (hit->dis > .0F && prmm[0] > .0F && prmm[0] > hit->dis)
 			return ;
-		if (prm <= -cyl.hgt / 2 || prm >= cyl.hgt / 2)
+		if (prmm[1] <= -cyl.hgt / 2 || prmm[1] >= cyl.hgt / 2)
 		{
 			hit->dis = -1;
 			return ;
 		}
-		hit->dis = dis;
+		hit->dis = prmm[0];
 	}
 }
