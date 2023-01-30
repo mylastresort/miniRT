@@ -7,9 +7,12 @@ Diagnostics:
     Add: "*"
     Remove:
       [
-        "llvmlibc*",
         "cpp*",
+        "llvmlibc*",
         concurrency-mt-unsafe,
+        google-readability-braces-around-statements,
+        hicpp-braces-around-statements,
         modernize-macro-to-enum,
+        readability-braces-around-statements,
         readability-identifier-length,
       ]

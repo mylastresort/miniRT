@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 20:17:26 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:57:58 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "types.h"
 # include <stdbool.h>
+#include <stdint.h>
 
 bool			is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2);
 bool			is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2);
@@ -50,9 +51,9 @@ t_color			light_coloring(t_ray ray, t_hit hit, const t_scene *scn);
 t_color			objects_coloring(t_ray ray, const t_scene *scn);
 t_color			rt_get_color(char *color, bool *err);
 t_deg			rad_to_deg(t_rad rad);
-t_hit			rt_cyl_closest_hit(t_cyl cyl, t_ray ray);
-t_hit			rt_pln_closest_hit(t_pln pln, t_ray ray);
-t_hit			rt_sph_closest_hit(t_sph sph, t_ray ray);
+void			rt_cyl_closest_hit(t_cyl cyl, t_ray ray, t_hit *hit);
+void			rt_pln_closest_hit(t_pln pln, t_ray ray, t_hit *hit);
+void			rt_sph_closest_hit(t_sph sph, t_ray ray, t_hit *hit);
 t_matrix_2x2	sub_matr3x3(t_matrix_3x3 mat, int row, int col);
 t_matrix_3x3	sub_matr4x4(t_matrix_4x4 mat, int row, int col);
 t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat);
@@ -85,7 +86,6 @@ t_tuple			tuple_sub_vec(t_tuple vec, t_tuple val);
 t_vec			matr4x4_multi_vec(t_matrix_4x4 mat, t_vec vec);
 t_vec			normal_at_sphere(t_point obj_ori, t_point pnt);
 t_vec			reflect(t_vec in, t_vec normal);
-t_vec			rt_cyl_normal_at(t_cyl cyl, t_vec pnt);
 t_vec			rt_get_coordinates(char *name, bool *err, int type);
 t_vec			rt_pln_normal_at(t_pln pln, t_vec pnt);
 t_vec			rt_sph_normal_at(t_sph sph, t_vec pnt);
@@ -98,7 +98,7 @@ t_vec			vec_div_vec(t_vec vec, t_vec val);
 t_vec			vec_multi_value(t_vec vec, float val);
 t_vec			rt_sph_get_normal_at(t_sph sph, t_vec pnt);
 t_vec			rt_pln_get_normal_at(t_pln pln, t_vec dir);
-t_vec			rt_cyl_get_normal_at(t_cyl cyl, t_ray ray, float t);
+t_vec			rt_cyl_normal_at(t_cyl cyl, float dis, t_ray ray, uint8_t type);
 t_vec			vec_multi_vec(t_vec vec, t_vec val);
 t_vec			vec_normalize(t_vec vec);
 t_vec			vec_sub_value(t_vec vec, float val);

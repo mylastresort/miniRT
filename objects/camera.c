@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/29 20:15:20 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:01:21 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,15 @@ void	generate_camera(t_scene *scn)
 
 t_color	objects_coloring(const t_ray ray, const t_scene *scn)
 {
-	t_hit		inters;
-	t_color		clr;
+	t_hit	hit;
 
-	inters = rt_cyl_closest_hit(scn->objs->cyl, ray);
-	clr = (t_color){0};
-	if (inters.dis > 0)
+	hit.dis = -1;
+	rt_cyl_closest_hit(scn->objs->cyl, ray, &hit);
+	if (hit.dis > .0F)
 	{
-		clr = light_coloring(ray, inters, scn);
-		clr = clamp(clr);
-		return (clr);
+		return (clamp(light_coloring(ray, hit, scn)));
 	}
-	return (clr);
+	return ((t_color){0});
 }
 	// if (inters.c == 1 && inters.t_val[0] >= 0 && inters.t_val[0] < touch)
 	// {

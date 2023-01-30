@@ -6,12 +6,13 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/29 20:17:06 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:02:46 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/declarations.h"
 #include "../include/types.h"
+#include "enums.h"
 #include <math.h>
 #include <stdint.h>
 
@@ -41,8 +42,11 @@ t_color	light_coloring(const t_ray ray, const t_hit hit, const t_scene *scn)
 	const t_vec	light_dir = vec_normalize(vec_sub_vec(scn->light.pos, pnt));
 
 	final_ambient = clr_multi_value(scn->objs->cyl.rgb, scn->amb.ka);
-	dif_coef = vec_dot_product_vec(
-			rt_cyl_get_normal_at(scn->objs->cyl, ray, hit.dis), light_dir);
+	dif_coef = vec_dot_product_vec(rt_cyl_normal_at(
+				scn->objs->cyl,
+				hit.dis,
+				ray,
+				hit.type), light_dir);
 	if (dif_coef < 0.0F)
 		dif_coef = 0;
 	dif_clr = clr_multi_value(

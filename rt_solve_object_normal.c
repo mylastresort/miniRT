@@ -6,12 +6,14 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:38:25 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 17:16:00 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:02:12 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
+#include "enums.h"
 #include "types.h"
+#include <stdint.h>
 
 t_vec	rt_sph_get_normal_at(const t_sph sph, const t_vec pnt)
 {
@@ -27,12 +29,25 @@ t_vec	rt_pln_get_normal_at(const t_pln pln, const t_vec dir)
 	return (pln.n);
 }
 
-t_vec	rt_cyl_get_normal_at(const t_cyl cyl, const t_ray ray, const float t)
+t_vec	rt_cyl_normal_at(
+	const t_cyl cyl,
+	const float dis,
+	const t_ray ray,
+	const uint8_t type)
 {
-	const t_vec	o = vec_sub_vec(ray.o, cyl.c);
-	const float	m
-		= vec_dot_product_vec(ray.d, cyl.n) * t + vec_dot_product_vec(o, cyl.n);
+	const t_vec	org = vec_sub_vec(ray.o, cyl.cnt);
 
-	return (vec_normalize(vec_sub_vec(vec_add_vec(vec_multi_value(ray.d, t), o),
-				vec_multi_value(cyl.n, m))));
+	if (type == CYLINDER_DISK_1)
+	{
+		return (cyl.nrm);
+	}
+	if (type == CYLINDER_DISK_2)
+	{
+		return (vec_multi_value(cyl.nrm, -1));
+	}
+	return (vec_normalize(
+			vec_sub_vec(vec_add_vec(vec_multi_value(ray.d, dis), org),
+				vec_multi_value(cyl.nrm,
+					vec_dot_product_vec(ray.d, cyl.nrm) * dis
+					+ vec_dot_product_vec(org, cyl.nrm)))));
 }

@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 19:07:50 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 02:26:23 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	rt_parse_sph(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the sphere coordinates");
 	}
-	scn->objs->sph.sqrt_radius = powf(rt_get_val(args[3], &err), 2);
+	scn->objs->sph.sq_r = powf(rt_get_val(args[3], &err), 2);
 	if (err)
 	{
 		rt_destroy_objs(scn);
@@ -89,19 +89,21 @@ static void	rt_parse_cyl(t_scene *scn, char **args)
 	bool	err;
 
 	err = false;
-	scn->objs->cyl.c = rt_get_coordinates(args[2], &err, POINT);
+	scn->objs->cyl.cnt = rt_get_coordinates(args[2], &err, POINT);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder coordinates"));
-	scn->objs->cyl.n = rt_get_coordinates(args[3], &err, NORM);
+	scn->objs->cyl.nrm = rt_get_coordinates(args[3], &err, NORM);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder normal coordinates"));
-	scn->objs->cyl.sqrt_radius = powf(rt_get_val(args[4], &err), 2) / 4;
+	scn->objs->cyl.dmt = rt_get_val(args[4], &err);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder diameter"));
-	scn->objs->cyl.h = rt_get_val(args[5], &err);
+	scn->objs->cyl.rd1 = scn->objs->cyl.dmt / 2;
+	scn->objs->cyl.rd2 = powf(scn->objs->cyl.rd1, 2);
+	scn->objs->cyl.hgt = rt_get_val(args[5], &err);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder height"));

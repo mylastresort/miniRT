@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 17:59:37 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:41:50 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ enum e_type : uint8_t
 	PLANE = 1,
 	SPHERE = 2,
 	CYLINDER = 3,
+	CYLINDER_DISK_1 = 0,
+	CYLINDER_DISK_2 = 1,
 	POINT = 0,
 	VECTOR = 1,
 	NORM = 2,

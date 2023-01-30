@@ -6,12 +6,26 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 20:26:39 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 03:00:50 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
+#include "enums.h"
 #include "types.h"
+
+void	rt_pln_closest_hit(const t_pln pln, const t_ray ray, t_hit *const hit)
+{
+	const float	den = vec_dot_product_vec(ray.d, pln.n);
+	const t_vec	org = vec_sub_vec(ray.o, pln.p);
+	const float	num = -vec_dot_product_vec(org, pln.n);
+
+	if (den != .0F && ((den > .0F && num > .0F) || (den < .0F && num < .0F)))
+	{
+		hit->dis = num / den;
+	}
+	hit->dis = -1;
+}
 
 static t_qud	rt_sol_qua_eq(const float cf1, const float cf2, const float cf3)
 {
@@ -39,80 +53,86 @@ static t_qud	rt_sol_qua_eq(const float cf1, const float cf2, const float cf3)
 	return (sol);
 }
 
-t_hit	rt_pln_closest_hit(const t_pln pln, const t_ray ray)
-{
-	const float	den = vec_dot_product_vec(ray.d, pln.n);
-	const t_vec	org = vec_sub_vec(ray.o, pln.p);
-	const float	num = -vec_dot_product_vec(org, pln.n);
-	t_hit		hit;
-
-	if (den != .0F && ((den > .0F && num > .0F) || (den < .0F && num < .0F)))
-	{
-		hit.dis = num / den;
-		return (hit);
-	}
-	hit.dis = -1;
-	return (hit);
-}
-
-t_hit	rt_sph_closest_hit(const t_sph sph, const t_ray ray)
+void	rt_sph_closest_hit(const t_sph sph, const t_ray ray, t_hit *const hit)
 {
 	const t_vec	org = vec_sub_vec(ray.o, sph.c);
-	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d),
+	const t_qud	sol = rt_sol_qua_eq(
+			vec_dot_product(ray.d),
 			2 * vec_dot_product_vec(ray.d, org),
-			vec_dot_product(org) - sph.sqrt_radius);
-	t_hit		hit;
+			vec_dot_product(org) - sph.sq_r);
 
 	if (sol.count >= 1)
 	{
-		hit.dis = sol.sl1;
-		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < hit.dis)
+		hit->dis = sol.sl1;
+		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < hit->dis)
 		{
-			hit.dis = sol.sl2;
+			hit->dis = sol.sl2;
 		}
-		if (hit.dis > 0)
+		if (hit->dis > 0)
 		{
-			return (hit);
+			return ;
 		}
 	}
-	hit.dis = -1;
-	return (hit);
+	hit->dis = -1;
 }
 
-static t_hit	rt_cyl_closest_hit_disk(void)
+static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 {
-	t_hit	hit;
+	float	den;
+	float	num;
 
-	hit.dis = -1;
-	hit.type = 0;
-	return (hit);
+	den = vec_dot_product_vec(ray.d, cyl.nrm);
+	num = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
+					vec_multi_value(cyl.nrm, cyl.hgt / 2))), cyl.nrm);
+	hit->dis = num / den;
+	hit->type = CYLINDER_DISK_1;
+	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
+					vec_multi_value(ray.d, hit->dis)), vec_add_vec(cyl.cnt,
+					vec_multi_value(cyl.nrm, cyl.hgt / 2)))) <= cyl.rd2)
+		return ;
+	den = vec_dot_product_vec(ray.d, cyl.nrm);
+	num = -vec_dot_product_vec(vec_sub_vec(ray.o, vec_add_vec(cyl.cnt,
+					vec_multi_value(cyl.nrm, -cyl.hgt / 2))), cyl.nrm);
+	hit->dis = num / den;
+	hit->type = CYLINDER_DISK_1;
+	if (vec_dot_product(vec_sub_vec(vec_add_vec(ray.o,
+					vec_multi_value(ray.d, hit->dis)), vec_add_vec(cyl.cnt,
+					vec_multi_value(cyl.nrm, -cyl.hgt / 2)))) <= cyl.rd2)
+		return ;
+	hit->dis = .0F;
+	hit->type = CYLINDER;
 }
 
-t_hit	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray)
+void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 {
-	const t_vec	org = vec_sub_vec(ray.o, cyl.c);
-	const float	dp[2] = {vec_dot_product_vec(ray.d, cyl.n),
-		vec_dot_product_vec(org, cyl.n)};
-	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dp[0], 2),
-			2 * (vec_dot_product_vec(ray.d, org) - dp[0] * dp[1]),
-			vec_dot_product_vec(org, org) - powf(dp[1], 2) - cyl.sqrt_radius);
-	float		*hgt;
-	t_hit		hit;
+	const t_vec	org = vec_sub_vec(ray.o, cyl.cnt);
+	const float	dpt[2] = {vec_dot_product_vec(ray.d, cyl.nrm),
+		vec_dot_product_vec(org, cyl.nrm)};
+	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dpt[0], 2),
+			2 * (vec_dot_product_vec(ray.d, org) - dpt[0] * dpt[1]),
+			vec_dot_product_vec(org, org) - powf(dpt[1], 2) - cyl.rd2);
+	float		dis;
+	float		prm;
 
-	if (sol.count >= 1)
+	if (rt_cyl_hit_disk(cyl, ray, hit), sol.count >= 1)
 	{
-		hit = rt_cyl_closest_hit_disk();
-		if (hit.type != 0)
-			return (hit);
-		hit.dis = sol.sl1;
-		hgt = (float [2]){dp[0] * sol.sl1 + dp[1], dp[0] * sol.sl2 + dp[1]};
-		if (hit.dis < .0F || hgt[0] <= -cyl.h / 2 || hgt[0] >= cyl.h / 2)
+		dis = sol.sl1;
+		prm = dpt[0] * sol.sl1 + dpt[1];
+		if (sol.count > 1 && dis > .0F && dis > hit->dis)
 		{
-			hgt[0] = hgt[1];
-			hit.dis = sol.sl2;
+			if (prm <= -cyl.hgt / 2 || prm >= cyl.hgt / 2)
+			{
+				dis = sol.sl2;
+				prm = dpt[0] * sol.sl2 + dpt[1];
+			}
 		}
-		if (hit.dis > .0F && hgt[0] >= -cyl.h / 2 && hgt[0] <= cyl.h / 2)
-			return (hit);
+		if (hit->dis > .0F && dis > .0F && dis > hit->dis)
+			return ;
+		if (prm <= -cyl.hgt / 2 || prm >= cyl.hgt / 2)
+		{
+			hit->dis = -1;
+			return ;
+		}
+		hit->dis = dis;
 	}
-	return ((t_hit){.dis = -1});
 }

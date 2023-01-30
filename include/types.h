@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 20:05:43 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/30 02:26:23 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_ray
 
 typedef struct s_sph
 {
-	float	sqrt_radius;
+	float	sq_r;
 	t_color	rgb;
 	t_vec	c;
 	t_vec	n;
@@ -131,11 +131,13 @@ typedef struct s_sph
 
 typedef struct s_cyl
 {
-	float	sqrt_radius;
+	float	dmt;
+	float	rd1;
+	float	rd2;
 	t_color	rgb;
-	t_vec	c;
-	t_vec	n;
-	float	h;
+	t_vec	cnt;
+	t_vec	nrm;
+	float	hgt;
 	float	dif_fac;
 	float	amb_fac;
 	float	spec_fac;
