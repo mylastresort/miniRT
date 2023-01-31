@@ -9,6 +9,8 @@ Diagnostics:
       [
         "cpp*",
         "llvmlibc*",
+        altera-id-dependent-backward-branch,
+        altera-unroll-loops,
         concurrency-mt-unsafe,
         google-readability-braces-around-statements,
         hicpp-braces-around-statements,

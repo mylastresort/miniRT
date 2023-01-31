@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:30:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 20:00:08 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:20:53 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ t_vec	rt_get_coordinates(char *name, bool *const err, const int type)
 	if (*name)
 		return (*err = true, vec);
 	if (type == NORM && !is_equal(vec_length(vec), 1.0F))
-		return (printf("non normilized vector\n"), *err = true, vec);
+	{
+		vec = vec_normalize(vec);
+		printf("non normalized vec, here is a normalized one: x = %f; y = %f; "
+			"z = %f\n", vec.x, vec.y, vec.z);
+	}
 	return (vec);
 }
 

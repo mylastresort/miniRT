@@ -6,7 +6,7 @@
 #    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/29 17:18:07 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/30 18:17:39 by stamim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 ifdef debug
-	CFL
-	AGS += -g
+	CFLAGS += -g
 else
 	CFLAGS +=
 endif

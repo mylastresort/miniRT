@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/29 23:57:58 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:21:02 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "types.h"
 # include <stdbool.h>
-#include <stdint.h>
 
 bool			is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2);
 bool			is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2);
