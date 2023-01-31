@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 12:19:18 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/31 15:06:23 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ void	rt_pln_closest_hit(const t_pln pln, const t_ray ray, t_hit *const hit)
 	const t_vec	org = vec_sub_vec(ray.o, pln.p);
 	const float	num = -vec_dot_product_vec(org, pln.n);
 
-	if (den != .0F && ((den > .0F && num > .0F) || (den < .0F && num < .0F)))
-	{
-		hit->dis = num / den;
-	}
-	hit->dis = -1;
+	hit->dis = num / den;
 }
 
 static t_qud	rt_sol_qua_eq(const float cf1, const float cf2, const float cf3)
