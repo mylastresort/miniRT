@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 02:26:23 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/01 17:11:30 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 #include "types.h"
 #include <stdbool.h>
 #include <stdlib.h>
-
-static t_obj	*rt_new_obj(t_scene *scn, const int type)
-{
-	t_obj	*obj;
-	t_obj	*head;
-
-	obj = (t_obj *)malloc(sizeof(t_obj));
-	if (!obj)
-	{
-		rt_destroy_objs(scn);
-		exit(EXIT_FAILURE);
-	}
-	obj->type = type;
-	head = scn->objs;
-	obj->next = head;
-	scn->objs = obj;
-	return (obj);
-}
 
 static void	rt_parse_sph(t_scene *scn, char **args)
 {
@@ -113,23 +95,39 @@ static void	rt_parse_cyl(t_scene *scn, char **args)
 			rt_exit("could not parse the cylinder color coordinates"));
 }
 
+static void	rt_new_obj(t_scene *scn, const int type, char **args)
+{
+	t_obj *const	head = scn->objs;
+	t_obj *const	obj = (t_obj *)malloc(sizeof(t_obj));
+
+	if (!obj)
+	{
+		rt_destroy_objs(scn);
+		exit(EXIT_FAILURE);
+	}
+	obj->type = type;
+	obj->next = head;
+	scn->objs = obj;
+	if (type == SPHERE)
+		rt_parse_sph(scn, args);
+	else if (type == PLANE)
+		rt_parse_pln(scn, args);
+	else if (type == CYLINDER)
+		rt_parse_cyl(scn, args);
+	else if (type == CONE)
+		rt_parse_con(scn, args);
+}
+
 void	rt_parse_obj(t_scene *scn, char **args)
 {
 	if (!ft_strcmp(args[1], "sp"))
-	{
-		rt_new_obj(scn, SPHERE);
-		rt_parse_sph(scn, args);
-	}
+		rt_new_obj(scn, SPHERE, args);
 	else if (!ft_strcmp(args[1], "pl"))
-	{
-		rt_new_obj(scn, PLANE);
-		rt_parse_pln(scn, args);
-	}
+		rt_new_obj(scn, PLANE, args);
 	else if (!ft_strcmp(args[1], "cy"))
-	{
-		rt_new_obj(scn, CYLINDER);
-		rt_parse_cyl(scn, args);
-	}
+		rt_new_obj(scn, CYLINDER, args);
+	else if (!ft_strcmp(args[1], "cn"))
+		rt_new_obj(scn, CONE, args);
 	else
 	{
 		rt_destroy_objs(scn);

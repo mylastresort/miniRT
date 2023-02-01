@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 12:21:02 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:25:43 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ t_vec			vec_div_vec(t_vec vec, t_vec val);
 t_vec			vec_multi_value(t_vec vec, float val);
 t_vec			rt_sph_get_normal_at(t_sph sph, t_vec pnt);
 t_vec			rt_pln_get_normal_at(t_pln pln, t_vec dir);
-t_vec			rt_cyl_normal_at(t_cyl cyl, float dis, t_ray ray, uint8_t type);
+t_vec			rt_cyl_normal_at(t_cyl cyl, t_hit hit, t_ray ray);
+t_vec			rt_con_normal_at(t_con con, t_hit hit, t_ray ray);
+t_qud			rt_sol_qua_eq(float cf1, float cf2, float cf3);
 t_vec			vec_multi_vec(t_vec vec, t_vec val);
 t_vec			vec_normalize(t_vec vec);
 t_vec			vec_sub_value(t_vec vec, float val);
@@ -115,6 +117,8 @@ void			print_pnt(t_point pnt);
 void			print_vec(t_vec vec);
 void			rt_destroy_objs(t_scene *scn);
 void			rt_exit(const char *str);
+void			rt_con_closest_hit(t_con con, t_ray ray, t_hit *hit);
+void			rt_parse_con(t_scene *scn, char **args);
 void			rt_parse_amb(t_scene *scn, char **args);
 void			rt_parse_cam(t_scene *scn, char **args);
 void			rt_parse_light(t_scene *scn, char **args);

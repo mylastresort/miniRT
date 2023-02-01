@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 17:45:57 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:19:38 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_sol
 typedef struct s_hit
 {
 	float	dis;
+	float	prm;
 	uint8_t	type;
 }	t_hit;
 
@@ -151,14 +152,25 @@ typedef struct s_pln
 	t_vec	p;
 }	t_pln;
 
+typedef struct s_con
+{
+	float	fac;
+	float	hgt;
+	t_deg	ang;
+	t_vec	cnt;
+	t_vec	nrm;
+	t_color	rgb;
+}	t_con;
+
 typedef struct obj
 {
 	struct obj	*next;
 	uint8_t		type;
 	union {
-		t_sph	sph;
-		t_pln	pln;
+		t_con	con;
 		t_cyl	cyl;
+		t_pln	pln;
+		t_sph	sph;
 	};
 }	t_obj;
 

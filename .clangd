@@ -17,4 +17,5 @@ Diagnostics:
         modernize-macro-to-enum,
         readability-braces-around-statements,
         readability-identifier-length,
+        readability-magic-numbers,
       ]
