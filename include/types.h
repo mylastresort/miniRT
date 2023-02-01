@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 18:19:38 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:42:55 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_hit
 {
 	float	dis;
 	float	prm;
-	uint8_t	type;
 }	t_hit;
 
 typedef struct s_matrix_2x2
