@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:21:01 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 11:58:41 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:34:04 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@ void	rt_exit(const char *str)
 	write(STDERR_FILENO, str, ft_strlen(str) * sizeof(char));
 	write(STDERR_FILENO, "\n", sizeof(char));
 	exit(EXIT_FAILURE);
-}
-
-int	event_on_keydown(t_keycode key, void *arg)
-{
-	if (key == ESC)
-	{
-		rt_destroy(arg);
-	}
-	return (1);
-}
-
-int	rt_destroy(t_scene *scn)
-{
-	rt_destroy_objs(scn);
-	mlx_destroy_image(scn->mlx, scn->img);
-	mlx_destroy_window(scn->mlx, scn->win);
-	free(scn->mlx);
-	exit(EXIT_SUCCESS);
 }
 
 void	rt_destroy_objs(t_scene *const scn)

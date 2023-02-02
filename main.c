@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/27 14:33:07 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/02 13:35:31 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,18 @@ static void	sample(const t_scene scn, t_buf *const buf)
 
 static void	init(t_scene *const scn, const int file)
 {
-	rt_parse(scn, file);
+	rt_parse(scn, file, "");
 	scn->mlx = mlx_init();
 	if (!scn->mlx)
 	{
+		rt_destroy_objs(scn);
 		close(file);
 		exit(EXIT_FAILURE);
 	}
 	scn->win = mlx_new_window(scn->mlx, width, height, TITLE);
 	if (!scn->win)
 	{
+		rt_destroy_objs(scn);
 		close(file);
 		free(scn->mlx);
 		exit(EXIT_FAILURE);
@@ -64,6 +66,7 @@ static void	init(t_scene *const scn, const int file)
 	scn->img = mlx_new_image(scn->mlx, width, height);
 	if (!scn->img)
 	{
+		rt_destroy_objs(scn);
 		close(file);
 		mlx_destroy_window(scn->mlx, scn->win);
 		free(scn->mlx);
@@ -73,6 +76,7 @@ static void	init(t_scene *const scn, const int file)
 
 int	destroy(t_scene *scn)
 {
+	rt_destroy_objs(scn);
 	mlx_destroy_image(scn->mlx, scn->img);
 	mlx_destroy_window(scn->mlx, scn->win);
 	free(scn->mlx);

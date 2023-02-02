@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 18:25:43 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:38:05 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ void			rt_parse_amb(t_scene *scn, char **args);
 void			rt_parse_cam(t_scene *scn, char **args);
 void			rt_parse_light(t_scene *scn, char **args);
 void			rt_parse_obj(t_scene *scn, char **args);
-void			rt_parse(t_scene *scn, int file);
+void			rt_parse(t_scene *scn, int file, char *line);
 void			write_error(const char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 17:11:30 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:42:16 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,4 @@ void	rt_parse_obj(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse a line\n");
 	}
-	free(args[0]);
-	free(args);
 }

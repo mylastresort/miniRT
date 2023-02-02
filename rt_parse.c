@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/19 19:39:43 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:42:28 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,31 +106,25 @@ static bool	rt_getline(char **const line, const int file, t_scene *const scn)
 	return ((*line)[len] = '\0', true);
 }
 
-void	rt_parse(t_scene *const scn, const int file)
+void	rt_parse(t_scene *const scn, const int file, char *line)
 {
 	char	**args;
-	char	*line;
 
 	while (rt_getline(&line, file, scn))
 	{
 		args = rt_split(line);
-		if (!args[1])
-			continue ;
-		if (!ft_strcmp(args[1], "A"))
+		if (args[1])
 		{
-			rt_parse_amb(scn, args);
+			if (!ft_strcmp(args[1], "A"))
+				rt_parse_amb(scn, args);
+			else if (!ft_strcmp(args[1], "C"))
+				rt_parse_cam(scn, args);
+			else if (!ft_strcmp(args[1], "L"))
+				rt_parse_light(scn, args);
+			else
+				rt_parse_obj(scn, args);
 		}
-		else if (!ft_strcmp(args[1], "C"))
-		{
-			rt_parse_cam(scn, args);
-		}
-		else if (!ft_strcmp(args[1], "L"))
-		{
-			rt_parse_light(scn, args);
-		}
-		else
-		{
-			rt_parse_obj(scn, args);
-		}
+		free(args[0]);
+		free(args);
 	}
 }

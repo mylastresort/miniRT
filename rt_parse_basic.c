@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_parse_basic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 17:58:17 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:41:22 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	rt_parse_light(t_scene *scn, char **args)
 		rt_exit("could not parse light point brightness\n");
 	}
 	scn->light.clr = rt_get_color(args[4], &err);
-	free(args[0]);
-	free(args);
 }
 
 void	rt_parse_amb(t_scene *scn, char **args)
@@ -66,8 +64,6 @@ void	rt_parse_amb(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse ambient light color");
 	}
-	free(args[0]);
-	free(args);
 }
 
 void	rt_parse_cam(t_scene *scn, char **args)
@@ -93,6 +89,4 @@ void	rt_parse_cam(t_scene *scn, char **args)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera field of view"));
 	generate_camera(scn);
-	free(args[0]);
-	free(args);
 }
