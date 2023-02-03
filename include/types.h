@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 17:45:57 by stamim           ###   ########.fr       */
+/*   Updated: 2023/01/31 16:13:20 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_color
 typedef enum e_keycode	t_keycode;
 typedef float			t_deg;
 typedef float			t_rad;
-// typedef t_vec			t_color;
 typedef t_vec			t_point;
 typedef t_vec			t_tuple;
 typedef uint32_t		t_buf[height][width];
@@ -114,7 +113,7 @@ typedef struct s_material
 
 typedef struct s_ray
 {
-	t_vec	o;
+	t_point	o;
 	t_vec	d;
 }	t_ray;
 

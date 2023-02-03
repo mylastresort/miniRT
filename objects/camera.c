@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/30 01:01:21 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/03 11:49:17 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/declarations.h"
-#include "../include/types.h"
+#include "declarations.h"
+#include "types.h"
 #include "enums.h"
 #include <math.h>
 #include <stdint.h>
@@ -57,10 +57,21 @@ t_matrix_4x4	view_transform(t_vec forward, t_point from, t_vec up)
 
 static void	up_left_forward(t_vec forward, t_vec up, t_camera *cam)
 {
-	up = vec_normalize(up);
+	t_vec	tmp_up;
+
+	tmp_up = vector(0, 1, 0);
+	if (is_equal(fabsf(vec_dot_product_vec(forward, tmp_up)), 1))
+	{
+		tmp_up = vector(0, 0, 1);
+	}
+	if (is_equal(fabsf(vec_dot_product_vec(forward, tmp_up)), 1))
+	{
+		tmp_up = vector(1, 0, 0);
+	}
+	up = vec_normalize(tmp_up);
 	cam->forward = vec_normalize(forward);
-	cam->left = vec_cross_product(forward, up);
-	cam->up = vec_cross_product(cam->left, forward);
+	cam->left = vec_cross_product(cam->forward, up);
+	cam->up = vec_cross_product(cam->left, cam->forward);
 }
 
 void	generate_camera(t_scene *scn)
@@ -73,64 +84,3 @@ void	generate_camera(t_scene *scn)
 	scn->cam.transform = matr4x4_identity();
 	up_left_forward(scn->cam.cam_dir, vector(0, 1, 0), &scn->cam);
 }
-
-t_color	objects_coloring(const t_ray ray, const t_scene *scn)
-{
-	t_hit	hit;
-
-	hit.dis = -1;
-	rt_cyl_closest_hit(scn->objs->cyl, ray, &hit);
-	if (hit.dis > .0F)
-	{
-		return (clamp(light_coloring(ray, hit, scn)));
-	}
-	return ((t_color){0});
-}
-	// if (inters.c == 1 && inters.t_val[0] >= 0 && inters.t_val[0] < touch)
-	// {
-	// 	res = inters;
-	// 	res.clr = generate_color(vec_multi_value(inters.rgb_clr, amb.ka));
-	// }
-	// if (inters.c == 2)
-	// {
-	// 	if (inters.t_val[0] >= 0 && inters.t_val[0] < touch)
-	// 	{
-	// 		res = inters;
-	// 		res.clr = generate_color(vec_multi_value(inters.rgb_clr, amb.ka));
-	// 	}
-	// 	else if (inters.t_val[1] >= 0 && inters.t_val[1] < touch)
-	// 	{
-	// 		res = inters;
-	// 		res.clr = generate_color(vec_multi_value(inters.rgb_clr, amb.ka));
-	// 	}
-	// }
-
-// t_vec	up_vec(t_vec forw)
-// {
-// 	t_vec	left;
-// 	t_vec	up;
-// 	float	dot;
-
-// 	// up = (t_vec){0, 1, 0, 0};
-// 	up = (t_vec){0, 1, 0, 0};
-// 	if (is_equal_vec(forw, up))
-// 	{
-// 		up = (t_vec){0, 0, 1, 0};
-// 	}
-// 	// dot = vec_dot_product_vec(forw, up);
-// 	dot = vec_dot_product_vec(up, forw);
-// 	if (dot != 1)
-// 	{
-// 		left = vec_cross_product(forw, up);
-// 		// left = vec_cross_product(up, forw);
-// 		up = vec_cross_product(left, forw);
-// 		// up = vec_cross_product(left, forw);
-// 	}
-// 	return (vec_normalize(up));
-// }
-
-// t_vec	reflect(t_vec in, t_vec normal)
-// {
-// 	return (vec_sub_vec(in, vec_multi_value(normal,
-// 				(2 * vec_dot_product_vec(in, normal)))));
-// }

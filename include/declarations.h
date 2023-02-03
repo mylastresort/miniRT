@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declarations.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 12:21:02 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:55:58 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "types.h"
 # include <stdbool.h>
+# include <stdint.h>
 
 bool			is_equal_matri2x2(t_matrix_2x2 mat1, t_matrix_2x2 mat2);
 bool			is_equal_matri3x3(t_matrix_3x3 mat1, t_matrix_3x3 mat2);
@@ -46,7 +47,9 @@ t_color			clr_add_clr(t_color vec, t_color val);
 t_color			clr_add_value(t_color vec, float val);
 t_color			clr_multi_clr(t_color vec, t_color val);
 t_color			clr_multi_value(t_color vec, float val);
-t_color			light_coloring(t_ray ray, t_hit hit, const t_scene *scn);
+// t_color			light_coloring(t_ray ray, t_hit hit, const t_scene *scn);
+t_color			light_coloring(const t_ray ray, const t_hit hit,
+					const t_scene *scn, const t_obj *obj);
 t_color			objects_coloring(t_ray ray, const t_scene *scn);
 t_color			rt_get_color(char *color, bool *err);
 t_deg			rad_to_deg(t_rad rad);
@@ -121,4 +124,13 @@ void			rt_parse_light(t_scene *scn, char **args);
 void			rt_parse_obj(t_scene *scn, char **args);
 void			rt_parse(t_scene *scn, int file);
 void			write_error(const char *str);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+t_vec			reflect(t_vec in, t_vec normal);
+t_hit			closest_object(t_obj **obj, t_ray ray, const t_scene *scn,
+					const t_obj *jump);
+t_vec			get_normal_at(const t_obj *obj, t_ray ray, t_hit hit,
+					const t_point pnt);
+t_color			clr_div_value(t_color vec, float val);
+t_color			clr_div_clr(t_color vec, t_color val);
+
 #endif

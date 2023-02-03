@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+         #
+#    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/30 18:17:39 by stamim           ###   ########.fr        #
+#    Updated: 2023/01/31 16:13:03 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS =	main.c \
 		objects/ray.c \
 		objects/light.c \
 		objects/debug_obj.c \
+		objects/objects.c \
 		srcs/utils.c
 
 OBJS = $(SRCS:.c=.o)

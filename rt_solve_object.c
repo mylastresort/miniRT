@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rt_solve_object.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 15:06:23 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/03 11:50:07 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
 #include "enums.h"
+#include "macros.h"
 #include "types.h"
 #include <math.h>
 
@@ -78,24 +79,10 @@ static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	const t_vec	cap1 = vec_multi_value(cyl.nrm, cyl.hgt / 2);
 	const t_vec	cap2 = vec_multi_value(cyl.nrm, -cyl.hgt / 2);
 
-	hit->dis = -vec_dot_product_vec(
-			vec_sub_vec(ray.o, vec_add_vec(cyl.cnt, cap1)), cyl.nrm)
-		/ vec_dot_product_vec(ray.d, vec_multi_value(cyl.nrm, -1));
-	hit->type = DISK;
-	if (hit->dis > .0F
-		&& vec_dot_product(
-			vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d, hit->dis)),
-				vec_add_vec(cyl.cnt, cap1))) <= cyl.rd2)
-		return ;
-	hit->dis = -vec_dot_product_vec(
-			vec_sub_vec(ray.o, vec_add_vec(cyl.cnt, cap2)), cyl.nrm)
-		/ vec_dot_product_vec(ray.d, cyl.nrm);
-	hit->type = DISK;
-	if (hit->dis > .0F
-		&& vec_dot_product(
-			vec_sub_vec(vec_add_vec(ray.o, vec_multi_value(ray.d, hit->dis)),
-				vec_add_vec(cyl.cnt, cap2))) <= cyl.rd2)
-		return ;
+	(void)cyl;
+	(void)ray;
+	(void)cap1;
+	(void)cap2;
 	hit->dis = MAXFLOAT;
 	hit->type = CYLINDER;
 }
@@ -116,9 +103,7 @@ void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 		idx = 0;
 		while (idx < sol.count)
 		{
-			if (slt[idx] < .0F)
-				continue ;
-			if (dpt[0] * slt[idx] + dpt[1] >= -cyl.hgt / 2
+			if (slt[idx] > EPSILON && dpt[0] * slt[idx] + dpt[1] >= -cyl.hgt / 2
 				&& dpt[0] * slt[idx] + dpt[1] <= cyl.hgt / 2
 				&& slt[idx] < hit->dis)
 				hit->dis = slt[idx];

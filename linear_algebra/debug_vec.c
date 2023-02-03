@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:21:11 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/24 12:59:57 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:08:23 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,20 @@ void	print_pnt(t_point pnt)
 {
 	printf("point x: %.2f | y: %.2f | z: %.2f | (w: %.2f)\n", pnt.x, pnt.y,
 		pnt.z, pnt.w);
+}
+
+t_color	clr_div_value(t_color vec, float val)
+{
+	vec.r /= val;
+	vec.g /= val;
+	vec.b /= val;
+	return (vec);
+}
+
+t_color	clr_div_clr(t_color vec, t_color val)
+{
+	vec.r /= val.r;
+	vec.g /= val.g;
+	vec.b /= val.b;
+	return (vec);
 }

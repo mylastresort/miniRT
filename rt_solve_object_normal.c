@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rt_solve_object_normal.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:38:25 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/30 15:52:47 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/03 11:48:18 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
 #include "enums.h"
+#include "macros.h"
 #include "types.h"
 #include <stdint.h>
 

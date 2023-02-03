@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/20 11:07:45 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:50:07 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_color	clr_multi_value(t_color vec, float val)
 
 t_color	clr_multi_clr(t_color vec, t_color val)
 {
-	vec.r *= val.r;
-	vec.g *= val.g;
-	vec.b *= val.b;
+	vec.r *= (val.r / 255);
+	vec.g *= (val.g / 255);
+	vec.b *= (val.b / 255);
 	return (vec);
 }
 

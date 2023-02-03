@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 08:02:52 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 16:45:38 by hjabbour         ###   ########.fr       */
+/*   Created: 2023/01/30 11:39:58 by hjabbour          #+#    #+#             */
+/*   Updated: 2023/01/30 11:40:14 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACROS_H
-# define MACROS_H
+#include <stddef.h>
 
-# define INVLD_ARG "Invalid arguments\n"
-# define INVLD_FILE "Invalid .rt file\n"
-# define INVLD_SCN "Invalid scene\n"
-# define MALLOC_ERR "Malloc failed\n"
-# define NUL (void *)1
-# define TITLE "miniRT"
-# define TOO_ARG "Too many arguments\n"
-# define EPSILON 0.00001
-#endif
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
+}
