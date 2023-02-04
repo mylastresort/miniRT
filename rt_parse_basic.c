@@ -6,12 +6,13 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 17:58:17 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:53:00 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "declarations.h"
 #include "enums.h"
+#include <stdbool.h>
 #include <stdlib.h>
 
 void	rt_parse_light(t_scene *scn, char **args)
@@ -19,6 +20,7 @@ void	rt_parse_light(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	scn->is_light = true;
 	err = false;
 	if (full)
 	{
@@ -47,6 +49,7 @@ void	rt_parse_amb(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	scn->is_amb = true;
 	err = false;
 	if (full)
 	{
@@ -75,6 +78,7 @@ void	rt_parse_cam(t_scene *scn, char **args)
 	bool		err;
 	static bool	full = false;
 
+	scn->is_cam = true;
 	err = false;
 	if (full)
 		(rt_destroy_objs(scn),

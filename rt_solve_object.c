@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:39:06 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/03 11:50:07 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:40:57 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "macros.h"
 #include "types.h"
 #include <math.h>
+#include <stdbool.h>
 
 void	rt_pln_closest_hit(const t_pln pln, const t_ray ray, t_hit *const hit)
 {
@@ -22,6 +23,7 @@ void	rt_pln_closest_hit(const t_pln pln, const t_ray ray, t_hit *const hit)
 	const t_vec	org = vec_sub_vec(ray.o, pln.p);
 	const float	num = -vec_dot_product_vec(org, pln.n);
 
+	hit->is_inside = true;
 	hit->dis = num / den;
 }
 
@@ -59,32 +61,24 @@ void	rt_sph_closest_hit(const t_sph sph, const t_ray ray, t_hit *const hit)
 			2 * vec_dot_product_vec(ray.d, org),
 			vec_dot_product(org) - sph.sq_r);
 
-	if (sol.count >= 1)
+	if (sol.count == 2 && sol.sl1 < EPSILON && sol.sl2 > EPSILON)
+		hit->is_inside = true;
+	if (sol.count == 1 && sol.sl1 > EPSILON && sol.sl1 < hit->dis)
 	{
 		hit->dis = sol.sl1;
-		if (sol.count > 1 && sol.sl2 > 0 && sol.sl2 < hit->dis)
-		{
-			hit->dis = sol.sl2;
-		}
-		if (hit->dis > 0)
-		{
-			return ;
-		}
 	}
-	hit->dis = -1;
-}
-
-static void	rt_cyl_hit_disk(const t_cyl cyl, const t_ray ray, t_hit *const hit)
-{
-	const t_vec	cap1 = vec_multi_value(cyl.nrm, cyl.hgt / 2);
-	const t_vec	cap2 = vec_multi_value(cyl.nrm, -cyl.hgt / 2);
-
-	(void)cyl;
-	(void)ray;
-	(void)cap1;
-	(void)cap2;
-	hit->dis = MAXFLOAT;
-	hit->type = CYLINDER;
+	else if (sol.count == 2 && sol.sl1 > EPSILON && sol.sl1 < hit->dis)
+	{
+		hit->dis = sol.sl1;
+	}
+	else if (sol.count == 2 && sol.sl2 > EPSILON && sol.sl2 < hit->dis)
+	{
+		hit->dis = sol.sl2;
+	}
+	else
+	{
+		hit->dis = -1;
+	}
 }
 
 void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
@@ -95,21 +89,21 @@ void	rt_cyl_closest_hit(const t_cyl cyl, const t_ray ray, t_hit *const hit)
 	const t_qud	sol = rt_sol_qua_eq(vec_dot_product(ray.d) - powf(dpt[0], 2),
 			2 * (vec_dot_product_vec(ray.d, org) - dpt[0] * dpt[1]),
 			vec_dot_product_vec(org, org) - powf(dpt[1], 2) - cyl.rd2);
-	const float	slt[2] = {sol.sl1, sol.sl2};
-	int			idx;
 
-	if (rt_cyl_hit_disk(cyl, ray, hit), sol.count >= 1)
-	{
-		idx = 0;
-		while (idx < sol.count)
-		{
-			if (slt[idx] > EPSILON && dpt[0] * slt[idx] + dpt[1] >= -cyl.hgt / 2
-				&& dpt[0] * slt[idx] + dpt[1] <= cyl.hgt / 2
-				&& slt[idx] < hit->dis)
-				hit->dis = slt[idx];
-			idx++;
-		}
-	}
-	if (hit->dis == MAXFLOAT)
+	if (sol.count == 2 && sol.sl1 < EPSILON && sol.sl2 > EPSILON)
+		hit->is_inside = true;
+	if (sol.count == 1 && sol.sl1 > EPSILON && sol.sl1 < hit->dis
+		&& dpt[0] * sol.sl1 + dpt[1] >= -cyl.hgt / 2
+		&& dpt[0] * sol.sl1 + dpt[1] <= cyl.hgt / 2)
+			hit->dis = sol.sl1;
+	else if (sol.count == 2 && sol.sl1 > EPSILON && sol.sl1 < hit->dis
+		&& dpt[0] * sol.sl1 + dpt[1] >= -cyl.hgt / 2
+		&& dpt[0] * sol.sl1 + dpt[1] <= cyl.hgt / 2)
+			hit->dis = sol.sl1;
+	else if (sol.count == 2 && sol.sl2 > EPSILON && sol.sl2 < hit->dis
+		&& dpt[0] * sol.sl2 + dpt[1] >= -cyl.hgt / 2
+		&& dpt[0] * sol.sl2 + dpt[1] <= -cyl.hgt / 2)
+			hit->dis = sol.sl2;
+	else
 		hit->dis = -1;
 }

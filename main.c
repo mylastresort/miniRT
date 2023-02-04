@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:28:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 17:32:36 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:50:27 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "mlx.h"
 #include <i386/types.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,6 +50,8 @@ static void	init(t_scene *const scn, const int file)
 {
 	rt_parse(scn, file);
 	scn->mlx = mlx_init();
+	if (!scn->is_amb || !scn->is_cam || !scn->is_light)
+		rt_exit(INVLD_SCN);
 	if (!scn->mlx)
 	{
 		close(file);
@@ -90,29 +93,18 @@ static int	on_keydown(t_keycode key, void *arg)
 
 int	main(const int argc, const char *argv[])
 {
-	int		arg;
-	t_scene	scn;
+	const int	arg = rt_open(argc, argv[1]);
+	t_scene		scn;
 
-	if (argc != 2)
-	{
-		write_error(INVLD_ARG);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		arg = open(argv[1], O_CLOEXEC, S_IRUSR);
-		if (arg == -1)
-		{
-			perror("open");
-			exit(EXIT_FAILURE);
-		}
-	}
 	scn.objs = NULL;
+	scn.is_amb = false;
+	scn.is_cam = false;
+	scn.is_light = false;
 	init(&scn, arg);
 	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
 	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
-	sample(scn, (uint32_t (*)[height][width])
-		mlx_get_data_addr(scn.img, &arg, &arg, &arg));
+	sample(scn,
+		(t_buf *)mlx_get_data_addr(scn.img, &scn.bpp, &scn.szl, &scn.end));
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
 }

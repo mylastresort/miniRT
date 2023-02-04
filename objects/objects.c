@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:22:22 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/02 14:28:41 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:38:25 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "enums.h"
 #include "macros.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -49,6 +50,8 @@ t_hit	closest_object(t_obj **obj, t_ray ray, const t_scene *scn,
 	min_hit.dis = MAXFLOAT;
 	while (cur_obj)
 	{
+		cur_hit.dis = MAXFLOAT;
+		cur_hit.is_inside = false;
 		if (cur_obj != jump && cur_obj->type == SPHERE)
 			rt_sph_closest_hit(cur_obj->sph, ray, &cur_hit);
 		else if (cur_obj != jump && cur_obj->type == PLANE)

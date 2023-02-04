@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:45:45 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/02 10:12:36 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:46:22 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,10 @@ t_ray	ray_for_pixel(t_camera cam, int y, int x)
 		.o = point(origin.x, origin.y, origin.z),
 		.d = vector(direction.x, direction.y, direction.z)
 	});
+}
+
+t_vec	reflect(t_vec in, t_vec normal)
+{
+	return (vec_sub_vec(in, vec_multi_value(normal,
+				(2 * vec_dot_product_vec(in, normal)))));
 }

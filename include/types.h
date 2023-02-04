@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 16:13:20 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:48:27 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_hit
 {
 	float	dis;
 	uint8_t	type;
+	bool	is_inside;
 }	t_hit;
 
 typedef struct s_matrix_2x2
@@ -164,8 +165,14 @@ typedef struct obj
 typedef struct scn
 {
 	t_amb		amb;
+	bool		is_amb;
 	t_camera	cam;
+	bool		is_cam;
+	int			bpp;
+	int			end;
+	int			szl;
 	t_light		light;
+	bool		is_light;
 	t_obj		*objs;
 	void		*img;
 	void		*mlx;

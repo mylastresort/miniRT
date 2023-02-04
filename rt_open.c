@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:21:01 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/24 11:58:41 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/04 14:44:51 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	rt_open(int argc, const char *arg)
 
 	if (argc != 2)
 	{
-		exit(EXIT_FAILURE);
+		rt_exit(INVLD_ARG);
 	}
 	len = 0;
 	while (arg[len])

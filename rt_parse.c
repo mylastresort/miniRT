@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:21:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 13:53:02 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:51:17 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static bool	rt_getline(char **const line, const int file, t_scene *const scn)
 	return ((*line)[len] = '\0', true);
 }
 
+// TODO (): strncmp
 void	rt_parse(t_scene *const scn, const int file)
 {
 	char	**args;

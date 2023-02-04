@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 18:55:58 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:19:09 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ t_vec			get_normal_at(const t_obj *obj, t_ray ray, t_hit hit,
 					const t_point pnt);
 t_color			clr_div_value(t_color vec, float val);
 t_color			clr_div_clr(t_color vec, t_color val);
+bool			is_shadowed(const t_scene *scn, t_vec pnt, const t_obj *jump);
 
 #endif
