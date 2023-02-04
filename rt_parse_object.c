@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:46:36 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/02 12:42:16 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/04 18:46:50 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	rt_parse_sph(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the sphere coordinates");
 	}
+	if (args[5])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on sphere"));
 }
 
 static void	rt_parse_pln(t_scene *scn, char **args)
@@ -64,6 +66,8 @@ static void	rt_parse_pln(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse the plane color coordinates");
 	}
+	if (args[5])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on plane"));
 }
 
 static void	rt_parse_cyl(t_scene *scn, char **args)
@@ -79,12 +83,10 @@ static void	rt_parse_cyl(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder normal coordinates"));
-	scn->objs->cyl.dmt = rt_get_val(args[4], &err);
+	scn->objs->cyl.rd2 = powf(rt_get_val(args[4], &err) / 2, 2);
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder diameter"));
-	scn->objs->cyl.rd1 = scn->objs->cyl.dmt / 2;
-	scn->objs->cyl.rd2 = powf(scn->objs->cyl.rd1, 2);
 	scn->objs->cyl.hgt = rt_get_val(args[5], &err);
 	if (err)
 		(rt_destroy_objs(scn),
@@ -93,6 +95,8 @@ static void	rt_parse_cyl(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse the cylinder color coordinates"));
+	if (args[6])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on cylinder"));
 }
 
 static void	rt_new_obj(t_scene *scn, const int type, char **args)

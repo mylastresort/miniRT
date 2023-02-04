@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:42:26 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/02 12:41:22 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/04 18:43:37 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	rt_parse_light(t_scene *scn, char **args)
 		rt_exit("could not parse light point brightness\n");
 	}
 	scn->light.clr = rt_get_color(args[4], &err);
+	if (args[5])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on light"));
 }
 
 void	rt_parse_amb(t_scene *scn, char **args)
@@ -64,6 +66,8 @@ void	rt_parse_amb(t_scene *scn, char **args)
 		rt_destroy_objs(scn);
 		rt_exit("could not parse ambient light color");
 	}
+	if (args[4])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on ambient"));
 }
 
 void	rt_parse_cam(t_scene *scn, char **args)
@@ -88,5 +92,7 @@ void	rt_parse_cam(t_scene *scn, char **args)
 	if (err)
 		(rt_destroy_objs(scn),
 			rt_exit("could not parse camera field of view"));
+	if (args[5])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on camera"));
 	generate_camera(scn);
 }

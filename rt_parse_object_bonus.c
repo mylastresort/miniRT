@@ -6,7 +6,7 @@
 /*   By: stamim <stamim@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:30:45 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/01 17:52:46 by stamim           ###   ########.fr       */
+/*   Updated: 2023/02/04 18:46:55 by stamim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ void	rt_parse_con(t_scene *scn, char **args)
 	scn->objs->con.rgb = rt_get_color(args[6], &err);
 	if (err)
 		(rt_destroy_objs(scn), rt_exit("could not parse cone color"));
+	if (args[7])
+		(rt_destroy_objs(scn), rt_exit("one extra argument on cone"));
 }
