@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/04 20:45:18 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 11:59:25 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ bool	is_shadowed(const t_scene *scn, t_vec pnt, const t_obj *jump)
 
 	ray.d = vector(dir.x, dir.y, dir.z);
 	ray.o = point(pnt.x, pnt.y, pnt.z);
-	// ray.o = vec_sub_vec(ray.d, vec_multi_value(ray.o, FLT_EPSILON));
-	// ray.o = vec_add_vec(ray.o, vec_multi_value(ray.d, EPSILON));
 	obj = NULL;
 	hit = closest_object(&obj, ray, scn, jump);
 	if (!obj)
