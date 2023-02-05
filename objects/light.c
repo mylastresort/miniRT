@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:19:17 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/05 11:59:25 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:22:48 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ t_color	clamp(t_color clr)
 	return (clr);
 }
 
-bool	is_shadowed(const t_scene *scn, t_vec pnt, const t_obj *jump)
+static bool	is_shadowed(const t_scene *scn, t_vec pnt, const t_obj *jump)
 {
 	const float	dis = vec_length(vec_sub_vec(scn->light.pos, pnt));
 	const t_vec	dir = vec_normalize(vec_sub_vec(scn->light.pos, pnt));
 	t_ray		ray;
 	t_hit		hit;
-	t_obj		*obj;
+	const t_obj	*obj;
 
 	ray.d = vector(dir.x, dir.y, dir.z);
 	ray.o = point(pnt.x, pnt.y, pnt.z);
 	obj = NULL;
-	hit = closest_object(&obj, ray, scn, jump);
+	hit = closest_object(&obj, ray, scn->objs, jump);
 	if (!obj)
 		return (false);
 	if (hit.dis > EPSILON && hit.dis < dis)
@@ -74,6 +74,10 @@ static t_color	diffuse_light(const t_obj *obj, t_light light, float dif_coef)
 	else if (obj->type == CYLINDER)
 	{
 		clr = clr_multi_clr(obj->cyl.rgb, light.clr);
+	}
+	else if (obj->type == CONE)
+	{
+		clr = clr_multi_clr(obj->con.rgb, light.clr);
 	}
 	return (clr_multi_value(clr, dif_coef));
 }

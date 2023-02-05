@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/02 14:50:07 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:21:41 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_color	clr_multi_clr(t_color vec, t_color val)
 	return (vec);
 }
 
-// TODO: (hi-jack) add the alpha transparency 24 bits shifting
 int	generate_color(t_color clr)
 {
 	return ((clr.r << 16) | (clr.g << 8) | clr.b);

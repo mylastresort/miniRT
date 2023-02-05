@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:21:51 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/04 18:14:03 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:21:39 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-float	half_width(const float aspect, const float half_view)
+static float	half_width(const float aspect, const float half_view)
 {
 	if (aspect >= 1)
 	{
@@ -26,7 +26,7 @@ float	half_width(const float aspect, const float half_view)
 	return (half_view * aspect);
 }
 
-float	half_height(const float aspect, const float half_view)
+static float	half_height(const float aspect, const float half_view)
 {
 	if (aspect >= 1)
 	{

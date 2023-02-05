@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/01/31 16:13:03 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/02/05 15:20:47 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,16 @@ INC =	include/declarations.h \
 RM = rm -f
 
 SRCS =	main.c \
-		rt_open.c \
-		rt_parse_basic.c \
-		rt_parse_object.c \
-		rt_parse_utils.c \
-		rt_parse.c \
-		rt_solve_object.c \
-		rt_solve_object_normal.c \
+		parser/rt_open.c \
+		parser/rt_parse_basic.c \
+		parser/rt_parse_object.c \
+		parser/rt_parse_object_bonus.c \
+		parser/rt_parse_utils.c \
+		parser/rt_parse.c \
+		objects/rt_solve_object.c \
+		objects/rt_solve_object_bonus.c \
+		objects/rt_solve_object_normal.c \
+		objects/rt_solve_object_normal_bonus.c \
 		libft/ft_strlen.c \
 		libft/ft_strcmp.c \
 		libft/ft_strncpy.c \
@@ -65,7 +68,7 @@ SRCS =	main.c \
 		objects/light.c \
 		objects/debug_obj.c \
 		objects/objects.c \
-		srcs/utils.c
+		objects/colors.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:32:06 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/24 12:33:57 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:17:02 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_matrix_4x4	invers_matr4x4(t_matrix_4x4 mat)
 	int				jdx;
 
 	if (determ == 0)
-		(write_error("Matrix not inversable"), exit(EXIT_FAILURE));
+		rt_exit("Matrix not inversable");
 	idx = 0;
 	while (idx < 4)
 	{

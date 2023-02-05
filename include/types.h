@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:30:18 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/04 14:48:27 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:06:44 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,14 +151,25 @@ typedef struct s_pln
 	t_vec	p;
 }	t_pln;
 
+typedef struct s_con
+{
+	float	fac;
+	float	hgt;
+	t_deg	ang;
+	t_vec	cnt;
+	t_vec	nrm;
+	t_color	rgb;
+}	t_con;
+
 typedef struct obj
 {
 	struct obj	*next;
 	uint8_t		type;
 	union {
-		t_sph	sph;
-		t_pln	pln;
+		t_con	con;
 		t_cyl	cyl;
+		t_pln	pln;
+		t_sph	sph;
 	};
 }	t_obj;
 

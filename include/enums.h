@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:04:00 by stamim            #+#    #+#             */
-/*   Updated: 2023/01/31 19:08:07 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:06:25 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum e_type : uint8_t
 	POINT = 5,
 	VECTOR = 6,
 	NORM = 7,
+	CONE = 8,
 };
 
 enum e_mask : uint32_t

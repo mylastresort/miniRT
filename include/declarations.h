@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:53 by stamim            #+#    #+#             */
-/*   Updated: 2023/02/04 20:19:09 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:22:55 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ float			cofactor_matr3x3(t_matrix_3x3 mat, int row, int col);
 float			determ_matr2x2(t_matrix_2x2 mat);
 float			determ_matr3x3(t_matrix_3x3 mat);
 float			determ_matr4x4(t_matrix_4x4 mat);
-float			half_height(float aspect, float half_view);
-float			half_width(float aspect, float half_view);
 float			rt_get_val(char *num, bool *err);
 float			tup_length(t_vec *vec);
 float			vec_dot_product_vec(t_vec vec1, t_vec vec2);
@@ -47,7 +45,6 @@ t_color			clr_add_clr(t_color vec, t_color val);
 t_color			clr_add_value(t_color vec, float val);
 t_color			clr_multi_clr(t_color vec, t_color val);
 t_color			clr_multi_value(t_color vec, float val);
-// t_color			light_coloring(t_ray ray, t_hit hit, const t_scene *scn);
 t_color			light_coloring(const t_ray ray, const t_hit hit,
 					const t_scene *scn, const t_obj *obj);
 t_color			objects_coloring(t_ray ray, const t_scene *scn);
@@ -100,7 +97,9 @@ t_vec			vec_div_vec(t_vec vec, t_vec val);
 t_vec			vec_multi_value(t_vec vec, float val);
 t_vec			rt_sph_get_normal_at(t_sph sph, t_vec pnt);
 t_vec			rt_pln_get_normal_at(t_pln pln, t_vec dir);
-t_vec			rt_cyl_normal_at(t_cyl cyl, float dis, t_ray ray, uint8_t type);
+t_vec			rt_cyl_normal_at(t_cyl cyl, t_hit hit, t_ray ray);
+t_vec			rt_con_normal_at(t_con con, t_hit hit, t_ray ray);
+t_qud			rt_sol_qua_eq(float cf1, float cf2, float cf3);
 t_vec			vec_multi_vec(t_vec vec, t_vec val);
 t_vec			vec_normalize(t_vec vec);
 t_vec			vec_sub_value(t_vec vec, float val);
@@ -118,20 +117,22 @@ void			print_pnt(t_point pnt);
 void			print_vec(t_vec vec);
 void			rt_destroy_objs(t_scene *scn);
 void			rt_exit(const char *str);
+void			rt_con_closest_hit(t_con con, t_ray ray, t_hit *hit);
+void			rt_parse_con(t_scene *scn, char **args);
 void			rt_parse_amb(t_scene *scn, char **args);
 void			rt_parse_cam(t_scene *scn, char **args);
 void			rt_parse_light(t_scene *scn, char **args);
 void			rt_parse_obj(t_scene *scn, char **args);
-void			rt_parse(t_scene *scn, int file);
-void			write_error(const char *str);
+void			rt_parse(t_scene *scn, int file, char *line);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-t_vec			reflect(t_vec in, t_vec normal);
-t_hit			closest_object(t_obj **obj, t_ray ray, const t_scene *scn,
-					const t_obj *jump);
+t_hit			closest_object(const t_obj **obj, t_ray ray,
+					const t_obj *cur_obj, const t_obj *jump);
 t_vec			get_normal_at(const t_obj *obj, t_ray ray, t_hit hit,
 					const t_point pnt);
 t_color			clr_div_value(t_color vec, float val);
 t_color			clr_div_clr(t_color vec, t_color val);
-bool			is_shadowed(const t_scene *scn, t_vec pnt, const t_obj *jump);
+bool			check_rgb(t_color clr);
+bool			check_ratio(float ratio);
+bool			accepted_values(const t_scene *scn);
 
 #endif
