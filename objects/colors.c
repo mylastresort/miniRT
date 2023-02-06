@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 12:54:29 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/02/05 13:08:13 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:46:59 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ bool	accepted_values(const t_scene *scn)
 
 	if (!check_rgb(scn->amb.la) || !check_rgb(scn->light.clr)
 		|| !check_ratio(scn->light.bri) || !check_ratio(scn->amb.ka))
+		return (false);
+	if (scn->cam.fov < 0 || scn->cam.fov > 180)
 		return (false);
 	cur_obj = scn->objs;
 	while (cur_obj)

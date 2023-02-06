@@ -6,7 +6,7 @@
 /*   By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:12:27 by hjabbour          #+#    #+#             */
-/*   Updated: 2023/01/30 11:43:25 by hjabbour         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:41:17 by hjabbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	debug_camera(t_camera cam)
 {
 	print_vec(cam.cam_ori);
 	print_vec(cam.cam_dir);
-	printf("file_view: %.5f\n", cam.fov);
+	printf("file_view: %f\n", cam.fov);
 	print_matr4x4(cam.transform);
-	printf("aspect %.5f\n", cam.aspect);
-	printf("half_view %.5f\n", cam.half_view);
-	printf("half_width %.5f\n", cam.half_width);
-	printf("half_height %.5f\n", cam.half_height);
-	printf("pixel_size %.5f\n", cam.pixel_size);
+	printf("aspect %f\n", cam.aspect);
+	printf("half_view %f\n", cam.half_view);
+	printf("half_width %f\n", cam.half_width);
+	printf("half_height %f\n", cam.half_height);
+	printf("pixel_size %f\n", cam.pixel_size);
 	printf("forward\n");
 	print_vec(cam.forward);
 	printf("up\n");

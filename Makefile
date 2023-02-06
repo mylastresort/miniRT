@@ -6,7 +6,7 @@
 #    By: hjabbour <hjabbour@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 18:39:51 by hjabbour          #+#    #+#              #
-#    Updated: 2023/02/05 15:20:47 by hjabbour         ###   ########.fr        #
+#    Updated: 2023/02/06 15:11:53 by hjabbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,14 @@ NAME = miniRT
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra 
 
 ifdef debug
 	CFLAGS += -g
 else
-	CFLAGS +=
+	CFLAGS += -Ofast -flto
 endif
-# LINK = -Ofast -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
-LINK = -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
+LINK = -lmlx -framework OpenGL -framework AppKit
 
 INC =	include/declarations.h \
 		include/enums.h \
