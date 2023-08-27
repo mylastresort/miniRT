@@ -49,9 +49,10 @@ static void	sample(const t_scene scn, t_buf *const buf)
 static void	init(t_scene *const scn, const int file)
 {
 	rt_parse(scn, file, "");
-	scn->mlx = mlx_init();
 	if (!scn->is_amb || !scn->is_cam || !scn->is_light || !accepted_values(scn))
 		rt_exit(INVLD_SCN);
+#ifndef PPM
+	scn->mlx = mlx_init();
 	if (!scn->mlx)
 	{
 		(rt_destroy_objs(scn), close(file), exit(EXIT_FAILURE));
@@ -73,6 +74,7 @@ static void	init(t_scene *const scn, const int file)
 		free(scn->mlx);
 		exit(EXIT_FAILURE);
 	}
+#endif
 }
 
 int	destroy(t_scene *scn)
@@ -103,10 +105,41 @@ int	main(const int argc, const char *argv[])
 	scn.is_cam = false;
 	scn.is_light = false;
 	init(&scn, arg);
+#ifndef PPM
 	mlx_hook(scn.win, ON_DESTROY, 0, destroy, &scn);
 	mlx_hook(scn.win, ON_KEYDOWN, 0, on_keydown, &scn);
 	sample(scn,
 		(t_buf *)mlx_get_data_addr(scn.img, &scn.bpp, &scn.szl, &scn.end));
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
+#else
+	(void)on_keydown;
+	FILE	*const file = fopen("image.ppm", "w");
+	if (!file)
+	{
+		perror("Error opening file.");
+		rt_destroy_objs(&scn);
+		close(arg);
+		exit(EXIT_FAILURE);
+	}
+	t_buf	*const buf = malloc(sizeof(t_buf));
+	if (!buf)
+	{
+		rt_destroy_objs(&scn);
+		close(arg);
+		exit(EXIT_FAILURE);
+	}
+	sample(scn, buf);
+	fprintf(file, "P6\n%d %d\n255\n", width, height);
+	for (volatile uint32_t	rows = 0; rows < height; rows++)
+		for (volatile uint32_t	cols = 0; cols < width; cols++)
+		{
+			volatile uint32_t	color = (*buf)[rows][cols];
+			volatile char		rgb[3] = {color >> 16, color >> 8, color};
+			fwrite((void *)&rgb[0], sizeof(char), 1, file);
+			fwrite((void *)&rgb[1], sizeof(char), 1, file);
+			fwrite((void *)&rgb[2], sizeof(char), 1, file);
+		}
+	fclose(file);
+#endif
 }

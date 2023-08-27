@@ -71,6 +71,10 @@ SRCS =	main.c \
 
 OBJS = $(SRCS:.c=.o)
 
+ifdef ppm
+	CFLAGS += -D PPM
+endif
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -80,7 +84,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -Iinclude -o $@
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) image.ppm
 
 fclean: clean
 	$(RM) $(NAME)
