@@ -15,6 +15,8 @@
 #include "enums.h"
 #include "macros.h"
 #include <math.h>
+#include <limits.h>
+#include <float.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -49,10 +51,10 @@ t_hit	closest_object(const t_obj **obj, t_ray ray, const t_obj *cur_obj,
 	t_hit	min_hit;
 	t_hit	cur_hit;
 
-	min_hit.dis = MAXFLOAT;
+	min_hit.dis = FLT_MAX;
 	while (cur_obj)
 	{
-		cur_hit.dis = MAXFLOAT;
+		cur_hit.dis = FLT_MAX;
 		cur_hit.is_inside = false;
 		if (cur_obj != jump && cur_obj->type == SPHERE)
 			rt_sph_closest_hit(cur_obj->sph, ray, &cur_hit);

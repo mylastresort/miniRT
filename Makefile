@@ -12,7 +12,7 @@
 
 NAME = miniRT
 
-CC = cc
+CC = clang
 
 CFLAGS = -Wall -Werror -Wextra 
 
@@ -73,6 +73,7 @@ OBJS = $(SRCS:.c=.o)
 
 ifdef ppm
 	CFLAGS += -D PPM
+	LINK = -lm
 endif
 
 all: $(NAME)

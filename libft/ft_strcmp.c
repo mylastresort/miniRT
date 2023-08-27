@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/_types/_size_t.h>
+#include <stddef.h>
 
 // TODO(H-J): strncmp
 int	ft_strcmp(const char *const str, const char *const to_cmp)

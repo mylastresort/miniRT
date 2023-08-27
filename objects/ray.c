@@ -14,7 +14,6 @@
 #include "macros.h"
 #include "types.h"
 #include "declarations.h"
-#include <i386/types.h>
 #include <math.h>
 #include <stdio.h>
 

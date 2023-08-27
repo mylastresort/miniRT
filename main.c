@@ -14,8 +14,9 @@
 #include "include/declarations.h"
 #include "include/macros.h"
 #include "include/types.h"
+#ifndef PPM
 #include "mlx.h"
-#include <i386/types.h>
+#endif
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -77,6 +78,7 @@ static void	init(t_scene *const scn, const int file)
 #endif
 }
 
+#ifndef PPM
 int	destroy(t_scene *scn)
 {
 	rt_destroy_objs(scn);
@@ -85,7 +87,9 @@ int	destroy(t_scene *scn)
 	free(scn->mlx);
 	exit(EXIT_SUCCESS);
 }
+#endif
 
+#ifndef PPM
 static int	on_keydown(t_keycode key, void *arg)
 {
 	if (key == ESC)
@@ -94,6 +98,7 @@ static int	on_keydown(t_keycode key, void *arg)
 	}
 	return (1);
 }
+#endif
 
 int	main(const int argc, const char *argv[])
 {
@@ -113,7 +118,6 @@ int	main(const int argc, const char *argv[])
 	mlx_put_image_to_window(scn.mlx, scn.win, scn.img, 0, 0);
 	mlx_loop(scn.mlx);
 #else
-	(void)on_keydown;
 	FILE	*const file = fopen("image.ppm", "w");
 	if (!file)
 	{

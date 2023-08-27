@@ -1,4 +1,10 @@
 ## Build/Install
+**Package Requirements**
+
+MacOS/Linux
+- make
+- clang
+
 **For Minilibx Library**
 
 ```$ make```

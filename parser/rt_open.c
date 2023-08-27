@@ -13,7 +13,9 @@
 #include "declarations.h"
 #include "macros.h"
 #include <fcntl.h>
+#ifndef PPM
 #include <mlx.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
